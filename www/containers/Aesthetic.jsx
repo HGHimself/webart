@@ -10,9 +10,9 @@ import theme from "../theme"
 
 export default function Aesthetic( props )  {
 
-  const makeSwatch = (name, color) => <Swatch color={color} name={name} />
-  const makeButton = (type, i) => (<div key={i} ><Button type={type} /></div>)
-  const makeSwitch = (type, i) => <Switch type={type} key={i} />
+  const makeSwatch = (name, color, i) => <div key={i}><Swatch color={color} name={name} /></div>
+  const makeButton = (type, i) => (<div key={i}><Button type={type}>{type}</Button></div>)
+  const makeSwitch = (type, i) => <div key={i}><Switch type={type} key={i} /></div>
 
   const types = Object.keys(theme.colors)
 
@@ -20,7 +20,7 @@ export default function Aesthetic( props )  {
     <div id="content">
       <h2>Aesthetic</h2>
       <FlexRow>
-        {objectMap(colors, makeSwatch)}
+        {objectMap(theme.colors, makeSwatch)}
       </FlexRow>
       <FlexRow>{types.map(makeButton)}</FlexRow>
       <FlexRow>{types.map(makeSwitch)}</FlexRow>
