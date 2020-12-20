@@ -1,4 +1,4 @@
-www/node_modules/
+www/node_modules/*
 www/dist
 
 target
