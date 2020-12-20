@@ -4,10 +4,12 @@ import { css } from "@emotion/css"
 import fourier from "../charts/fourier.js"
 import theme from "../theme"
 
+import Animator from "./Animator.jsx"
+
 let vis
+const setVis = (v) => { vis = v }
 
 export default function Fourier( props )  {
-  console.log("Rendering fourier");
 
   const count = 1000
   const height = 700
@@ -18,6 +20,14 @@ export default function Fourier( props )  {
   const time = 10
   const step = 1
 
+  const options = {
+    count,
+    height,
+    width,
+    period,
+    offset,
+    amplitude,
+  }
 
   const refElement = useRef(null)
 
@@ -34,32 +44,14 @@ export default function Fourier( props )  {
     return off
   }
 
-  useEffect(initVis, [])
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setOffset(bumpOffset)
-    }, time)
-
-    return () => clearInterval(interval)
-  }, [])
-
-  function initVis() {
-    const options = {
-      count,
-      height,
-      width,
-      period,
-      offset,
-      amplitude,
-    }
-    vis = new fourier(refElement.current, options)
-  }
+  const intervalHandler = () => { setOffset(bumpOffset) }
 
   return (
-    <>
-      <div className='react-world'>
-        <div ref={refElement}/>
-      </div>
-    </>
-  );
+    <Animator
+      drawer={fourier}
+      setVis={setVis}
+      options={options}
+      time={time}
+      intervalCallback={intervalHandler} />
+  )
 }

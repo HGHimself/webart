@@ -2,12 +2,15 @@ import React, { useState, useEffect, useRef } from "react"
 import { css } from "@emotion/css"
 
 import spiralizer from "../charts/spiralizer.js"
+
+import Animator from "../components/Animator.jsx"
 import FlexRow from "../components/FlexRow.jsx"
 import Button from "../components/Button.jsx"
 import Switch from "../components/Switch.jsx"
 import theme from "../theme"
 
-let vis
+let vis;
+const setVis = (v) => { vis = v }
 
 export default function Spiralizer( props )  {
 
@@ -15,23 +18,37 @@ export default function Spiralizer( props )  {
   const height = 700
   const width = 1400
 
-  const time = 10
-  const step = 1
+  const time = 30
+  const step = 0.1
 
   const defaultColor = 'white'
 
-  const refElement = useRef(null)
-
   const [color, setColor] = useState(defaultColor)
   const [multiplier, setMultiplier] = useState(30)
-  const [running, setRunning] = useState(true)
+  const [running, setRunning] = useState(false)
+
+  const options = {
+    count,
+    height,
+    width,
+    multiplier
+  }
+
+  const refElement = useRef(null)
 
   const runningRef = useRef()
   runningRef.current = running
+  const toggleRunning = () => setRunning(!running)
+
 
   const setMultiplierVis = (v) => {
     vis.setMultiplier(v)
     vis.update()
+  }
+
+  const setMultiplierHandler = ({target}) => {
+    setMultiplierVis(target.value)
+    setMultiplier(+target.value)
   }
 
   const bumpMultiplier = (multiplier) => {
@@ -42,36 +59,13 @@ export default function Spiralizer( props )  {
     return mul
   }
 
-  useEffect(initVis, [])
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setMultiplier(bumpMultiplier)
-    }, time)
-
-    return () => clearInterval(interval)
-  }, [])
-
-
-  const toggleRunning = () => setRunning(!running)
+  const intervalHandler = () => {
+    setMultiplier(bumpMultiplier)
+  }
 
   const startOrStopButton = running
     ? <Button type='danger' onClick={toggleRunning}>STOP</Button>
     : <Button type='success' onClick={toggleRunning}>START</Button>
-
-  function initVis() {
-    const options = {
-      count,
-      height,
-      width,
-      multiplier
-    }
-    vis = new spiralizer(refElement.current, options)
-  }
-
-  const setMultiplierHandler = ({target}) => {
-    setMultiplierVis(target.value)
-    setMultiplier(+target.value)
-  }
 
   const setColorHandler = (type) => (_e, newState) => {
     const newColor = newState? type : defaultColor
@@ -105,9 +99,12 @@ export default function Spiralizer( props )  {
         {types.map(makeSwitch)}
         {startOrStopButton}
       </FlexRow>
-      <div className='react-world'>
-        <div ref={refElement}/>
-      </div>
+      <Animator
+        drawer={spiralizer}
+        setVis={setVis}
+        options={options}
+        time={time}
+        intervalCallback={intervalHandler} />
     </>
   );
 }

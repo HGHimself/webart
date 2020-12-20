@@ -21,10 +21,14 @@ class Spiralizer {
   }
 
   getArc() {
-    return Array.from({ length: count }, (_, i) => [
+    const { count, multiplier } = this.props
+
+    const arc = Array.from({ length: count }, (_, i) => [
+      5 * i, // radius,
       (multiplier/10) * (Math.PI / 3) * i, // angle (in radians)
-      5 * i // radius
-    ]).map((coord) => polarToCartesian(coord[1], coord[0]))
+    ]).map((coord) => polarToCartesian(coord[0], coord[1]))
+
+    return d3.line()(arc)
   }
 
   update() {
@@ -33,13 +37,13 @@ class Spiralizer {
     const arc = this.getArc()
 
     svg.selectAll('path')
-      .data([multiplier])
+      .data([0])
       .enter()
         .append("path")
         .attr("d", arc)
         .attr("fill", theme.colors.white)
         .attr("stroke", theme.colors.black)
-        .attr("stroke-width", "0.5")
+        .attr("stroke-width", "1")
         .attr("transform", `translate(${width/2},${height/2})`)
   }
 
