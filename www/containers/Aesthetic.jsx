@@ -19,10 +19,13 @@ export default function Aesthetic( props )  {
   return (
     <div id="content">
       <h2>Aesthetic</h2>
+      <h5>colors</h5>
       <FlexRow>
         {objectMap(theme.colors, makeSwatch)}
       </FlexRow>
+      <h5>buttons</h5>
       <FlexRow>{types.map(makeButton)}</FlexRow>
+      <h5>switches</h5>
       <FlexRow>{types.map(makeSwitch)}</FlexRow>
     </div>
   )
