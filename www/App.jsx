@@ -4,6 +4,7 @@ import { css } from "@emotion/css"
 import Aesthetic from "./containers/Aesthetic.jsx"
 import Spiral from "./containers/Spiral.jsx"
 import Fourier from "./containers/Fourier.jsx"
+import ColorPlot from "./containers/ColorPlot.jsx"
 import HOC from "./containers/HOC.jsx"
 
 import FlexRow from "./components/FlexRow.jsx"
@@ -17,6 +18,7 @@ export default function App( props ) {
     'Aesthetic',
     'Spiral',
     'Fourier',
+    'ColorPlot',
     'HOC'
   ]
 
@@ -43,7 +45,7 @@ export default function App( props ) {
   return (
     <div id="main" className={main}>
       <h6>Hello, World!</h6>
-      <p>Digital Art by HG King</p>
+      <p>Digital Arts by HG King</p>
       <FlexRow flex='flex-start'>{navs.map(makeNav)}</FlexRow>
       {
         selected === 'Aesthetic' ?
@@ -52,6 +54,8 @@ export default function App( props ) {
           <Spiral />
         : selected === 'Fourier' ?
           <Fourier />
+        : selected === 'ColorPlot' ?
+          <ColorPlot />
         : selected === 'HOC' ?
           <HOC />
         : <h1>None</h1>

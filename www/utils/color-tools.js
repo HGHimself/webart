@@ -41,9 +41,15 @@ export const luminance = (color) => {
 
 export const darkOrLight = (color) => luminance(color) < 0.4 ? theme.colors.white : theme.colors.black
 
-export const getSpectrumPosition = (i) => {
+export const getRgbSpectrumArray = (i) => {
   const r = Math.round(127 * Math.cos((i + (2 * Math.PI)))) + 128
   const g = Math.round(127 * Math.sin((i + (2 * Math.PI)))) + 128
   const b = Math.round(127 * Math.cos(i + (Math.PI))) + 128
+
+  return [r, g, b]
+}
+
+export const getSpectrumPosition = (i) => {
+  const [r, g, b] = getRgbSpectrumArray(i)
   return `rgb(${r}, ${g}, ${b})`
 }

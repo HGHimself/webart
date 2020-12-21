@@ -15,7 +15,9 @@ export default function Switch( props )  {
     flipOnOff(state)
   }, [state])
 
-  const color = theme.colors[type]
+  const defaultType = 'black'
+
+  const color = theme.colors[type || defaultType]
   const opacity = 55
 
   const defaultWidth = 23
