@@ -4,6 +4,9 @@ import ColorPlot from "../components/ColorPlot.jsx"
 
 export default function ColorPlotContainer(props) {
   return (
-    <ColorPlot />
+    <>
+      <h2>Spectrum Colorizer</h2>
+      <ColorPlot />
+    </>
   )
 }

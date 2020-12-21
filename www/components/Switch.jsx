@@ -6,7 +6,7 @@ import { darkOrLight } from "../utils/color-tools.js"
 
 export default function Switch( props )  {
 
-  const {state, type, ...other} = props
+  const {state, type, onClick, ...other} = props
 
   const [onOff, flipOnOff] = useState(state)
 
@@ -40,14 +40,15 @@ export default function Switch( props )  {
 
   const clickHandler = (e) => {
     const newState = !onOff
-    props.onClick && props.onClick(e, newState)
+    onClick && onClick(e, newState)
     flipOnOff(newState)
   }
 
   return (
     <div
       className={button}
-      onClick={clickHandler} >
+      onClick={clickHandler}
+      {...other} >
     </div>
   )
 }
