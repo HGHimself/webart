@@ -14,8 +14,8 @@ export default function Fourier( props )  {
   const count = 1000
   const height = 700
   const width = 1300
-  const amplitude = 100
-  const period = 900
+  const amplitude = 300
+  const period = 350
 
   const time = 10
   const step = 1

@@ -19,9 +19,9 @@ export const distance = (x, y) => Math.sqrt((x * x) + (y * y))
 export const fourier = (amplitude, omega, time, arr, sequence) => amplitude * sequence(omega, time, arr)
 
 // for a square wave, b_n = 6/(n * Pi)
-export const squareWaveSin = (omega, time, beta) => (6 / (beta * Math.PI)) * Math.sin(omega * time * beta)
-export const squareWaveCos = (omega, time, beta) => (6 / (beta * Math.PI)) * Math.cos(omega * time * beta)
+export const squareWaveSin = (omega, time, beta) => (2 / (beta * Math.PI)) * Math.sin(omega * time * beta)
+export const squareWaveCos = (omega, time, beta) => (2 / (beta * Math.PI)) * Math.cos(omega * time * beta)
 
 // the sequence for a square wave is 3/2 + odds.sum((n) => b_n * sin(n * t))
-export const squareWaveSequenceSin = (omega, time, odds) => odds.reduce((acc, beta) => acc + squareWaveSin(omega, time, beta), (3/2))
-export const squareWaveSequenceCos = (omega, time, odds) => odds.reduce((acc, beta) => acc + squareWaveCos(omega, time, beta), (3/2))
+export const squareWaveSequenceSin = (omega, time, odds) => odds.reduce((acc, beta) => acc + squareWaveSin(omega, time, beta), 0)
+export const squareWaveSequenceCos = (omega, time, odds) => odds.reduce((acc, beta) => acc + squareWaveCos(omega, time, beta), 0)
