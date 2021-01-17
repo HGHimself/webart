@@ -17,7 +17,7 @@ export default function ColorPlot( props )  {
   const height = 700
   const width = 1300
 
-  const time = 1
+  const time = 10
   const step = 10
 
   const [value, setValue] = useState(0)
@@ -55,7 +55,7 @@ export default function ColorPlot( props )  {
     }
   ]
 
-  const makeSwitchHanlder = ({title, state, setState}) => {
+  const makeSwitchHanlder = ({title, state, setState}, i) => {
 
     const switchHandler = (count) => (_, onOrOff) => {
       const newValue = onOrOff? count : 0
@@ -63,10 +63,10 @@ export default function ColorPlot( props )  {
       vis.setValues({xAxisValue, yAxisValue, radiusValue})
     }
 
-    const makeSwitch = (i) => <Switch onClick={switchHandler(i)} state={state == i} />
+    const makeSwitch = (i) => <Switch key={i} onClick={switchHandler(i)} state={state == i} />
 
     return (
-      <div>
+      <div key={i}>
         <h6>{title}</h6>
         {[0,1,2].map(makeSwitch)}
       </div>
@@ -74,8 +74,9 @@ export default function ColorPlot( props )  {
   }
 
   const bumpValue = (v) => {
-    vis.setValue(v)
-    return v
+    const newValue = v + step
+    vis.setValue(newValue)
+    return newValue
   }
 
   const setValueHandler = ({target}) => {
@@ -90,21 +91,22 @@ export default function ColorPlot( props )  {
 
   return (
     <>
-      <input
-        type="range"
-        min="0"
-        max="1000"
-        value={value}
-        onChange={setValueHandler} />
       <FlexRow>
         {axis.map(makeSwitchHanlder)}
       </FlexRow>
+      <input
+        style={{width: '400px'}}
+        type="range"
+        min="0"
+        max="10000"
+        value={value}
+        onChange={setValueHandler} />
       <Animator
         drawer={colorPlot}
         setVis={setVis}
         options={options}
         time={time}
-        intervalHandler={intervalHandler} />
+        intervalCallback={intervalHandler} />
     </>
   )
 }

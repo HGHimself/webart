@@ -1,12 +1,23 @@
 import * as d3 from "d3"
 
 import theme from "../theme"
+import { fourier, squareWaveSequenceSin, squareWaveSequenceCos } from "../utils/maths-tools.js"
 // import { getSpectrumPosition, getRgbSpectrumArray } from '../utils/color-tools.js'
 
 const getRgbSpectrumArray = (i) => {
-  const r = Math.round(127 * Math.sin((i + (2 * Math.PI)))) + 128
-  const g = Math.round(127 * Math.sin((i + (47 * Math.PI)))) + 128
-  const b = Math.round(127 * Math.tan(i + (Math.PI))) + 128
+  const amplitude = 127
+  const offset = 128
+  const odds = [ 1, 3, 5, 7, 9 ]
+
+  const limiter = (x) => (amplitude * x) + 128
+
+  const r = limiter(fourier(2, Math.PI / 11, i/100, odds, squareWaveSequenceCos))
+  const g = limiter(fourier(2, Math.PI / 8, i/100, odds, squareWaveSequenceSin))
+  const b = limiter(fourier(2, Math.PI / 9, i/100, odds, squareWaveSequenceCos))
+
+  // const r = limiter(Math.tan(2*Math.PI*i))
+  // const g = limiter(fourier(2, Math.PI / 2, i/100, odds, squareWaveSequenceCos))
+  // const b = limiter(fourier(2, Math.PI / 3, i/100, odds, squareWaveSequenceSin))
 
   return [r, g, b]
 }
@@ -53,7 +64,7 @@ class colorPlot {
   setValue(value) {
     const { svg, props: { height, width } } = this
 
-    const values = Array.from({ length: 80 }, (_, i) => [i + value])
+    const values = Array.from({ length: 300 }, (_, i) => [i + value])
 
     const circles = svg.selectAll('circle')
       .data(values)
@@ -78,7 +89,7 @@ class colorPlot {
   }
 
   setValues({xAxisValue, yAxisValue, radiusValue})  {
-    const { svg } = this
+    const { svg, props: { width, height } } = this
 
     this.props.xAxisValue = xAxisValue
     this.props.yAxisValue = yAxisValue
