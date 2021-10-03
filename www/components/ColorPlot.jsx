@@ -67,7 +67,7 @@ export default function ColorPlot( props )  {
 
     return (
       <div key={i}>
-        <h6>{title}</h6>
+        <h6>{title}: {state}</h6>
         {[0,1,2].map(makeSwitch)}
       </div>
     )

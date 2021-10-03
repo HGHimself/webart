@@ -5,7 +5,7 @@ import Aesthetic from "./containers/Aesthetic.jsx"
 import Spiral from "./containers/Spiral.jsx"
 import Fourier from "./containers/Fourier.jsx"
 import ColorPlot from "./containers/ColorPlot.jsx"
-import HOC from "./containers/HOC.jsx"
+import ColorStudy from "./containers/ColorStudy.jsx"
 
 import FlexRow from "./components/FlexRow.jsx"
 import Button from "./components/Button.jsx"
@@ -19,10 +19,10 @@ export default function App( props ) {
     'Spiral',
     'Fourier',
     'ColorPlot',
-    'HOC'
+    'ColorStudy'
   ]
 
-  const [selected, setSelected] = useState(navs[3])
+  const [selected, setSelected] = useState(navs[4])
 
   const main = css`
     color: ${theme.colors.black};
@@ -56,8 +56,8 @@ export default function App( props ) {
           <Fourier />
         : selected === 'ColorPlot' ?
           <ColorPlot />
-        : selected === 'HOC' ?
-          <HOC />
+        : selected === 'ColorStudy' ?
+          <ColorStudy />
         : <h1>None</h1>
       }
     </div>
