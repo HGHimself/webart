@@ -23,9 +23,9 @@ export default function Spiralizer( props )  {
 
   const defaultColor = 'white'
 
-  const [color, setColor] = useState(defaultColor)
-  const [multiplier, setMultiplier] = useState(30)
-  const [running, setRunning] = useState(false)
+  const [color, setColorState] = useState(defaultColor)
+  const [multiplier, setMultiplierState] = useState(30)
+  const [running, setRunningState] = useState(false)
 
   const options = {
     count,
@@ -34,33 +34,33 @@ export default function Spiralizer( props )  {
     multiplier
   }
 
-  const refElement = useRef(null)
-
+  // ref to stick into the timer
   const runningRef = useRef()
   runningRef.current = running
-  const toggleRunning = () => setRunning(!running)
+  const toggleRunning = () => setRunningState(!running)
 
 
-  const setMultiplierVis = (v) => {
+  // given a new multiplier, update value within vis object and update drawing
+  const setMultiplierInVis = (v) => {
     vis.setMultiplier(v)
     vis.update()
   }
 
+  // slider handler, updates the multiplier value here and in vis
   const setMultiplierHandler = ({target}) => {
-    setMultiplierVis(target.value)
-    setMultiplier(+target.value)
-  }
-
-  const bumpMultiplier = (multiplier) => {
-    if ( !runningRef.current ) return multiplier
-
-    const mul = multiplier + step
-    setMultiplierVis(mul)
-    return mul
+    setMultiplierInVis(target.value)
+    setMultiplierState(+target.value)
   }
 
   const intervalHandler = () => {
-    setMultiplier(bumpMultiplier)
+    setMultiplierState((multiplier) => {
+      // if timer is not running, don't increase
+      if ( !runningRef.current ) return multiplier
+
+      const mul = multiplier + step
+      setMultiplierInVis(mul)
+      return mul
+    })
   }
 
   const startOrStopButton = running
@@ -72,7 +72,7 @@ export default function Spiralizer( props )  {
 
     vis.setColor(theme.colors[newColor])
     vis.update()
-    setColor(newColor)
+    setColorState(newColor)
   }
 
   const makeSwitch = (type, i) => <Switch
