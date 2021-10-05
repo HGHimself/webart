@@ -11,6 +11,7 @@ const colors = {
 
 const theme = {
   colors,
+  shades: c,
 }
 
 export default theme;

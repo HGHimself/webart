@@ -6,8 +6,9 @@ import { degreesToRadians, polarToCartesian } from "../utils/maths-tools.js"
 
 class Spiralizer {
 
-  constructor(containerEl, props) {
+  constructor(containerEl, props, handleOutsideChanges) {
     this.containerEl = containerEl
+    this.handleOutsideChanges = handleOutsideChanges
     this.props = props
     const { width, height, count } = props
 

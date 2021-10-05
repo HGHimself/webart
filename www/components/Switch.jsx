@@ -4,6 +4,8 @@ import theme from "../theme"
 
 import { darkOrLight } from "../utils/color-tools.js"
 
+import FlexRow from "./FlexRow.jsx"
+
 export default function Switch( props )  {
 
   const {state, type, onClick, ...other} = props
@@ -28,15 +30,19 @@ export default function Switch( props )  {
 
   const background = `${color}${opacityClause}`
 
-  const button = css`
+  const buttonStyle = css`
     height: ${other.height || defaultHeight}px;
     width: ${other.width || defaultWidth}px;
     background-color: ${foreground};
     border-radius: 0px;
     border: 1px solid ${color};
     filter: drop-shadow(5px 5px 0px ${background});
-    margin: 24px;
+    margin: 24px 8px 24px 24px;
   `
+
+  const labelStyle = css`
+    width: 64px;
+  `;
 
   const clickHandler = (e) => {
     const newState = !onOff
@@ -44,11 +50,16 @@ export default function Switch( props )  {
     flipOnOff(newState)
   }
 
+  const flag = onOff? <>ON&nbsp;</> : "OFF"
+
   return (
-    <div
-      className={button}
-      onClick={clickHandler}
-      {...other} >
-    </div>
+    <FlexRow align="center">
+      <div
+        className={buttonStyle}
+        onClick={clickHandler}
+        {...other} >
+      </div>
+      <span className={labelStyle}>{flag}</span>
+    </FlexRow>
   )
 }

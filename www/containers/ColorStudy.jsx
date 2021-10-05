@@ -4,6 +4,9 @@ import ColorStudy from "../components/ColorStudy.jsx"
 
 export default function ColorStudyContainer(props) {
   return (
-    <ColorStudy />
+    <>
+      <h2>Chromatic Illusion</h2>
+      <ColorStudy />
+    </>
   )
 }

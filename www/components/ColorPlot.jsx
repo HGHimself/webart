@@ -5,6 +5,7 @@ import colorPlot from "../charts/color-plot.js"
 import theme from "../theme"
 
 import Animator from "./Animator.jsx"
+import Button from "./Button.jsx"
 import Switch from "./Switch.jsx"
 import FlexRow from "./FlexRow.jsx"
 
@@ -20,11 +21,12 @@ export default function ColorPlot( props )  {
   const time = 10
   const step = 10
 
-  const [value, setValue] = useState(0)
+  const [value, setValueState] = useState(0)
 
-  const [xAxisValue, setXAxisValue] = useState(0)
-  const [yAxisValue, setYAxisValue] = useState(0)
-  const [radiusValue, setRadiusValue] = useState(0)
+  const [xAxisValue, setXAxisValueState] = useState(0)
+  const [yAxisValue, setYAxisValueState] = useState(0)
+  const [radiusValue, setRadiusValueState] = useState(0)
+  const [running, setRunningState] = useState(false)
 
   const options = {
     count,
@@ -35,23 +37,26 @@ export default function ColorPlot( props )  {
     radiusValue
   }
 
-  const refElement = useRef(null)
+  // ref to stick into the timer
+  const runningRef = useRef()
+  runningRef.current = running
+  const toggleRunning = () => setRunningState(!running)
 
   const axis = [
     {
       title: 'X axis',
       state: xAxisValue,
-      setState: setXAxisValue,
+      setState: setXAxisValueState,
     },
     {
       title: 'Y axis',
       state: yAxisValue,
-      setState: setYAxisValue,
+      setState: setYAxisValueState,
     },
     {
       title: 'Radius',
       state: radiusValue,
-      setState: setRadiusValue,
+      setState: setRadiusValueState,
     }
   ]
 
@@ -82,31 +87,40 @@ export default function ColorPlot( props )  {
   const setValueHandler = ({target}) => {
     const v = +target.value
     bumpValue(v)
-    setValue(v)
+    setValueState(v)
   }
 
   const intervalHandler = () => {
-    setValue(bumpValue)
+    // if timer is not running, don't increase
+    if ( !runningRef.current ) return;
+    setValueState(bumpValue)
   }
+
+  const startOrStopButton = running
+    ? <Button type='danger' onClick={toggleRunning}>STOP</Button>
+    : <Button type='success' onClick={toggleRunning}>START</Button>
 
   return (
     <>
       <FlexRow>
-        {axis.map(makeSwitchHanlder)}
+        <FlexRow>
+          {axis.map(makeSwitchHanlder)}
+        </FlexRow>
+        <input
+          style={{width: '400px'}}
+          type="range"
+          min="0"
+          max="10000000"
+          value={value}
+          onChange={setValueHandler} />
+        {startOrStopButton}
+        <Animator
+          drawer={colorPlot}
+          setVis={setVis}
+          options={options}
+          time={time}
+          intervalCallback={intervalHandler} />
       </FlexRow>
-      <input
-        style={{width: '400px'}}
-        type="range"
-        min="0"
-        max="10000"
-        value={value}
-        onChange={setValueHandler} />
-      <Animator
-        drawer={colorPlot}
-        setVis={setVis}
-        options={options}
-        time={time}
-        intervalCallback={intervalHandler} />
     </>
   )
 }

@@ -29,9 +29,7 @@ export default function Fourier( props )  {
     amplitude,
   }
 
-  const refElement = useRef(null)
-
-  const [offset, setOffset] = useState(0)
+  const [offset, setOffsetState] = useState(0)
 
   const setOffsetVis = (v) => {
     vis.setOffset(v)
@@ -44,7 +42,7 @@ export default function Fourier( props )  {
     return off
   }
 
-  const intervalHandler = () => { setOffset(bumpOffset) }
+  const intervalHandler = () => { setOffsetState(bumpOffset) }
 
   return (
     <Animator

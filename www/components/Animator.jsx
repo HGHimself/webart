@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react"
+import ParentSize from "@visx/responsive/lib/components/ParentSize";
 
 export default function Animator( props ) {
   const { drawer, options, setVis, intervalCallback, time, ...other } = props
@@ -16,10 +17,6 @@ export default function Animator( props ) {
   }, [])
 
   return (
-    <>
-      <div className='react-world'>
-        <div ref={refElement} {...other} />
-      </div>
-    </>
+    <div ref={refElement} {...other} />
   )
 }
