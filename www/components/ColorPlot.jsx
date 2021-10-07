@@ -92,7 +92,7 @@ export default function ColorPlot( props )  {
 
   const intervalHandler = () => {
     // if timer is not running, don't increase
-    if ( !runningRef.current ) return;
+    if ( !runningRef.current ) return
     setValueState(bumpValue)
   }
 

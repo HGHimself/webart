@@ -3,12 +3,19 @@ export const percent = (value, decimals = 0) => {
   return Math.floor(value * multiplier) / (multiplier / 100);
 }
 
+export const gcd = (a, b) => b === 0 ? a : gcd(b, a % b)
+
 export const degreesToRadians = (degrees) => degrees * (Math.PI / 180)
 
 export const polarToCartesian = (radius, theta) => ([
   radius * Math.cos(theta),
   radius * Math.sin(theta),
 ])
+
+export const cartesianToPolar = (x, y) => [
+  distance(x, y),
+  Math.atan(x / y)
+]
 
 export const distance = (x, y) => Math.sqrt((x * x) + (y * y))
 

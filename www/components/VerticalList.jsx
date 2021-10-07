@@ -6,10 +6,10 @@ export default function VerticalList( props ) {
   return (
     <p>
       {elements.map((e, i) => (
-        <>
+        <span key={i}>
           {e}
           {i == elements.length - 1 ? '' : <>&nbsp;|&nbsp;</>}
-        </>
+        </span>
       ))}
     </p>
   )

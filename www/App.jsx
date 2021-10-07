@@ -1,12 +1,19 @@
 import React, { useState } from "react"
 import { css } from "@emotion/css"
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+} from "react-router-dom";
 
 import Aesthetic from "./containers/Aesthetic.jsx"
 import Spiral from "./containers/Spiral.jsx"
 import Fourier from "./containers/Fourier.jsx"
 import ColorPlot from "./containers/ColorPlot.jsx"
 import ColorStudy from "./containers/ColorStudy.jsx"
-import HOC from "./containers/HOC.jsx"
+import Circular from "./containers/Circular.jsx"
+import Blog from "./containers/Blog.jsx"
 
 import FlexRow from "./components/FlexRow.jsx"
 import Button from "./components/Button.jsx"
@@ -17,15 +24,14 @@ import theme from "./theme"
 export default function App( props ) {
 
   const navs = [
+    'Blog',
     'Aesthetic',
     'Spiral',
     'Fourier',
     'ColorPlot',
     'ColorStudy',
-    'HOC'
+    'Circular'
   ]
-
-  const [selected, setSelected] = useState(navs[0])
 
   const main = css`
     color: ${theme.colors.black};
@@ -33,31 +39,39 @@ export default function App( props ) {
     margin-right: 48px;
   `
 
-  const selectHeader = (header) => (e) => setSelected(header)
-  const selectedPredicate = (header) => header === selected ? 'black' : 'white'
-  const verticalList = navs.map(nav => <span onClick={selectHeader(nav)}>{nav}</span>)
+  const verticalList = navs.map((nav, i) => <Link key={i} to={`/${nav}`}>{nav}</Link>)
 
   return (
     <div id="main" className={main}>
       <h6>Hello, World!</h6>
       <p>Digital Arts by HG King</p>
-      <VerticalList elements={verticalList} />
       {/*<FlexRow flex='flex-start'>{navs.map(makeNav)}</FlexRow>*/}
-      {
-        selected === 'Aesthetic' ?
-          <Aesthetic />
-        : selected === 'Spiral' ?
+      <Router>
+        <VerticalList elements={verticalList} />
+        <Switch>
+          <Route path="/Aesthetic">
+            <Aesthetic />
+          </Route>
+          <Route path="/Spiral">
           <Spiral />
-        : selected === 'Fourier' ?
-          <Fourier />
-        : selected === 'ColorPlot' ?
-          <ColorPlot />
-        : selected === 'ColorStudy' ?
-          <ColorStudy />
-        : selected === 'HOC' ?
-          <HOC />
-        : <h1>None</h1>
-      }
+            </Route>
+          <Route path="/Fourier">
+            <Fourier />
+          </Route>
+          <Route path="/ColorPlot">
+            <ColorPlot />
+          </Route>
+          <Route path="/ColorStudy">
+            <ColorStudy />
+          </Route>
+          <Route path="/Circular">
+            <Circular />
+          </Route>
+          <Route path="/Blog">
+            <Blog />
+          </Route>
+        </Switch>
+      </Router>
     </div>
   )
 }

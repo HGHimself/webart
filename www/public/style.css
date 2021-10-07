@@ -3,30 +3,6 @@ body {
   font-family: 'Jost', sans-serif;
 }
 
-.main {
-  padding-left: 24px;
-  margin: auto;
-  max-width: 85%;
-}
-
-.container {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 1em;
-}
-
-.left {
-  width: 42%;
-  margin-right: 3em;
-}
-
-.right {
-  width: 58%;
-  margin-right: 3em;
-  padding-left: 1.5em;
-  border-left: 2px solid black;
-}
-
 .hidden {
   display: none;
 }
@@ -67,10 +43,9 @@ h5 {
   font-size: 1.5rem;
 }
 
-h6 {
+h6, input[type=number] {
   letter-spacing: 0.15px;
   font-size: 1.25rem;
-  font-weight: bold;
 }
 
 p  {
@@ -148,4 +123,10 @@ pre code {
   border: 1px solid #999;
   display: block;
   padding: 20px;
+}
+
+input[type=number] {
+  font-family: inherit;
+  width: 58px;
+  text-align: center;
 }

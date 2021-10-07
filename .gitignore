@@ -2,3 +2,5 @@ www/node_modules/*
 www/dist
 
 target
+articles
+dist
