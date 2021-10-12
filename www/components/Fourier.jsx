@@ -18,7 +18,9 @@ export default function Fourier( props )  {
   const period = 350
 
   const time = 10
-  const step = 1
+  const step = 0.5
+
+  const length = 100
 
   const options = {
     count,
@@ -27,6 +29,7 @@ export default function Fourier( props )  {
     period,
     offset,
     amplitude,
+    length
   }
 
   const [offset, setOffsetState] = useState(0)

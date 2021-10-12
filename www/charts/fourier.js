@@ -11,8 +11,6 @@ class Fourier {
     this.props = props
     const { width, height, period, amplitude } = props
 
-    this.props.length = 4
-
     this.props.numbers = Array.from({ length: this.props.length }, (_, i) => i+1)
 
     this.props.evens = this.props.numbers.map(x => x * 2)

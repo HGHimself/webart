@@ -4,14 +4,12 @@ import theme from "../theme"
 import { drawArc } from "../utils/svg-tools.js"
 import { degreesToRadians, polarToCartesian, cartesianToPolar, fourier, squareWaveCos, squareWaveSin, squareWaveSequenceSin, squareWaveSequenceCos, distance } from "../utils/maths-tools.js"
 
-class Fourier {
+class Circular {
 
   constructor(containerEl, props) {
     this.containerEl = containerEl
     this.props = props
-    const { width, height, period, amplitude } = props
-
-    this.props.count = 43
+    const { width, height, amplitude } = props
 
     this.props.originX = width / 2
     this.props.originY = height / 2
@@ -73,6 +71,13 @@ class Fourier {
     svg.selectAll('path.lines')
         .attr("d", drawer)
   }
+
+  setColor(color) {
+    const { svg } = this
+
+    svg.selectAll('path.lines')
+      .attr("fill", color)
+  }
 }
 
-export default Fourier
+export default Circular

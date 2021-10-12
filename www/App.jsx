@@ -4,7 +4,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
+  Link
 } from "react-router-dom";
 
 import Aesthetic from "./containers/Aesthetic.jsx"
@@ -21,7 +21,14 @@ import VerticalList from "./components/VerticalList.jsx"
 
 import theme from "./theme"
 
+
+
 export default function App( props ) {
+
+
+  const backendUrl = process.env.NODE_ENV === "development"
+    ? "http://localhost:3030"
+    : "http://www.hgking.net"
 
   const navs = [
     'Blog',
@@ -44,7 +51,7 @@ export default function App( props ) {
   return (
     <div id="main" className={main}>
       <h6>Hello, World!</h6>
-      <p>Digital Arts by HG King</p>
+      <p>Digital Arts by HG King - {process.env.NODE_ENV}</p>
       {/*<FlexRow flex='flex-start'>{navs.map(makeNav)}</FlexRow>*/}
       <Router>
         <VerticalList elements={verticalList} />
@@ -68,7 +75,7 @@ export default function App( props ) {
             <Circular />
           </Route>
           <Route path="/Blog">
-            <Blog />
+            <Blog backendUrl={backendUrl} />
           </Route>
         </Switch>
       </Router>

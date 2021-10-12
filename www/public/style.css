@@ -119,10 +119,12 @@ a:visited {
 }
 
 pre code {
-  background-color: #eee;
+  color: #FBFBF8;
+  background-color: #161032;
   border: 1px solid #999;
   display: block;
   padding: 20px;
+  overflow-x: scroll;
 }
 
 input[type=number] {

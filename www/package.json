@@ -4,7 +4,7 @@
   "description": "a collection of digital art",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
+    "build": "NODE_ENV=production webpack -p",
     "serve": "webpack-dev-server"
   },
   "author": "HG King",

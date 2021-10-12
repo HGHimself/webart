@@ -9,12 +9,13 @@ import {
 } from "react-router-dom"
 
 export default function BlogContainer(props) {
+  const { backendUrl } = props
   const [articleOptions, setArticleOptions] = useState()
 
   const match = useRouteMatch()
 
   useEffect(() => {
-    axios.get("http://localhost:3030/blog").then((r) => {
+    axios.get(`${backendUrl}/blog`).then((r) => {
       setArticleOptions(r.data)
     })
   }, [])
@@ -27,7 +28,7 @@ export default function BlogContainer(props) {
     <Switch>
       <Route path={`${match.path}/:article`}>
         <Link to={match.url}>Back!</Link>
-        <Article />
+        <Article backendUrl={backendUrl} />
       </Route>
       <Route path={match.path}>
         {articleLinks}
@@ -36,11 +37,12 @@ export default function BlogContainer(props) {
   )
 }
 
-function Article() {
+function Article(props) {
+  const { backendUrl } = props
   const [dangerousHtml, setDangerousHtml] = useState()
   const { article } = useParams()
 
-  axios.get(`http://localhost:3030/blog/${article}`).then((r) => {
+  axios.get(`${backendUrl}/blog/${article}`).then((r) => {
     setDangerousHtml(r.data)
   })
 

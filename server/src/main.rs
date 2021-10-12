@@ -6,8 +6,8 @@ use std::{
     env,
     fs::{self, DirEntry},
     include_str, io,
-    path::Path,
     net::SocketAddr,
+    path::Path,
 };
 use warp::Filter;
 
@@ -44,7 +44,7 @@ async fn main() {
 
     let home = warp::any().and(warp::fs::dir(public_folder.clone()));
 
-    let blog_home = warp::path!("blog").map( move || {
+    let blog_home = warp::path!("blog").map(move || {
         let mut agg: Vec<String> = vec![];
         visit_dirs(Path::new(&article_folder_clone), &mut agg);
         warp::reply::json(&agg)
@@ -59,7 +59,8 @@ async fn main() {
 
     let end = home
         .or(blog_home.or(blog_page).with(with_control_origin))
-        .or(warp::any().and(warp::fs::file(format!("{}/index.html", public_folder)))).with(warp::log("webart"));
+        .or(warp::any().and(warp::fs::file(format!("{}/index.html", public_folder))))
+        .with(warp::log("webart"));
 
     let socket_address = app_addr
         .parse::<SocketAddr>()

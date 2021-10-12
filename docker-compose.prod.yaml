@@ -1,0 +1,8 @@
+version: '3'
+services:
+  server:
+    image: hgmaxwellking/webart-server:latest
+    env_file:
+      - env # my droplet hating the hidden file
+    ports:
+      - 3030:80
