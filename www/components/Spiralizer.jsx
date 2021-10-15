@@ -21,7 +21,7 @@ export default function Spiralizer( props )  {
   const time = 30
   const step = 0.1
 
-  const defaultColor = 'white'
+  const defaultColor = 'transparent'
 
   const [color, setColorState] = useState(defaultColor)
   const [multiplier, setMultiplierState] = useState(30)
@@ -68,9 +68,8 @@ export default function Spiralizer( props )  {
     : <Button type='success' onClick={toggleRunning}>START</Button>
 
   const setColorHandler = (type) => (_e, newState) => {
-    const newColor = newState? type : defaultColor
-
-    vis.setColor(theme.colors[newColor])
+    const newColor = newState ? theme.colors[type] : defaultColor
+    vis.setColor(newColor)
     vis.update()
     setColorState(newColor)
   }
@@ -78,7 +77,7 @@ export default function Spiralizer( props )  {
   const makeSwitch = (type, i) => <Switch
     type={type}
     key={i}
-    state={type === color}
+    state={theme.colors[type] === color}
     onClick={setColorHandler(type)} />
 
   const types = Object.keys(theme.colors)
@@ -86,6 +85,10 @@ export default function Spiralizer( props )  {
 
   return (
     <>
+      {startOrStopButton}
+      <FlexRow>
+        {types.map(makeSwitch)}
+      </FlexRow>
       <FlexRow>
         <input
           type="range"
@@ -94,10 +97,6 @@ export default function Spiralizer( props )  {
           value={multiplier}
           onChange={setMultiplierHandler} />
         <p>{multiplier}</p>
-      </FlexRow>
-      <FlexRow>
-        {types.map(makeSwitch)}
-        {startOrStopButton}
       </FlexRow>
       <Animator
         drawer={spiralizer}

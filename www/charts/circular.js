@@ -1,24 +1,17 @@
 import * as d3 from "d3"
 
 import theme from "../theme"
-import { drawArc } from "../utils/svg-tools.js"
-import { degreesToRadians, polarToCartesian, cartesianToPolar, fourier, squareWaveCos, squareWaveSin, squareWaveSequenceSin, squareWaveSequenceCos, distance } from "../utils/maths-tools.js"
+import { simpleHarmonicMotionCos, simpleHarmonicMotionSin } from "../utils/maths-tools.js"
 
 class Circular {
 
   constructor(containerEl, props) {
     this.containerEl = containerEl
     this.props = props
-    const { width, height, amplitude } = props
+    const { width, height } = props
 
     this.props.originX = width / 2
     this.props.originY = height / 2
-
-    this.props.originXCircles = this.props.originX - 400
-    this.props.originYCircles = this.props.originY
-
-    this.props.originXLine = 600
-    this.props.originYLine = this.props.originY
 
     this.svg = d3.select(containerEl)
       .append('svg')
@@ -36,12 +29,20 @@ class Circular {
     this.props.multiplierY = multiplierY
   }
 
-  getDrawer() {
-    const { count, amplitude, offset, multiplierX, multiplierY, originYLine, originXLine } = this.props
+  setMode(mode) {
+    this.props.mode = mode
+  }
 
-    const arc = Array.from({ length: count }, (_, i) => [
-      originXLine + (amplitude*Math.sin(multiplierX * (i - offset))),
-      originYLine + (amplitude*Math.cos(multiplierY * (i - offset)))
+  getDrawer() {
+    const { mode, count, amplitude, offset, frequency, multiplierX, multiplierY, originY, originX } = this.props
+
+    const arc = mode ? Array.from({ length: count }, (_, i) => [
+      simpleHarmonicMotionSin(originX, amplitude, multiplierX * frequency, i - offset),
+      simpleHarmonicMotionCos(originY, amplitude, multiplierY * frequency, i - offset)
+    ])
+    : Array.from({ length: count }, (_, i) => [
+      originX + (amplitude*Math.sin(multiplierX * (i - offset))),
+      originY + (amplitude*Math.cos(multiplierY * (i - offset)))
     ])
 
     return d3.line()(arc)

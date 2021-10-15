@@ -14,7 +14,6 @@ import ColorPlot from "./containers/ColorPlot.jsx"
 import ColorStudy from "./containers/ColorStudy.jsx"
 import Circular from "./containers/Circular.jsx"
 import Blog from "./containers/Blog.jsx"
-import SimpleHarmonicMotion from "./containers/SimpleHarmonicMotion.jsx"
 
 import FlexRow from "./components/FlexRow.jsx"
 import Button from "./components/Button.jsx"
@@ -39,7 +38,6 @@ export default function App( props ) {
     'ColorPlot',
     'ColorStudy',
     'Circular',
-    'SimpleHarmonicMotion'
   ]
 
   const main = css`
@@ -78,9 +76,6 @@ export default function App( props ) {
           </Route>
           <Route path="/Blog">
             <Blog backendUrl={backendUrl} />
-          </Route>
-          <Route path="/SimpleHarmonicMotion">
-            <SimpleHarmonicMotion backendUrl={backendUrl} />
           </Route>
         </Switch>
       </Router>

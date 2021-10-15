@@ -20,20 +20,22 @@ export default function Circular( props )  {
   const height = 700
   const width = 1300
   const amplitude = 300
-  const period = 350
+  const period = 13
+  const frequency = 1 / period;
 
   const time = 10
   const step = 1
 
   const limit = 1000
 
-  const defaultColor = 'white'
+  const defaultColor = 'transparent'
 
   const [color, setColorState] = useState(defaultColor)
   const [offset, setOffsetState] = useState(0)
   const [multiplierX, setMultiplierXState] = useState(props.x || 1)
   const [multiplierY, setMultiplierYState] = useState(props.y || 1)
   const [running, setRunningState] = useState(false)
+  const [mode, setModeState] = useState(true)
 
   const options = {
     count,
@@ -41,14 +43,23 @@ export default function Circular( props )  {
     width,
     offset,
     amplitude,
+    frequency,
     multiplierY,
-    multiplierX
+    multiplierX,
+    mode
   }
 
   // ref to stick into the timer
   const runningRef = useRef()
   runningRef.current = running
   const toggleRunning = () => setRunningState(!running)
+
+  const toggleMode = () => {
+    const newMode = !mode
+    setModeState(newMode)
+    vis.setMode(newMode)
+    setOffsetVis(offset)
+  }
 
   const setOffsetVis = (v) => {
     vis.setOffset(v)
@@ -70,11 +81,16 @@ export default function Circular( props )  {
     ? <Button type='danger' onClick={toggleRunning}>STOP</Button>
     : <Button type='success' onClick={toggleRunning}>START</Button>
 
+  const modeButton = mode
+    ? <Button type='white' onClick={toggleMode}>SHM ON</Button>
+    : <Button type='black' onClick={toggleMode}>SHM OFF</Button>
+
   const setMultiplierYHandler = ({target}) => {
     const r = Math.abs(target.value)
     //window.location.search = `x=${multiplierX}&y=${r}`
     setMultiplierYState(r)
     vis.setMultiplierY(r)
+    setOffsetVis(offset)
   }
 
   const setMultiplierXHandler = ({target}) => {
@@ -82,11 +98,10 @@ export default function Circular( props )  {
     //window.location.search = `x=${r}&y=${multiplierY}`
     setMultiplierXState(r)
     vis.setMultiplierX(r)
+    setOffsetVis(offset)
   }
 
   const randomizeHandler = ({target}) => {
-    setRunningState(true)
-
     const y = Math.round(Math.random() * limit)
     setMultiplierYState(y)
     vis.setMultiplierY(y)
@@ -95,7 +110,7 @@ export default function Circular( props )  {
     setMultiplierXState(x)
     vis.setMultiplierX(x)
 
-    //window.location.search = `x=${x}&y=${y}`
+    setOffsetVis(offset)
   }
 
   const shareHandler = () => {
@@ -103,9 +118,8 @@ export default function Circular( props )  {
   }
 
   const setColorHandler = (type) => (_e, newState) => {
-    const newColor = newState? type : defaultColor
-
-    vis.setColor(theme.colors[newColor])
+    const newColor = newState ? theme.colors[type] : defaultColor
+    vis.setColor(newColor)
     vis.update()
     setColorState(newColor)
   }
@@ -113,7 +127,7 @@ export default function Circular( props )  {
   const makeSwitch = (type, i) => <Switch
     type={type}
     key={i}
-    state={type === color}
+    state={theme.colors[type] === color}
     onClick={setColorHandler(type)} />
 
   const types = Object.keys(theme.colors)
@@ -126,6 +140,7 @@ export default function Circular( props )  {
   return (
     <>
       {startOrStopButton}
+      {modeButton}
       <Button type='info' onClick={randomizeHandler}>RANDOMIZE</Button>
       <Button type='warning' onClick={shareHandler}>COPY LINK</Button>
       <FlexRow>

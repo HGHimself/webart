@@ -7,6 +7,7 @@ const colors = {
   danger: c["ENGLISH VERMILLION"],
   info: c["BLUE JEANS"],
   warning: c["HONEY YELLOW"],
+  purple: c["PLUM"]
 }
 
 const theme = {

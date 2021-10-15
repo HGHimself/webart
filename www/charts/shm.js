@@ -1,7 +1,6 @@
 import * as d3 from "d3"
 
 import theme from "../theme"
-import { drawArc } from "../utils/svg-tools.js"
 import { simpleHarmonicMotionCos, simpleHarmonicMotionSin } from "../utils/maths-tools.js"
 
 class Shm {
