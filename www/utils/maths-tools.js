@@ -32,3 +32,8 @@ export const squareWaveCos = (omega, time, beta) => (2 / (beta * Math.PI)) * Mat
 // the sequence for a square wave is 3/2 + odds.sum((n) => b_n * sin(n * t))
 export const squareWaveSequenceSin = (omega, time, odds) => odds.reduce((acc, beta) => acc + squareWaveSin(omega, time, beta), 0)
 export const squareWaveSequenceCos = (omega, time, odds) => odds.reduce((acc, beta) => acc + squareWaveCos(omega, time, beta), 0)
+
+
+export const simpleHarmonicMotionCos = (origin, amplitude, frequency, time) => simpleHarmonicMotion(origin, amplitude, frequency, time, Math.cos)
+export const simpleHarmonicMotionSin = (origin, amplitude, frequency, time) => simpleHarmonicMotion(origin, amplitude, frequency, time, Math.sin)
+export const simpleHarmonicMotion = (origin, amplitude, frequency, time, f) => origin + (amplitude * f(time * (frequency * (2 * 3.14))))

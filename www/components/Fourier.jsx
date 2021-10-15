@@ -20,7 +20,7 @@ export default function Fourier( props )  {
   const time = 10
   const step = 0.5
 
-  const length = 100
+  const length = 5
 
   const options = {
     count,
