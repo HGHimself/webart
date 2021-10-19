@@ -15,6 +15,7 @@ import ColorStudy from "./containers/ColorStudy.jsx"
 import Circular from "./containers/Circular.jsx"
 import Blog from "./containers/Blog.jsx"
 
+import Footer from "./components/Footer.jsx"
 import FlexRow from "./components/FlexRow.jsx"
 import Button from "./components/Button.jsx"
 import VerticalList from "./components/VerticalList.jsx"
@@ -25,6 +26,10 @@ import theme from "./theme"
 
 export default function App( props ) {
 
+  const versionData = {
+    version: '0.0.1',
+    date: '2021-10-19'
+  }
 
   const backendUrl = process.env.NODE_ENV === "development"
     ? "http://localhost:3030"
@@ -51,7 +56,7 @@ export default function App( props ) {
   return (
     <div id="main" className={main}>
       <h6>Hello, World!</h6>
-      <p>Digital Arts by <a href="https://github.com/HGHimself/webart">HG King</a> - {process.env.NODE_ENV}</p>
+      <p>Digital Arts by HG King - {process.env.NODE_ENV}</p>
       {/*<FlexRow flex='flex-start'>{navs.map(makeNav)}</FlexRow>*/}
       <Router>
         <VerticalList elements={verticalList} />
@@ -79,6 +84,7 @@ export default function App( props ) {
           </Route>
         </Switch>
       </Router>
+      <Footer versionData={versionData} />
     </div>
   )
 }
