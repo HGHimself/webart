@@ -16,12 +16,18 @@ const setVis = (v) => { vis = v }
 
 export default function Circular( props )  {
 
+  const [color, setColorState] = useState(defaultColor)
+  const [offset, setOffsetState] = useState(0)
+  const [multiplierX, setMultiplierXState] = useState(props.x || 1)
+  const [multiplierY, setMultiplierYState] = useState(props.y || 1)
+  const [period, setPeriodState] = useState(13)
+  const [running, setRunningState] = useState(false)
+  const [mode, setModeState] = useState(true)
+
   const count = 43
   const height = 700
   const width = 1300
   const amplitude = 300
-  const period = 13
-  const frequency = 1 / period;
 
   const time = 10
   const step = 1
@@ -29,13 +35,7 @@ export default function Circular( props )  {
   const limit = 1000
 
   const defaultColor = 'transparent'
-
-  const [color, setColorState] = useState(defaultColor)
-  const [offset, setOffsetState] = useState(0)
-  const [multiplierX, setMultiplierXState] = useState(props.x || 1)
-  const [multiplierY, setMultiplierYState] = useState(props.y || 1)
-  const [running, setRunningState] = useState(false)
-  const [mode, setModeState] = useState(true)
+  const frequency = 1 / period;
 
   const options = {
     count,
@@ -124,6 +124,13 @@ export default function Circular( props )  {
     setColorState(newColor)
   }
 
+  const setPeriodHandler = ({target}) => {
+    const r = Math.abs(target.value)
+    setPeriodState(r)
+    vis.setFrequency(1 / r)
+    setOffsetVis(offset)
+  }
+
   const makeSwitch = (type, i) => <Switch
     type={type}
     key={i}
@@ -146,14 +153,32 @@ export default function Circular( props )  {
       <FlexRow>
         {types.map(makeSwitch)}
       </FlexRow>
-      <input
-        type="number"
-        value={multiplierY}
-        onChange={setMultiplierYHandler}  />
-      <input
-        type="number"
-        value={multiplierX}
-        onChange={setMultiplierXHandler}  />
+      <FlexRow flex="space-between" width="30%">
+        <FlexRow align="center">
+          <label htmlFor="multiplierX">X:</label>
+          <input
+            id="multiplierX"
+            type="number"
+            value={multiplierX}
+            onChange={setMultiplierXHandler}  />
+        </FlexRow>
+        <FlexRow align="center">
+          <label htmlFor="multiplierY">Y:</label>
+          <input
+            id="multiplierY"
+            type="number"
+            value={multiplierY}
+            onChange={setMultiplierYHandler}  />
+        </FlexRow>
+        <FlexRow align="center">
+          <label htmlFor="period">period:</label>
+          <input
+            id="period"
+            type="number"
+            value={period}
+            onChange={setPeriodHandler}  />
+        </FlexRow>
+      </FlexRow>
       <div>
         <h6>Ratio: {ratioX}:{ratioY} - {offset}</h6>
       </div>

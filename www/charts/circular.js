@@ -73,6 +73,10 @@ class Circular {
         .attr("d", drawer)
   }
 
+  setFrequency(frequency) {
+    this.props.frequency = frequency
+  }
+
   setColor(color) {
     const { svg } = this
 

@@ -51,7 +51,7 @@ export default function App( props ) {
   return (
     <div id="main" className={main}>
       <h6>Hello, World!</h6>
-      <p>Digital Arts by HG King - {process.env.NODE_ENV}</p>
+      <p>Digital Arts by <a href="https://github.com/HGHimself/webart">HG King</a> - {process.env.NODE_ENV}</p>
       {/*<FlexRow flex='flex-start'>{navs.map(makeNav)}</FlexRow>*/}
       <Router>
         <VerticalList elements={verticalList} />
@@ -71,7 +71,7 @@ export default function App( props ) {
           <Route path="/ColorStudy">
             <ColorStudy />
           </Route>
-          <Route path="/Circular">
+          <Route path="/">
             <Circular />
           </Route>
           <Route path="/Blog">

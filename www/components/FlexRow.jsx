@@ -8,6 +8,7 @@ export default function FlexRow(props) {
     align-items: ${props.align};
     flex-direction: ${props.direction};
     flex-wrap: ${props.wrap ? props.wrap : "wrap"};
+    width: ${props.width};
   `;
 
   return <div className={flexRow}>{props.children}</div>;
