@@ -20,7 +20,7 @@ export default function Circular( props )  {
   const [offset, setOffsetState] = useState(0)
   const [multiplierX, setMultiplierXState] = useState(props.x || 1)
   const [multiplierY, setMultiplierYState] = useState(props.y || 1)
-  const [period, setPeriodState] = useState(13)
+  const [period, setPeriodState] = useState(props.p || 13)
   const [running, setRunningState] = useState(false)
   const [mode, setModeState] = useState(true)
 
@@ -114,7 +114,7 @@ export default function Circular( props )  {
   }
 
   const shareHandler = () => {
-    copyToClipboard(`http://${window.location.host}/Circular?x=${multiplierX}&y=${multiplierY}`)
+    copyToClipboard(`http://${window.location.host}/Circular?x=${multiplierX}&y=${multiplierY}&p=${period}`)
   }
 
   const setColorHandler = (type) => (_e, newState) => {
