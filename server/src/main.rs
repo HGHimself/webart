@@ -75,13 +75,11 @@ async fn main() {
             .map(|dada: Dada| {
                 let res = dada_poem_generator::dada(&dada.message);
                 warp::reply::html(res)
-            })).with(with_content_allow);
+            }))
+        .with(with_content_allow);
 
     let end = home
-        .or(dada
-            .or(blog_home.or(blog_page))
-            .with(with_control_origin)
-            )
+        .or(dada.or(blog_home.or(blog_page)).with(with_control_origin))
         .or(warp::any().and(warp::fs::file(format!("{}/index.html", public_folder))))
         .with(warp::log("webart"));
 
