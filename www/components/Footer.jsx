@@ -20,7 +20,7 @@ export default function Footer(props) {
         &nbsp;|&nbsp;Calculations and
         presentation by{" "}
         <a href="https://github.com/HGHimself/webart">HG King</a>
-        &nbsp;|&nbsp;Made in Astoria
+        &nbsp;|&nbsp;Made in New York
       </p>
     </div>
   );
