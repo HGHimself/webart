@@ -2,14 +2,20 @@ use dotenv::dotenv;
 use env_logger::Env;
 use lazy_regex::regex;
 use log::info;
+use serde_derive::{Deserialize, Serialize};
 use std::{
     env,
     fs::{self, DirEntry},
-    include_str, io,
+    io,
     net::SocketAddr,
     path::Path,
 };
 use warp::Filter;
+
+#[derive(Deserialize, Serialize)]
+struct Dada {
+    message: String,
+}
 
 #[tokio::main]
 async fn main() {
@@ -41,6 +47,8 @@ async fn main() {
     }
 
     let with_control_origin = warp::reply::with::header("Access-Control-Allow-Origin", "*");
+    let with_content_allow =
+        warp::reply::with::header("Access-Control-Allow-Headers", "Content-Type");
 
     let home = warp::any().and(warp::fs::dir(public_folder.clone()));
 
@@ -57,8 +65,23 @@ async fn main() {
         warp::reply::html(body)
     });
 
+    let dada = warp::options()
+        .and(warp::path!("dada"))
+        .map(|| warp::reply())
+        .or(warp::post()
+            .and(warp::path!("dada"))
+            .and(warp::body::content_length_limit(1024 * 16))
+            .and(warp::body::json())
+            .map(|dada: Dada| {
+                let res = dada_poem_generator::dada(&dada.message);
+                warp::reply::html(res)
+            })).with(with_content_allow);
+
     let end = home
-        .or(blog_home.or(blog_page).with(with_control_origin))
+        .or(dada
+            .or(blog_home.or(blog_page))
+            .with(with_control_origin)
+            )
         .or(warp::any().and(warp::fs::file(format!("{}/index.html", public_folder))))
         .with(warp::log("webart"));
 
