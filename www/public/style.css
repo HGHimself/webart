@@ -114,11 +114,6 @@ a:link {
  color: #33A1FD;
 }
 
-/* visited link */
-a:visited {
- color: #673147;
-}
-
 pre code {
   color: #FBFBF8;
   background-color: #161032;
@@ -126,6 +121,10 @@ pre code {
   display: block;
   padding: 20px;
   overflow-x: scroll;
+}
+
+pre {
+  white-space: pre-wrap;
 }
 
 input[type=number] {

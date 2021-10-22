@@ -34,7 +34,7 @@ export default function App( props ) {
 
   const backendUrl = process.env.NODE_ENV === "development"
     ? "http://localhost:3030"
-    : "http://www.hgking.net"
+    : "https://www.hgking.net"
 
   const navs = [
     'Blog',

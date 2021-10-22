@@ -18,7 +18,7 @@ And there you are – an infinitely original author of charming sensibility, eve
 
 export default function Dada(props) {
   const { backendUrl } = props
-  const [poem, setPoem] = useState()
+  const [poem, setPoem] = useState("...Loading")
   const [input, setInput] = useState(defaultMessage)
 
   useEffect(() => {

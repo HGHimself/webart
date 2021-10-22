@@ -10,17 +10,23 @@ import {
 
 export default function BlogContainer(props) {
   const { backendUrl } = props
+
   const [articleOptions, setArticleOptions] = useState()
+  const [articlesError, setArticleError] = useState(false)
 
   const match = useRouteMatch()
 
   useEffect(() => {
     axios.get(`${backendUrl}/blog`).then((r) => {
       setArticleOptions(r.data)
+    }).catch(r => {
+      setArticleError(`Oh no... ${r}`)
     })
   }, [])
 
-  const articleLinks = articleOptions
+  const articleLinks = articlesError
+    ? articlesError
+    : articleOptions
     ? articleOptions.map((link, i) => <div key={i}><Link to={`${match.url}/${link}`} >{link}</Link></div>)
     : 'Loading...'
 
@@ -44,6 +50,8 @@ function Article(props) {
 
   axios.get(`${backendUrl}/blog/${article}`).then((r) => {
     setDangerousHtml(r.data)
+  }).catch(r => {
+    setDangerousHtml(`Oh no... ${r}`)
   })
 
   return (
