@@ -21,6 +21,16 @@ class Spiralizer {
     this.update()
   }
 
+  setBounds(width, height) {
+    // console.log({width, height});
+    this.svg
+      .attr('width', width)
+      .attr('height', height)
+    this.props.width = width
+    this.props.height = height
+    this.update()
+  }
+
   getArc() {
     const { count, multiplier } = this.props
 
@@ -36,7 +46,7 @@ class Spiralizer {
     const { svg, props: { count, height, width, multiplier } } = this
 
     const arc = this.getArc()
-
+    console.log({width, height});
     svg.selectAll('path')
       .data([0])
       .enter()

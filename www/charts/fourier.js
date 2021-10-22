@@ -16,15 +16,6 @@ class Fourier {
     this.props.evens = this.props.numbers.map(x => x * 2)
     this.props.odds = this.props.evens.map(x => x - 1)
 
-    this.props.originX = width / 2
-    this.props.originY = height / 2
-
-    this.props.originXCircles = this.props.originX - 400
-    this.props.originYCircles = this.props.originY
-
-    this.props.originXLine = 600
-    this.props.originYLine = this.props.originY
-
     const frequency = 1 / period
     this.props.omega = 2 * Math.PI * frequency
 
@@ -33,6 +24,16 @@ class Fourier {
       .attr('width', width)
       .attr('height', height)
 
+    this.update()
+  }
+
+  setBounds(width, height) {
+    this.svg
+      .attr('width', width)
+      .attr('height', height)
+
+    this.props.width = width
+    this.props.height = height
     this.update()
   }
 
@@ -93,7 +94,16 @@ class Fourier {
   }
 
   update() {
-    const { svg, props: { height, width, amplitude, omega, offset, odds, numbers, originX, originY } } = this
+    const { svg, props: { height, width, amplitude, omega, offset, odds, numbers } } = this
+
+    this.props.originX = width / 2
+    this.props.originY = height / 2
+
+    this.props.originXCircles = this.props.originX - 400
+    this.props.originYCircles = this.props.originY
+
+    this.props.originXLine = 600
+    this.props.originYLine = this.props.originY
 
     const squarewave = this.getSquarewave()
     const getSquarewaveDrawer = this.getSquarewaveDrawer(this.props.length)

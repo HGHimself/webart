@@ -1,12 +1,22 @@
-import React, { useEffect, useRef } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import ParentSize from "@visx/responsive/lib/components/ParentSize";
+import { css } from "@emotion/css";
 
 export default function Animator( props ) {
   const { drawer, options, setVis, intervalCallback, time, ...other } = props
 
+  const animatorContainer = css`
+    height: ${options.height || 1300}px;
+  `
+  const [vis, setVisState] = useState(null);
+
   const refElement = useRef(null)
 
-  const initVis = () => { setVis(new drawer(refElement.current, options)) }
+  const initVis = () => {
+    const v = new drawer(refElement.current, options)
+    setVis(v)
+    setVisState(v)
+  }
 
   useEffect(initVis, [])
   useEffect(() => {
@@ -16,7 +26,16 @@ export default function Animator( props ) {
     return () => clearInterval(interval)
   }, [])
 
+  options.rerender = () => {}
+
   return (
-    <div ref={refElement} {...other} />
+    <div className={animatorContainer}>
+      <ParentSize>
+        {(parent) => {
+          vis && vis.setBounds(parent.width, parent.height)
+          return <div ref={refElement} {...other} />
+        }}
+      </ParentSize>
+    </div>
   )
 }

@@ -58,7 +58,7 @@ export default function Circular( props )  {
     const newMode = !mode
     setModeState(newMode)
     vis.setMode(newMode)
-    setOffsetVis(offset)
+    vis.update()
   }
 
   const setOffsetVis = (v) => {

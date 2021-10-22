@@ -21,6 +21,16 @@ class Circular {
     this.update()
   }
 
+  setBounds(width, height) {
+    this.svg
+      .attr('width', width)
+      .attr('height', height)
+
+    this.props.originX = width / 2
+    this.props.originY = height / 2
+    this.update()
+  }
+
   setMultiplierX(multiplierX) {
     this.props.multiplierX = multiplierX
   }
