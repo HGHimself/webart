@@ -18,7 +18,7 @@ class Circular {
       .attr('width', width)
       .attr('height', height)
 
-    this.update()
+    // this.update()
   }
 
   setBounds(width, height) {
@@ -60,7 +60,6 @@ class Circular {
 
   update() {
     const { svg } = this
-
     const drawer = this.getDrawer()
     svg.selectAll('path.lines')
       .data([0])

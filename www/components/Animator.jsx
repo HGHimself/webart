@@ -4,13 +4,19 @@ import { css } from "@emotion/css";
 
 export default function Animator( props ) {
   const { drawer, options, setVis, intervalCallback, time, ...other } = props
-
+  console.log('animator');
   const animatorContainer = css`
     height: ${options.height || 1300}px;
   `
-  const [vis, setVisState] = useState(null);
+  const [vis, setVisState] = useState(null)
+  const [width, setWidthState] = useState(null)
 
   const refElement = useRef(null)
+
+  window.onresize = () => {
+    // console.log(window.innerWidth)
+    setWidthState(window.innerWidth)
+  }
 
   const initVis = () => {
     const v = new drawer(refElement.current, options)

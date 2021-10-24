@@ -78,7 +78,7 @@ export default function App( props ) {
           <Route path="/ColorStudy">
             <ColorStudy />
           </Route>
-          <Route path="/Circular">
+          <Route path="/">
             <Circular />
           </Route>
           <Route path="/Blog">
