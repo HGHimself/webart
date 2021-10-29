@@ -21,8 +21,12 @@ import Footer from "./components/Footer.jsx"
 import FlexRow from "./components/FlexRow.jsx"
 import Button from "./components/Button.jsx"
 import VerticalList from "./components/VerticalList.jsx"
+import Login from "./components/Login.jsx"
+import Logout from "./components/Logout.jsx"
+import Profile from "./components/Profile.jsx"
 
 import theme from "./theme"
+
 
 
 export default function App( props ) {
@@ -61,6 +65,9 @@ export default function App( props ) {
       <h6>Hello, World!</h6>
       <p>Digital Arts by HG King - {process.env.NODE_ENV}</p>
       {/*<FlexRow flex='flex-start'>{navs.map(makeNav)}</FlexRow>*/}
+      <Login />
+      <Logout />
+      <Profile />
       <Router>
         <VerticalList elements={verticalList} />
         <Switch>
