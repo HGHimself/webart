@@ -5,7 +5,7 @@ import {
   Switch,
   Route,
   Link
-} from "react-router-dom";
+} from "react-router-dom"
 
 import Aesthetic from "./containers/Aesthetic.jsx"
 import Spiral from "./containers/Spiral.jsx"
@@ -15,6 +15,7 @@ import ColorStudy from "./containers/ColorStudy.jsx"
 import Circular from "./containers/Circular.jsx"
 import Blog from "./containers/Blog.jsx"
 import Dada from "./containers/Dada.jsx"
+import Buildings from "./containers/Buildings.jsx"
 
 import Footer from "./components/Footer.jsx"
 import FlexRow from "./components/FlexRow.jsx"
@@ -22,7 +23,6 @@ import Button from "./components/Button.jsx"
 import VerticalList from "./components/VerticalList.jsx"
 
 import theme from "./theme"
-
 
 
 export default function App( props ) {
@@ -44,7 +44,8 @@ export default function App( props ) {
     'ColorPlot',
     'ColorStudy',
     'Circular',
-    'Dada'
+    'Dada',
+    'Buildings'
   ]
 
   const main = css`
@@ -86,6 +87,9 @@ export default function App( props ) {
           </Route>
           <Route path="/Dada">
             <Dada backendUrl={backendUrl} />
+          </Route>
+          <Route path="/Buildings">
+            <Buildings />
           </Route>
         </Switch>
       </Router>
