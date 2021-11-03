@@ -9,17 +9,15 @@ import Button from "../components/Button.jsx"
 import Switch from "../components/Switch.jsx"
 import theme from "../theme"
 
-let vis;
+let vis = null;
 const setVis = (v) => { vis = v }
 
 export default function Spiralizer( props )  {
 
-  const count = 50
-  const height = 700
-  const width = 1400
-
   const time = 30
   const step = 0.1
+  const sliderMin = 0
+  const sliderMax = 10000
 
   const defaultColor = 'transparent'
 
@@ -28,10 +26,23 @@ export default function Spiralizer( props )  {
   const [running, setRunningState] = useState(false)
 
   const options = {
-    count,
-    height,
-    width,
+    count: 50,
+    height: 700,
+    width: 1400,
     multiplier
+  }
+
+  // given a new multiplier, update value within vis object and update drawing
+  const setMultiplierInVis = (nextMultiplier) => {
+    vis.setMultiplier(nextMultiplier)
+    vis.update()
+  }
+
+  // slider handler, updates the multiplier value here and in vis
+  const setMultiplierHandler = ({target}) => {
+    const multiplierInput = +target.value
+    setMultiplierInVis(multiplierInput)
+    setMultiplierState(multiplierInput)
   }
 
   // ref to stick into the timer
@@ -39,27 +50,14 @@ export default function Spiralizer( props )  {
   runningRef.current = running
   const toggleRunning = () => setRunningState(!running)
 
-
-  // given a new multiplier, update value within vis object and update drawing
-  const setMultiplierInVis = (v) => {
-    vis.setMultiplier(v)
-    vis.update()
-  }
-
-  // slider handler, updates the multiplier value here and in vis
-  const setMultiplierHandler = ({target}) => {
-    setMultiplierInVis(target.value)
-    setMultiplierState(+target.value)
-  }
-
   const intervalHandler = () => {
-    setMultiplierState((multiplier) => {
+    setMultiplierState((currentMultiplier) => {
       // if timer is not running, don't increase
-      if ( !runningRef.current ) return multiplier
+      if ( !runningRef.current ) return currentMultiplier
 
-      const mul = multiplier + step
-      setMultiplierInVis(mul)
-      return mul
+      const nextMultiplier = currentMultiplier + step
+      setMultiplierInVis(nextMultiplier)
+      return nextMultiplier
     })
   }
 
@@ -85,18 +83,22 @@ export default function Spiralizer( props )  {
 
   return (
     <>
-      {startOrStopButton}
-      <FlexRow>
-        {types.map(makeSwitch)}
+      <FlexRow flex="space-between" width="50%">
+        {startOrStopButton}
+        <FlexRow flex="space-beetween" align="center" width="70%">
+          <label htmlFor="multiplierInput">Multiplier: </label>
+          <input
+            id="multiplierInput"
+            type="range"
+            min={sliderMin}
+            max={sliderMax}
+            value={multiplier}
+            onChange={setMultiplierHandler} />
+          <p>{multiplier}</p>
+        </FlexRow>
       </FlexRow>
       <FlexRow>
-        <input
-          type="range"
-          min="0"
-          max="1000000"
-          value={multiplier}
-          onChange={setMultiplierHandler} />
-        <p>{multiplier}</p>
+        {types.map(makeSwitch)}
       </FlexRow>
       <Animator
         drawer={spiralizer}

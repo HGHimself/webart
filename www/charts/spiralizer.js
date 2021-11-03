@@ -14,64 +14,63 @@ class Spiralizer {
 
     this.svg = d3.select(containerEl)
       .append('svg')
-      // .style('background-color', 'white')
       .attr('width', width)
       .attr('height', height)
 
     this.update()
   }
 
-  setBounds(width, height) {
-    // console.log({width, height});
-    this.svg
-      .attr('width', width)
+  resize(width, height) {
+    const { svg, props } = this
+
+    svg.attr('width', width)
       .attr('height', height)
-    this.props.width = width
-    this.props.height = height
-    this.update()
-  }
 
-  getArc() {
-    const { count, multiplier } = this.props
-
-    const arc = Array.from({ length: count }, (_, i) => [
-      5 * i, // radius,
-      (multiplier/10) * (Math.PI / 3) * i, // angle (in radians)
-    ]).map((coord) => polarToCartesian(coord[0], coord[1]))
-
-    return d3.line()(arc)
+    props.width = width
+    props.height = height
+    this.setMultiplier(props.multiplier)
   }
 
   update() {
-    const { svg, props: { count, height, width, multiplier } } = this
+    const { svg, props: { height, width } } = this
 
-    const arc = this.getArc()
-    console.log({width, height});
+    const arc = this.calculateArc()
+
     svg.selectAll('path')
       .data([0])
       .enter()
         .append("path")
         .attr("d", arc)
-        .attr("fill", theme.colors.white)
+        .attr("fill", "transparent")
         .attr("stroke", theme.colors.black)
         .attr("stroke-width", "1")
-        .attr("transform", `translate(${width/2},${height/2})`)
   }
 
-  setMultiplier(m) {
-    const { svg, props: { count, height, width, multiplier } } = this
-    this.props.multiplier = m
+  calculateArc() {
+    const { count, multiplier, width, height } = this.props
+    const originX = width / 2
+    const originY = height / 2
 
-    const arc = this.getArc()
+    const arc = Array.from({ length: count }, (_, i) => [
+      5 * i, // radius,
+      ((multiplier / 10) * (Math.PI / 2) * i), // angle (in radians)
+    ]).map((coord) => polarToCartesian(coord[0], coord[1]))
+    .map((coord) => [originX + coord[0], originY + coord[1]])
 
-    svg.selectAll('path')
+    return d3.line()(arc)
+  }
+
+  setMultiplier(multiplier) {
+    this.props.multiplier = multiplier
+
+    const arc = this.calculateArc()
+
+    this.svg.selectAll('path')
       .attr("d", arc)
   }
 
   setColor(color) {
-    const { svg } = this
-
-    svg.selectAll('path')
+    this.svg.selectAll('path')
       .attr("fill", color)
   }
 }
