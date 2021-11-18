@@ -26,7 +26,7 @@ export default function Circular( props )  {
   const count = 43
   const amplitude = 300
 
-  const height = 700
+  const height = 600
   const width = 1300
 
   const time = 10

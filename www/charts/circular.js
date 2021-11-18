@@ -26,7 +26,7 @@ class Circular {
 
     props.width = width
     props.height = height
-    props.amplitude = width * 0.3
+    props.amplitude = width * 0.2
 
     this.setOffset(this.props.offset)
   }
