@@ -11,7 +11,7 @@ export default function CircularContainer(props) {
   return (
     <>
       <h2>Radial Cartesian</h2>
-      <Circular x={query.get("x")} y={query.get("y")} p={query.get("p")} />
+      <Circular x={query.get("x")} y={query.get("y")} p={query.get("p")} {...props} />
     </>
   )
 }

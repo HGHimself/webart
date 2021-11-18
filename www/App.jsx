@@ -15,6 +15,7 @@ import ColorStudy from "./containers/ColorStudy.jsx"
 import Circular from "./containers/Circular.jsx"
 import Blog from "./containers/Blog.jsx"
 import Dada from "./containers/Dada.jsx"
+import Oolisp from "./containers/Oolisp.jsx"
 import Buildings from "./containers/Buildings.jsx"
 
 import Footer from "./components/Footer.jsx"
@@ -23,7 +24,6 @@ import Button from "./components/Button.jsx"
 import VerticalList from "./components/VerticalList.jsx"
 
 import theme from "./theme"
-
 
 export default function App( props ) {
 
@@ -39,6 +39,7 @@ export default function App( props ) {
   const navs = [
     'Blog',
     'Aesthetic',
+    'Oolisp',
     'Spiral',
     'Fourier',
     'ColorPlot',
@@ -67,9 +68,9 @@ export default function App( props ) {
           <Route path="/Aesthetic">
             <Aesthetic />
           </Route>
-          <Route path="/Spiral">
-          <Spiral />
-            </Route>
+          <Route path="/Spiralizer">
+            <Spiral />
+          </Route>
           <Route path="/Fourier">
             <Fourier />
           </Route>
@@ -79,7 +80,7 @@ export default function App( props ) {
           <Route path="/ColorStudy">
             <ColorStudy />
           </Route>
-          <Route path="/">
+          <Route path="/Circular">
             <Circular />
           </Route>
           <Route path="/Blog">
@@ -87,6 +88,9 @@ export default function App( props ) {
           </Route>
           <Route path="/Dada">
             <Dada backendUrl={backendUrl} />
+          </Route>
+          <Route path="/Oolisp">
+            <Oolisp />
           </Route>
           <Route path="/Buildings">
             <Buildings />

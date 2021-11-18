@@ -11,11 +11,6 @@ class Fourier {
     this.props = props
     const { width, height, period, amplitude } = props
 
-    this.props.numbers = Array.from({ length: this.props.length }, (_, i) => i+1)
-
-    this.props.evens = this.props.numbers.map(x => x * 2)
-    this.props.odds = this.props.evens.map(x => x - 1)
-
     const frequency = 1 / period
     this.props.omega = 2 * Math.PI * frequency
 
@@ -27,20 +22,29 @@ class Fourier {
     this.update()
   }
 
-  setBounds(width, height) {
-    this.svg
-      .attr('width', width)
+  resize(width, height) {
+    const { svg, props } = this
+
+    svg.attr('width', width)
       .attr('height', height)
 
-    this.props.width = width
-    this.props.height = height
-    this.update()
+    props.width = width
+    props.height = height
+
+    const originX = width / 2
+    const originY = height / 2
+
+    props.originXCircles = originX - 400
+    props.originYCircles = originY
+
+    props.originXLine = 600
+    props.originYLine = originY
   }
 
   getSquarewave() {
-    const { count, amplitude, omega, offset, odds, originYLine, originXLine } = this.props
+    const { count, amplitude, omega, offset, numbers, originYLine, originXLine } = this.props
 
-    const squarewaveTransform = (t) => fourier(amplitude, omega, t, odds, squareWaveSequenceSin)
+    const squarewaveTransform = (t) => fourier(amplitude, omega, t, numbers, squareWaveSequenceSin)
 
     const arc = Array.from({ length: count }, (_, i) => [
       originXLine + i,
@@ -51,12 +55,12 @@ class Fourier {
   }
 
   getSquarewaveDrawer(count) {
-    const { amplitude, omega, offset, odds, originXCircles, originYCircles, originYLine, originXLine } = this.props
+    const { amplitude, omega, offset, numbers, originXCircles, originYCircles, originYLine, originXLine } = this.props
 
-    const squarewaveTransformSin = (t, alpha) => fourier(amplitude, omega, t, odds, (omega, time, arr) => {
+    const squarewaveTransformSin = (t, alpha) => fourier(amplitude, omega, t, numbers, (omega, time, arr) => {
       return squareWaveSequenceSin(omega, time, arr.slice(0, alpha))
     })
-    const squarewaveTransformCos = (t, alpha) => fourier(amplitude, omega, t, odds, (omega, time, arr) => {
+    const squarewaveTransformCos = (t, alpha) => fourier(amplitude, omega, t, numbers, (omega, time, arr) => {
       return squareWaveSequenceCos(omega, time, arr.slice(0, alpha))
     })
 
@@ -74,9 +78,9 @@ class Fourier {
   }
 
   getCircleDrawerY() {
-    const { amplitude, omega, offset, odds, originYCircles } = this.props
+    const { amplitude, omega, offset, numbers, originYCircles } = this.props
 
-    const squarewaveTransformSin = (t, alpha) => fourier(amplitude, omega, t, odds, (omega, time, arr) => {
+    const squarewaveTransformSin = (t, alpha) => fourier(amplitude, omega, t, numbers, (omega, time, arr) => {
       return squareWaveSequenceSin(omega, time, arr.slice(0, alpha))
     })
 
@@ -84,34 +88,22 @@ class Fourier {
   }
 
   getCircleDrawerX() {
-    const { amplitude, omega, offset, odds, originXCircles } = this.props
+    const { amplitude, omega, offset, numbers, originXCircles } = this.props
 
-    const squarewaveTransformCos = (t, alpha) => fourier(amplitude, omega, t, odds, (omega, time, arr) => {
+    const squarewaveTransformCos = (t, alpha) => fourier(amplitude, omega, t, numbers, (omega, time, arr) => {
       return squareWaveSequenceCos(omega, time, arr.slice(0, alpha))
     })
 
     return (d, i) => originXCircles + (squarewaveTransformCos(offset, i))
   }
 
-  update() {
-    const { svg, props: { height, width, amplitude, omega, offset, odds, numbers } } = this
-
-    this.props.originX = width / 2
-    this.props.originY = height / 2
-
-    this.props.originXCircles = this.props.originX - 400
-    this.props.originYCircles = this.props.originY
-
-    this.props.originXLine = 600
-    this.props.originYLine = this.props.originY
-
-    const squarewave = this.getSquarewave()
-    const getSquarewaveDrawer = this.getSquarewaveDrawer(this.props.length)
-
+  drawCircles() {
+    const { svg, props: { amplitude, numbers } } = this
+    // for each number, mak
     const getRadius = (d) => amplitude * squareWaveCos(1, 0, d)
 
     svg.selectAll('circle')
-      .data(odds)
+      .data(numbers)
       .enter()
         .append("circle")
         .attr("cy", this.getCircleDrawerY())
@@ -120,6 +112,16 @@ class Fourier {
         .attr("fill", 'none')
         .attr("stroke", theme.colors.black)
         .attr("stroke-width", "0.5")
+  }
+
+  update() {
+    const { svg, props: { height, width, amplitude, omega, offset, numbers } } = this
+
+    const squarewave = this.getSquarewave()
+    const getSquarewaveDrawer = this.getSquarewaveDrawer(this.props.length)
+
+    this.drawCircles()
+
     svg.selectAll('path.circles')
       .data([0])
       .enter()
@@ -141,7 +143,7 @@ class Fourier {
   }
 
   setOffset(offset) {
-    const { svg, props: { height, width, amplitude, omega, odds, length } } = this
+    const { svg, props: { height, width, amplitude, omega, numbers, length } } = this
     this.props.offset = offset
 
     const squarewave = this.getSquarewave()

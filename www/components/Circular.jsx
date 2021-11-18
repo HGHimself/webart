@@ -11,8 +11,10 @@ import Button from "./Button.jsx"
 import FlexRow from "./FlexRow.jsx"
 import Switch from "./Switch.jsx"
 
-export default function Circular( props )  {
+let vis = null;
+const setVis = (v) => { vis = v }
 
+export default function Circular( props )  {
   const [color, setColorState] = useState(defaultColor)
   const [offset, setOffsetState] = useState(0)
   const [multiplierX, setMultiplierXState] = useState(props.x || 1)
@@ -20,12 +22,12 @@ export default function Circular( props )  {
   const [period, setPeriodState] = useState(props.p || 13)
   const [running, setRunningState] = useState(false)
   const [mode, setModeState] = useState(true)
-  const [vis, setVisState] = useState(null)
-  console.log(vis);
+
   const count = 43
+  const amplitude = 300
+
   const height = 700
   const width = 1300
-  const amplitude = 300
 
   const time = 10
   const step = 1
@@ -182,10 +184,11 @@ export default function Circular( props )  {
       </div>
       <Animator
         drawer={circular}
-        setVis={setVisState}
+        setVis={setVis}
         options={options}
         time={time}
-        intervalCallback={intervalHandler} />
+        intervalCallback={intervalHandler}
+        />
     </>
   )
 }

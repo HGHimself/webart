@@ -10,25 +10,25 @@ class Circular {
     this.props = props
     const { width, height } = props
 
-    this.props.originX = width / 2
-    this.props.originY = height / 2
-
     this.svg = d3.select(containerEl)
       .append('svg')
       .attr('width', width)
       .attr('height', height)
 
-    // this.update()
+    this.update()
   }
 
-  setBounds(width, height) {
-    this.svg
-      .attr('width', width)
+  resize(width, height) {
+    const { svg, props } = this
+
+    svg.attr('width', width)
       .attr('height', height)
 
-    this.props.originX = width / 2
-    this.props.originY = height / 2
-    this.update()
+    props.width = width
+    props.height = height
+    props.amplitude = width * 0.3
+
+    this.setOffset(this.props.offset)
   }
 
   setMultiplierX(multiplierX) {
@@ -44,7 +44,10 @@ class Circular {
   }
 
   getDrawer() {
-    const { mode, count, amplitude, offset, frequency, multiplierX, multiplierY, originY, originX } = this.props
+    const { mode, count, amplitude, offset, frequency, multiplierX, multiplierY, width, height } = this.props
+
+    const originX = (width/2)
+    const originY = (height/2)
 
     const arc = mode ? Array.from({ length: count }, (_, i) => [
       simpleHarmonicMotionSin(originX, amplitude, multiplierX * frequency, i - offset),
