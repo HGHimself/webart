@@ -102,25 +102,27 @@ export default function ColorPlot( props )  {
 
   return (
     <>
-      <FlexRow>
+      <FlexRow wrap="wrap">
         <FlexRow>
           {axis.map(makeSwitchHanlder)}
         </FlexRow>
-        <input
-          style={{width: '400px'}}
-          type="range"
-          min="0"
-          max="10000000"
-          value={value}
-          onChange={setValueHandler} />
-        {startOrStopButton}
-        <Animator
-          drawer={colorPlot}
-          setVis={setVis}
-          options={options}
-          time={time}
-          intervalCallback={intervalHandler} />
+        <FlexRow direction="column" >
+          {startOrStopButton}
+          <input
+            style={{width: '200px'}}
+            type="range"
+            min="0"
+            max="10000000"
+            value={value}
+            onChange={setValueHandler} />
+        </FlexRow>
       </FlexRow>
+      <Animator
+        drawer={colorPlot}
+        setVis={setVis}
+        options={options}
+        time={time}
+        intervalCallback={intervalHandler} />
     </>
   )
 }
