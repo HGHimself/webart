@@ -3,7 +3,7 @@ import * as d3 from "d3"
 import theme from "../theme"
 import { getSpectrumPosition } from '../utils/color-tools.js'
 
-class Circles {
+class Relativity {
 
   constructor(containerEl, props) {
     this.containerEl = containerEl
@@ -17,6 +17,18 @@ class Circles {
       .attr('height', height)
 
     this.update();
+  }
+
+  resize(width, height) {
+    const { svg, props } = this
+
+    svg.attr('width', width)
+      .attr('height', height)
+
+    props.width = width
+    props.height = height
+
+    this.update()
   }
 
   update() {
@@ -54,4 +66,4 @@ class Circles {
   }
 }
 
-export default Circles
+export default Relativity
