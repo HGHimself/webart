@@ -22,6 +22,7 @@ class Vector {
 
     props.width = width
     props.height = height
+    props.amplitude = width * 0.4 > 700 ? 700 : width * 0.4
 
     this.setOffset(this.props.offset)
   }

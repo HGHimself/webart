@@ -83,9 +83,9 @@ export default function Spiralizer( props )  {
 
   return (
     <>
-      <FlexRow flex="space-between" width="50%">
+      <FlexRow wrap="wrap" flex="space-between" width="50%">
         {startOrStopButton}
-        <FlexRow flex="space-beetween" align="center" width="70%">
+        <FlexRow wrap="wrap" flex="space-beetween" align="center" width="70%">
           <label htmlFor="multiplierInput">Multiplier: </label>
           <input
             id="multiplierInput"

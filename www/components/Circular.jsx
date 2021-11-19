@@ -150,10 +150,10 @@ export default function Circular( props )  {
       {modeButton}
       <Button type='info' onClick={randomizeHandler}>RANDOMIZE</Button>
       <Button type='warning' onClick={shareHandler}>COPY LINK</Button>
-      <FlexRow>
+      <FlexRow wrap="wrap">
         {types.map(makeSwitch)}
       </FlexRow>
-      <FlexRow flex="space-between" width="30%">
+      <FlexRow wrap="wrap" flex="space-between" width="30%">
         <FlexRow align="center">
           <label htmlFor="multiplierX">X:</label>
           <input
