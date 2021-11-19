@@ -56,7 +56,7 @@ list
       (\\ {} {rec (dec target) base step})}})
 
 (fun {primep n}
-  {rec n 0 
+  {rec n 0
     (\\ {n-1 primepn-1}
       {if (== 0 (% n n-1))
         {n-1}
@@ -100,8 +100,8 @@ Welcome to Oolisp, a Web-based LISP interpreter.
         - Q-Expressions are lists of values, remains unevaluated. (ie. {1 1 1 1}, {+ 9 (== {} {})})
         usage: {elem0 elem1 elem2}
     lambda:
-        - Lambda functions are how you build functions, can be partially applied. (ie. (\ {a b} {+ a b}))
-        usage: (\ {arg-list} {body})
+        - Lambda functions are how you build functions, can be partially applied. (ie. (\\ {a b} {+ a b}))
+        usage: (\\ {arg-list} {body})
 `
 
 export default function Oolisp( props )  {

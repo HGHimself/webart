@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react"
-import { css } from "@emotion/css"
 
 let vis = null
 
@@ -51,8 +50,6 @@ export default function Animator( props ) {
   useEffect(updateVisOnResize, [ width, height ])
 
   return (
-    <div>
       <div ref={refElement} {...other} />
-    </div>
   )
 }

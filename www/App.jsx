@@ -17,6 +17,7 @@ import Blog from "./containers/Blog.jsx"
 import Dada from "./containers/Dada.jsx"
 import Oolisp from "./containers/Oolisp.jsx"
 import Buildings from "./containers/Buildings.jsx"
+import Vector from "./containers/Vector.jsx"
 
 import Footer from "./components/Footer.jsx"
 import FlexRow from "./components/FlexRow.jsx"
@@ -46,7 +47,7 @@ export default function App( props ) {
     'ColorStudy',
     'Circular',
     'Dada',
-    'Buildings'
+    'Vector'
   ]
 
   const main = css`
@@ -92,8 +93,8 @@ export default function App( props ) {
           <Route path="/Oolisp">
             <Oolisp />
           </Route>
-          <Route path="/Buildings">
-            <Buildings />
+          <Route path="/Vector">
+            <Vector />
           </Route>
         </Switch>
       </Router>
