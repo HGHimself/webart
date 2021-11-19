@@ -44,18 +44,28 @@ list
     (\\ {l-1 peasl-1}
     {cons "pea" peasl-1})})
 
-(fun {iter target base step} {if (== 0 target) {base} {step (iter (dec target) base step)}})
+(fun {iter target base step}
+  {if (== 0 target)
+    {base}
+    {step (\\ {} {iter (dec target) base step})}})
 
 (fun {rec target base step}
   {if (== 0 target)
     {base}
     {step (dec target)
       (\\ {} {rec (dec target) base step})}})
+
+(fun {primep n}
+  {rec n 0 
+    (\\ {n-1 primepn-1}
+      {if (== 0 (% n n-1))
+        {n-1}
+        {primepn-1}})})
+
 `
 
 const terminalInput = css`
-  background: inherit;
-  border: none;
+  border: 1px solid black;
   outline: none;
   width: 80%;
   font-size: 1em;
@@ -66,6 +76,33 @@ const terminal = css`
 `
 
 const prompt = "oolisp >"
+
+const help = `
+Welcome to Oolisp, a Web-based LISP interpreter.
+
+  Special Commands:
+    help - prints this message you're reading now
+    env - prints the environment of variables' names and their assigned values
+    clear - clears the output buffer
+
+  Syntax & Types:
+    number:
+        - Numbers like we are all familiar with. (ie. 1, 1.1, 1.1e+13, 1.1e-13)
+    symbol:
+        - Symbols are names that can be assigned to any value. (ie. add, def, fun, some-var)
+        usage: def {symbol-name} value
+    string:
+        - Strings are characters delimited by double quotes. (ie. "c'ect ci nest pa un pipe?", "hg king")
+    s-expression:
+        - S-Expressions are used to call and evaluate functions. (ie. (+ 1 2 3), (- (+ 9 1) (* 5 2)), (list 1 2 3 4), (== {} {}))
+        usage: (function arg0 arg1 arg2)
+    q-expression:
+        - Q-Expressions are lists of values, remains unevaluated. (ie. {1 1 1 1}, {+ 9 (== {} {})})
+        usage: {elem0 elem1 elem2}
+    lambda:
+        - Lambda functions are how you build functions, can be partially applied. (ie. (\ {a b} {+ a b}))
+        usage: (\ {arg-list} {body})
+`
 
 export default function Oolisp( props )  {
 
@@ -99,6 +136,8 @@ export default function Oolisp( props )  {
   const handleCalculate = () => {
     if (inputRef.current == "clear") {
       setShellBufferState("")
+    } else if (inputRef.current == "help") {
+      setShellBufferState(<pre>{help}</pre>)
     } else {
       setShellBufferState((currentBuf) => <>
         <div>{oolisp.lisp(env, inputRef.current)}</div>
@@ -128,6 +167,7 @@ export default function Oolisp( props )  {
   return (
     <>
       <h2>Oolisp</h2>
+      <p>Web-based LISP interpreter. ~994 lines of Rust, compiled to WASM. Enter <code>help</code> into the prompt below for instructions.</p>
       <div className={terminal}>
         <FlexRow direction="column-reverse" overflowY="scroll" height="500px">
           {shellBuffer}

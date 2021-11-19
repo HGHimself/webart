@@ -68,7 +68,7 @@ export default function App( props ) {
           <Route path="/Aesthetic">
             <Aesthetic />
           </Route>
-          <Route path="/Spiralizer">
+          <Route path="/Spiral">
             <Spiral />
           </Route>
           <Route path="/Fourier">
