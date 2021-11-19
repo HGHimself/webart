@@ -18,7 +18,9 @@ export default function Animator( props ) {
   }
 
   const updateVisOnResize = () => {
-    vis && vis.resize(width, height)
+    const w = width - 96
+    const h = options.height
+    vis && vis.resize(w, h)
   }
 
   const handleResizeEvent = () => {
@@ -26,7 +28,7 @@ export default function Animator( props ) {
     const handleResize = () => {
       clearTimeout(resizeTimer)
       resizeTimer = setTimeout(function() {
-        setWidth(window.innerWidth - 96)
+        setWidth(window.innerWidth)
         setHeight(window.innerHeight)
       }, 300)
     }
