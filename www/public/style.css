@@ -52,8 +52,6 @@ h6, input[type=number] {
 p  {
   font-size: 1rem;
   letter-spacing: 0.5px;
-  text-align: justify;
-  text-justify: inter-word;
 }
 
 .subtitle1  {

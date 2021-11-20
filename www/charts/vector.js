@@ -11,6 +11,15 @@ class Vector {
       .attr('width', width)
       .attr('height', height)
 
+    this.svg.selectAll('path.lines')
+      .data([0])
+      .enter()
+        .append("path")
+        .attr("class", "lines")
+        .attr("fill", "none")
+        .attr("stroke", "#000000")
+        .attr("stroke-width", "0.5")
+
     this.update()
   }
 
@@ -24,7 +33,7 @@ class Vector {
     props.height = height
     props.amplitude = width * 0.4 > 300 ? 300 : width * 0.4
 
-    this.setOffset(this.props.offset)
+    this.update()
   }
 
   getDrawer() {
@@ -42,35 +51,24 @@ class Vector {
   }
 
   setOffset(offset) {
-    const { svg } = this
     this.props.offset = offset
-
-    const drawer = this.getDrawer()
-
-    svg.selectAll('path.lines')
-        .attr("d", drawer)
+    this.update()
   }
 
   setMultiplierX(multiplierX) {
     this.props.multiplierX = multiplierX
+    this.update()
   }
 
   setMultiplierY(multiplierY) {
     this.props.multiplierY = multiplierY
+    this.update()
   }
 
   update() {
     const { svg } = this
     const drawer = this.getDrawer()
-    svg.selectAll('path.lines')
-      .data([0])
-      .enter()
-        .append("path")
-        .attr("class", "lines")
-        .attr("d", drawer)
-        .attr("fill", "none")
-        .attr("stroke", "#000000")
-        .attr("stroke-width", "0.5")
+    this.svg.selectAll('path.lines').attr("d", drawer)
   }
 }
 

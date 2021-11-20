@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState } from "react"
 import { css } from "@emotion/css"
 
 import fourier from "../charts/fourier.js"
 import theme from "../theme"
 
 import Animator from "./Animator.jsx"
+import FlexRow from "./FlexRow.jsx"
 
 let vis
 const setVis = (v) => { vis = v }
@@ -15,22 +16,19 @@ export default function Fourier( props )  {
   const step = 0.5
   const length = 5
 
-  // const numbers = Array.from({ length: length }, (_, i) => i+1)
-  //   .map(x => (x * 2) - 1)
-
-  const numbers = [ 1, 3, 1, 7, 9, 11, 13, 15, 17, 19, 21]
-
+  const [numbers, setNumbers] = useState([ 1, 3, 5, 7, 9, 11, 13, 15 ])
   const [offset, setOffsetState] = useState(0)
 
+  const period = 350
+
   const options = {
-    count: 1000,
-    height: 700,
+    count: period,
+    height: 500,
     width: 1300,
-    period: 350,
+    omega: 2 * Math.PI * (1 / period),
     offset,
-    amplitude: 300,
+    amplitude: 200,
     numbers,
-    length
   }
 
   const setOffsetVis = (v) => {
@@ -46,12 +44,33 @@ export default function Fourier( props )  {
     })
   }
 
+  const inputHandler = (i) => ({target}) => {
+    const n = target.value < 1 ? 1 : target.value
+    numbers[i] = n
+    setNumbers(numbers)
+  }
+
+  const numberInputs = numbers.map((n, i) => <>
+    <FlexRow key={i} align="center">
+        <label htmlFor="multiplierY">n_{i}:</label>
+        <input
+          type="number"
+          value={numbers[i]}
+          onChange={inputHandler(i)}  />
+    </FlexRow>
+  </>)
+
   return (
-    <Animator
-      drawer={fourier}
-      setVis={setVis}
-      options={options}
-      time={time}
-      intervalCallback={intervalHandler} />
+    <>
+      <FlexRow wrap="wrap" flex="space-between" width="70%">
+        {numberInputs}
+      </FlexRow>
+      <Animator
+        drawer={fourier}
+        setVis={setVis}
+        options={options}
+        time={time}
+        intervalCallback={intervalHandler} />
+    </>
   )
 }

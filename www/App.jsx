@@ -41,11 +41,11 @@ export default function App( props ) {
     'Blog',
     'Aesthetic',
     'Oolisp',
+    'RadialCartesian',
     'Spiral',
     'Fourier',
     'ColorPlot',
     'ColorStudy',
-    'Circular',
     'Dada',
     'Vector'
   ]
@@ -81,7 +81,7 @@ export default function App( props ) {
           <Route path="/ColorStudy">
             <ColorStudy />
           </Route>
-          <Route path="/Circular">
+          <Route path="/RadialCartesian">
             <Circular />
           </Route>
           <Route path="/Blog">
@@ -92,9 +92,6 @@ export default function App( props ) {
           </Route>
           <Route path="/Oolisp">
             <Oolisp />
-          </Route>
-          <Route path="/Vector">
-            <Vector />
           </Route>
         </Switch>
       </Router>

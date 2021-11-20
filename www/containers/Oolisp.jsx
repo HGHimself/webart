@@ -62,6 +62,15 @@ list
         {n-1}
         {primepn-1}})})
 
+function gcd(a, b)
+    if b = 0
+        return a
+    else
+        return gcd(b, a mod b)
+
+(fun {gcd a b}
+  {if (== b 0) {a} {gcd b (% a b)}})
+
 `
 
 const terminalInput = css`
