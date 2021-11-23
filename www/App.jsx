@@ -39,15 +39,13 @@ export default function App( props ) {
 
   const navs = [
     'Blog',
-    'Aesthetic',
     'Oolisp',
     'RadialCartesian',
-    'Spiral',
+    'Dada',
     'Fourier',
     'ColorPlot',
     'ColorStudy',
-    'Dada',
-    'Vector'
+    'Aesthetic',
   ]
 
   const main = css`
@@ -61,10 +59,8 @@ export default function App( props ) {
   return (
     <div id="main" className={main}>
       <h6>Hello, World!</h6>
-      <p>Digital Arts by HG King - {process.env.NODE_ENV}</p>
-      {/*<FlexRow flex='flex-start'>{navs.map(makeNav)}</FlexRow>*/}
       <Router>
-        <VerticalList elements={verticalList} />
+        <p>Digital Arts by HG King - {process.env.NODE_ENV} :: <VerticalList elements={verticalList} /></p>
         <Switch>
           <Route path="/Aesthetic">
             <Aesthetic />
