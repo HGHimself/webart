@@ -11,7 +11,7 @@ const setVis = (v) => { vis = v }
 
 export default function ColorStudy( props )  {
 
-  const height = 700
+  const height = 600
   const width = 1000
 
   const colors = [

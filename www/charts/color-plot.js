@@ -42,6 +42,16 @@ class colorPlot {
     this.setValue(10)
   }
 
+  resize(width, height) {
+    const { svg, props } = this
+
+    svg.attr('width', width)
+      .attr('height', height)
+
+    props.width = width
+    props.height = height
+  }
+
   getCircleDrawerX() {
     const { xAxisValue } = this.props
     return (d) => -getRgbSpectrumArray(d)[xAxisValue]

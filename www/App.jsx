@@ -15,7 +15,9 @@ import ColorStudy from "./containers/ColorStudy.jsx"
 import Circular from "./containers/Circular.jsx"
 import Blog from "./containers/Blog.jsx"
 import Dada from "./containers/Dada.jsx"
+import Oolisp from "./containers/Oolisp.jsx"
 import Buildings from "./containers/Buildings.jsx"
+import Vector from "./containers/Vector.jsx"
 
 import Footer from "./components/Footer.jsx"
 import FlexRow from "./components/FlexRow.jsx"
@@ -23,7 +25,6 @@ import Button from "./components/Button.jsx"
 import VerticalList from "./components/VerticalList.jsx"
 
 import theme from "./theme"
-
 
 export default function App( props ) {
 
@@ -38,14 +39,13 @@ export default function App( props ) {
 
   const navs = [
     'Blog',
-    'Aesthetic',
-    'Spiral',
+    'Oolisp',
+    'RadialCartesian',
+    'Dada',
     'Fourier',
     'ColorPlot',
     'ColorStudy',
-    'Circular',
-    'Dada',
-    'Buildings'
+    'Aesthetic',
   ]
 
   const main = css`
@@ -59,17 +59,15 @@ export default function App( props ) {
   return (
     <div id="main" className={main}>
       <h6>Hello, World!</h6>
-      <p>Digital Arts by HG King - {process.env.NODE_ENV}</p>
-      {/*<FlexRow flex='flex-start'>{navs.map(makeNav)}</FlexRow>*/}
       <Router>
-        <VerticalList elements={verticalList} />
+        <p>Digital Arts by HG King - {process.env.NODE_ENV} :: <VerticalList elements={verticalList} /></p>
         <Switch>
           <Route path="/Aesthetic">
             <Aesthetic />
           </Route>
           <Route path="/Spiral">
-          <Spiral />
-            </Route>
+            <Spiral />
+          </Route>
           <Route path="/Fourier">
             <Fourier />
           </Route>
@@ -79,7 +77,7 @@ export default function App( props ) {
           <Route path="/ColorStudy">
             <ColorStudy />
           </Route>
-          <Route path="/Circular">
+          <Route path="/RadialCartesian">
             <Circular />
           </Route>
           <Route path="/Blog">
@@ -88,8 +86,8 @@ export default function App( props ) {
           <Route path="/Dada">
             <Dada backendUrl={backendUrl} />
           </Route>
-          <Route path="/Buildings">
-            <Buildings />
+          <Route path="/Oolisp">
+            <Oolisp />
           </Route>
         </Switch>
       </Router>

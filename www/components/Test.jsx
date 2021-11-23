@@ -3,10 +3,10 @@ import D3Component from '../charts/test.js';
 
 let vis;
 
-export default function ReactComponent() {
+export default function ReactComponent(props) {
   const [data, setData] = useState(null);
-  const [width, setWidth] = useState(600);
-  const [height, setHeight] = useState(600);
+  const [width, setWidth] = useState(props.width || 600);
+  const [height, setHeight] = useState(props.height || 600);
   const [active, setActive] = useState(null);
   const refElement = useRef(null);
 

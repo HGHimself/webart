@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import { css } from "@emotion/css"
 const axios = require('axios')
 import {
   Switch,
@@ -7,6 +8,11 @@ import {
   useRouteMatch,
   useParams
 } from "react-router-dom"
+
+const articleStyle = css`
+  width: 50%;
+  margin: auto;
+`
 
 export default function BlogContainer(props) {
   const { backendUrl } = props
@@ -55,6 +61,8 @@ function Article(props) {
   })
 
   return (
-    <div dangerouslySetInnerHTML={{__html: dangerousHtml}} />
+    <div className={articleStyle}>
+      <div dangerouslySetInnerHTML={{__html: dangerousHtml}} />
+    </div>
   )
 }

@@ -1,58 +1,76 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState } from "react"
 import { css } from "@emotion/css"
 
 import fourier from "../charts/fourier.js"
 import theme from "../theme"
 
 import Animator from "./Animator.jsx"
+import FlexRow from "./FlexRow.jsx"
 
 let vis
 const setVis = (v) => { vis = v }
 
 export default function Fourier( props )  {
 
-  const count = 1000
-  const height = 700
-  const width = 1300
-  const amplitude = 300
-  const period = 350
-
   const time = 10
   const step = 0.5
-
   const length = 5
 
-  const options = {
-    count,
-    height,
-    width,
-    period,
-    offset,
-    amplitude,
-    length
-  }
-
+  const [numbers, setNumbers] = useState([ 1, 3, 5, 7, 9, 11, 13, 15 ])
   const [offset, setOffsetState] = useState(0)
+
+  const period = 350
+
+  const options = {
+    count: period,
+    height: 500,
+    width: 1300,
+    omega: 2 * Math.PI * (1 / period),
+    offset,
+    amplitude: 200,
+    numbers,
+  }
 
   const setOffsetVis = (v) => {
     vis.setOffset(v)
     vis.update()
   }
 
-  const bumpOffset = (offset) => {
-    const off = offset + step
-    setOffsetVis(off)
-    return off
+  const intervalHandler = () => {
+    setOffsetState((currentOffset) => {
+      const newOffset = currentOffset + step
+      setOffsetVis(newOffset)
+      return newOffset
+    })
   }
 
-  const intervalHandler = () => { setOffsetState(bumpOffset) }
+  const inputHandler = (i) => ({target}) => {
+    const n = target.value < 1 ? 1 : target.value
+    numbers[i] = n
+    setNumbers(numbers)
+  }
+
+  const numberInputs = numbers.map((n, i) => <>
+    <FlexRow key={i} align="center">
+        <label htmlFor="multiplierY">n_{i}:</label>
+        <input
+          type="number"
+          value={numbers[i]}
+          onChange={inputHandler(i)}  />
+    </FlexRow>
+  </>)
 
   return (
-    <Animator
-      drawer={fourier}
-      setVis={setVis}
-      options={options}
-      time={time}
-      intervalCallback={intervalHandler} />
+    <>
+      <FlexRow wrap="wrap" flex="space-between" width="70%">
+        {numberInputs}
+      </FlexRow>
+      <Animator
+        drawer={fourier}
+        setVis={setVis}
+        options={options}
+        time={time}
+        intervalCallback={intervalHandler} />
+    </>
   )
 }

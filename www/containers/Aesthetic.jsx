@@ -21,13 +21,13 @@ export default function Aesthetic( props )  {
     <h2>Aesthetic</h2>
       <h6>Badmon Design System</h6>
       <h5>colors</h5>
-      <FlexRow>
+      <FlexRow wrap="wrap">
         {objectMap(theme.shades, makeSwatch)}
       </FlexRow>
       <h5>buttons</h5>
-      <FlexRow>{types.map(makeButton)}</FlexRow>
+      <FlexRow wrap="wrap">{types.map(makeButton)}</FlexRow>
       <h5>switches</h5>
-      <FlexRow>{types.map(makeSwitch)}</FlexRow>
+      <FlexRow wrap="wrap">{types.map(makeSwitch)}</FlexRow>
       <h5>codeblock</h5>
       <pre>
         <code>{`

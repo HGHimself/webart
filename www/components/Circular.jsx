@@ -11,10 +11,15 @@ import Button from "./Button.jsx"
 import FlexRow from "./FlexRow.jsx"
 import Switch from "./Switch.jsx"
 
-let vis
+let vis = null;
 const setVis = (v) => { vis = v }
 
 export default function Circular( props )  {
+
+  const time = 10
+  const step = 1
+  const limit = 1000
+  const defaultColor = 'transparent'
 
   const [color, setColorState] = useState(defaultColor)
   const [offset, setOffsetState] = useState(0)
@@ -22,31 +27,17 @@ export default function Circular( props )  {
   const [multiplierY, setMultiplierYState] = useState(props.y || 1)
   const [period, setPeriodState] = useState(props.p || 13)
   const [running, setRunningState] = useState(false)
-  const [mode, setModeState] = useState(true)
-
-  const count = 43
-  const height = 700
-  const width = 1300
-  const amplitude = 300
-
-  const time = 10
-  const step = 1
-
-  const limit = 1000
-
-  const defaultColor = 'transparent'
-  const frequency = 1 / period;
+  const [count, setCount] = useState(43)
 
   const options = {
     count,
-    height,
-    width,
+    height: 600,
+    width: 1300,
     offset,
-    amplitude,
-    frequency,
+    amplitude: 300,
+    frequency: 1 / period,
     multiplierY,
     multiplierX,
-    mode
   }
 
   // ref to stick into the timer
@@ -54,21 +45,10 @@ export default function Circular( props )  {
   runningRef.current = running
   const toggleRunning = () => setRunningState(!running)
 
-  const toggleMode = () => {
-    const newMode = !mode
-    setModeState(newMode)
-    vis.setMode(newMode)
-    setOffsetVis(offset)
-  }
-
-  const setOffsetVis = (v) => {
-    vis.setOffset(v)
-    vis.update()
-  }
-
   const bumpOffset = (offset) => {
     const off = offset + step
-    setOffsetVis(off)
+    vis.setOffset(off)
+    vis.update()
     return off
   }
 
@@ -81,16 +61,11 @@ export default function Circular( props )  {
     ? <Button type='danger' onClick={toggleRunning}>STOP</Button>
     : <Button type='success' onClick={toggleRunning}>START</Button>
 
-  const modeButton = mode
-    ? <Button type='white' onClick={toggleMode}>SHM ON</Button>
-    : <Button type='black' onClick={toggleMode}>SHM OFF</Button>
-
   const setMultiplierYHandler = ({target}) => {
     const r = Math.abs(target.value)
     //window.location.search = `x=${multiplierX}&y=${r}`
     setMultiplierYState(r)
     vis.setMultiplierY(r)
-    setOffsetVis(offset)
   }
 
   const setMultiplierXHandler = ({target}) => {
@@ -98,7 +73,6 @@ export default function Circular( props )  {
     //window.location.search = `x=${r}&y=${multiplierY}`
     setMultiplierXState(r)
     vis.setMultiplierX(r)
-    setOffsetVis(offset)
   }
 
   const randomizeHandler = ({target}) => {
@@ -109,8 +83,6 @@ export default function Circular( props )  {
     const x = Math.round(Math.random() * limit)
     setMultiplierXState(x)
     vis.setMultiplierX(x)
-
-    setOffsetVis(offset)
   }
 
   const shareHandler = () => {
@@ -120,7 +92,6 @@ export default function Circular( props )  {
   const setColorHandler = (type) => (_e, newState) => {
     const newColor = newState ? theme.colors[type] : defaultColor
     vis.setColor(newColor)
-    vis.update()
     setColorState(newColor)
   }
 
@@ -128,7 +99,12 @@ export default function Circular( props )  {
     const r = Math.abs(target.value)
     setPeriodState(r)
     vis.setFrequency(1 / r)
-    setOffsetVis(offset)
+  }
+
+  const setCountHandler = ({target}) => {
+    const c = Math.abs(target.value)
+    setCount(c)
+    vis.setCount(c)
   }
 
   const makeSwitch = (type, i) => <Switch
@@ -147,13 +123,12 @@ export default function Circular( props )  {
   return (
     <>
       {startOrStopButton}
-      {modeButton}
       <Button type='info' onClick={randomizeHandler}>RANDOMIZE</Button>
       <Button type='warning' onClick={shareHandler}>COPY LINK</Button>
-      <FlexRow>
+      <FlexRow wrap="wrap">
         {types.map(makeSwitch)}
       </FlexRow>
-      <FlexRow flex="space-between" width="30%">
+      <FlexRow wrap="wrap" flex="space-between" width="30%">
         <FlexRow align="center">
           <label htmlFor="multiplierX">X:</label>
           <input
@@ -178,6 +153,14 @@ export default function Circular( props )  {
             value={period}
             onChange={setPeriodHandler}  />
         </FlexRow>
+        <FlexRow align="center">
+          <label htmlFor="count">count:</label>
+          <input
+            id="count"
+            type="number"
+            value={count}
+            onChange={setCountHandler}  />
+        </FlexRow>
       </FlexRow>
       <div>
         <h6>Ratio: {ratioX}:{ratioY} - {offset}</h6>
@@ -187,7 +170,8 @@ export default function Circular( props )  {
         setVis={setVis}
         options={options}
         time={time}
-        intervalCallback={intervalHandler} />
+        intervalCallback={intervalHandler}
+        />
     </>
   )
 }
