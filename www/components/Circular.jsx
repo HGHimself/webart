@@ -17,17 +17,20 @@ const setVis = (v) => { vis = v }
 export default function Circular( props )  {
 
   const time = 10
-  const step = 1
+  const step = 5
   const limit = 1000
   const defaultColor = 'transparent'
+  const sliderMin = 0
+  const sliderMax = 1974
 
-  const [color, setColorState] = useState(defaultColor)
-  const [offset, setOffsetState] = useState(0)
+  const [color, setColorState] = useState(props.color || defaultColor)
   const [multiplierX, setMultiplierXState] = useState(props.x || 1)
   const [multiplierY, setMultiplierYState] = useState(props.y || 1)
-  const [period, setPeriodState] = useState(props.p || 13)
+  const [period, setPeriodState] = useState(props.p || 1)
+  const [count, setCount] = useState(props.count || 200)
+
   const [running, setRunningState] = useState(false)
-  const [count, setCount] = useState(43)
+  const [offset, setOffsetState] = useState(0)
 
   const options = {
     count,
@@ -46,9 +49,9 @@ export default function Circular( props )  {
   const toggleRunning = () => setRunningState(!running)
 
   const bumpOffset = (offset) => {
-    const off = offset + step
+    const off = (offset + step) % sliderMax
+    // const off = (offset + step)
     vis.setOffset(off)
-    vis.update()
     return off
   }
 
@@ -107,6 +110,12 @@ export default function Circular( props )  {
     vis.setCount(c)
   }
 
+  const setMultiplierHandler = ({target}) => {
+    const multiplierInput = +target.value
+    vis.setOffset(multiplierInput)
+    setOffsetState(multiplierInput)
+  }
+
   const makeSwitch = (type, i) => <Switch
     type={type}
     key={i}
@@ -161,6 +170,16 @@ export default function Circular( props )  {
             value={count}
             onChange={setCountHandler}  />
         </FlexRow>
+      </FlexRow>
+      <FlexRow wrap="wrap" flex="space-beetween" align="center" width="70%">
+        <label htmlFor="multiplierInput">Offset: </label>
+        <input
+          id="multiplierInput"
+          type="range"
+          min={sliderMin}
+          max={sliderMax}
+          value={offset}
+          onChange={setMultiplierHandler} />
       </FlexRow>
       <div>
         <h6>Ratio: {ratioX}:{ratioY} - {offset}</h6>
