@@ -16,15 +16,15 @@ import Switch from "./Switch.jsx"
 let vis = null;
 const setVis = (v) => { vis = v }
 
-const gif = new GIF({
-  workers: 7,
-  quality: 1,
-  background: "#fff"
-})
-
-gif.on('finished', function(blob) {
-  window.open(URL.createObjectURL(blob));
-});
+// const gif = new GIF({
+//   workers: 7,
+//   quality: 1,
+//   background: "#fff"
+// })
+//
+// gif.on('finished', function(blob) {
+//   window.open(URL.createObjectURL(blob));
+// });
 
 /*
 origin + (amplitude * f(time * (frequency * (2 * 3.14))))
