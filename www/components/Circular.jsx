@@ -4,49 +4,76 @@ import { css } from "@emotion/css"
 import circular from "../charts/circular.js"
 import theme from "../theme"
 import { gcd } from "../utils/maths-tools.js"
-import { copyToClipboard } from "../utils/frontend-tools.js"
+import { copyToClipboard, imgFromSvg } from "../utils/frontend-tools.js"
 
 import Animator from "./Animator.jsx"
 import Button from "./Button.jsx"
 import FlexRow from "./FlexRow.jsx"
 import Switch from "./Switch.jsx"
 
+// const GIF = require("../utils/gif.js")
+
 let vis = null;
 const setVis = (v) => { vis = v }
+
+const gif = new GIF({
+  workers: 7,
+  quality: 1,
+  background: "#fff"
+})
+
+gif.on('finished', function(blob) {
+  window.open(URL.createObjectURL(blob));
+});
+
+/*
+origin + (amplitude * f(time * (frequency * (2 * 3.14))))
+(600/2) + (300 * sin(t * (283/53) * 2pi)))
+(600/2) + (300 * cos(t * (274/53) * 2pi)))
+
+(600/2) + (300 * sin(t * (1/1) * 2pi)))
+*/
 
 export default function Circular( props )  {
 
   const time = 10
-  const step = 5
+  const step = 1
   const limit = 1000
   const defaultColor = 'transparent'
   const sliderMin = 0
   const sliderMax = 1974
 
   const [color, setColorState] = useState(props.color || defaultColor)
+  const [spectrum, setSpectrumState] = useState(props.s || 1)
   const [multiplierX, setMultiplierXState] = useState(props.x || 1)
   const [multiplierY, setMultiplierYState] = useState(props.y || 1)
   const [period, setPeriodState] = useState(props.p || 1)
-  const [count, setCount] = useState(props.count || 200)
+  const [count, setCount] = useState(props.c || 1000)
 
   const [running, setRunningState] = useState(false)
   const [offset, setOffsetState] = useState(0)
 
   const options = {
     count,
-    height: 600,
-    width: 1300,
+    height: 800,
+    width: 1400,
     offset,
-    amplitude: 300,
+    amplitude: 400,
     frequency: 1 / period,
     multiplierY,
     multiplierX,
+    spectrum,
   }
 
   // ref to stick into the timer
   const runningRef = useRef()
   runningRef.current = running
   const toggleRunning = () => setRunningState(!running)
+
+  const offsetRef = useRef()
+  offsetRef.current = offset
+
+  // useEffect(addFrame)
 
   const bumpOffset = (offset) => {
     const off = (offset + step) % sliderMax
@@ -58,6 +85,13 @@ export default function Circular( props )  {
   const intervalHandler = () => {
     if ( !runningRef.current ) return
     setOffsetState(bumpOffset)
+  }
+
+  const addFrame = () => {
+    console.log({m: "adding frame", offset: offsetRef.current})
+    const callback = offsetRef.current >= 1960 ? () => {} : addFrame
+    setOffsetState(bumpOffset)
+    imgFromSvg(gif, vis.getSvg(), callback)
   }
 
   const startOrStopButton = running
@@ -89,7 +123,7 @@ export default function Circular( props )  {
   }
 
   const shareHandler = () => {
-    copyToClipboard(`http://${window.location.host}/Circular?x=${multiplierX}&y=${multiplierY}&p=${period}`)
+    copyToClipboard(`http://${window.location.host}/RadialCartesian?x=${multiplierX}&y=${multiplierY}&p=${period}&s=${spectrum}&c=${count}`)
   }
 
   const setColorHandler = (type) => (_e, newState) => {
@@ -116,6 +150,12 @@ export default function Circular( props )  {
     setOffsetState(multiplierInput)
   }
 
+  const setSpectrumHandler = ({target}) => {
+    const spectrumInput = +target.value
+    vis.setSpectrum(spectrumInput)
+    setSpectrumState(spectrumInput)
+  }
+
   const makeSwitch = (type, i) => <Switch
     type={type}
     key={i}
@@ -134,10 +174,14 @@ export default function Circular( props )  {
       {startOrStopButton}
       <Button type='info' onClick={randomizeHandler}>RANDOMIZE</Button>
       <Button type='warning' onClick={shareHandler}>COPY LINK</Button>
-      <FlexRow wrap="wrap">
-        {types.map(makeSwitch)}
-      </FlexRow>
-      <FlexRow wrap="wrap" flex="space-between" width="30%">
+      {
+      // <Button type='black' onClick={addFrame}>ADD FRAME</Button>
+      // <Button type='danger' onClick={() => {gif.render()}}>SAVE</Button>
+      // <FlexRow wrap="wrap">
+      //   {types.map(makeSwitch)}
+      // </FlexRow>
+      }
+      <FlexRow wrap="wrap" flex="space-between" width="50%">
         <FlexRow align="center">
           <label htmlFor="multiplierX">X:</label>
           <input
@@ -169,6 +213,14 @@ export default function Circular( props )  {
             type="number"
             value={count}
             onChange={setCountHandler}  />
+        </FlexRow>
+        <FlexRow align="center">
+          <label htmlFor="spectrum">spectrum:</label>
+          <input
+            id="spectrum"
+            type="number"
+            value={spectrum}
+            onChange={setSpectrumHandler}  />
         </FlexRow>
       </FlexRow>
       <FlexRow wrap="wrap" flex="space-beetween" align="center" width="70%">
