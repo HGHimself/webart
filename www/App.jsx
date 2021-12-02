@@ -77,14 +77,15 @@ export default function App( props ) {
           <Route path="/ColorStudy">
             <ColorStudy />
           </Route>
-          <Route path="/RadialCartesian">
-            <Circular />
-          </Route>
+
           <Route path="/Blog">
             <Blog backendUrl={backendUrl} />
           </Route>
           <Route path="/Dada">
             <Dada backendUrl={backendUrl} />
+          </Route>
+          <Route path="/">
+            <Circular backendUrl={backendUrl} />
           </Route>
           <Route path="/Oolisp">
             <Oolisp />

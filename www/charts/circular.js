@@ -37,12 +37,12 @@ class Circular {
   resize(width, height) {
     const { svg, props } = this
 
-    svg.attr('width', width)
-      .attr('height', height)
-
     props.width = width
-    props.height = height
-    // props.amplitude = width * 0.4 > 300 ? 300 : width * 0.4
+    props.height = width * 0.4 > 300 ? 600 : 300
+    props.amplitude = width * 0.4 > 300 ? 300 : width * 0.4
+
+    svg.attr('width', props.width)
+      .attr('height', props.height)
 
     this.update()
   }

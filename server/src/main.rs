@@ -5,8 +5,8 @@ use log::info;
 use serde_derive::{Deserialize, Serialize};
 use std::{
     env,
-    fs::{self, DirEntry},
-    io,
+    fs::{self, DirEntry, File},
+    io::{self, Write},
     net::SocketAddr,
     path::Path,
 };
@@ -15,6 +15,16 @@ use warp::Filter;
 #[derive(Deserialize, Serialize)]
 struct Dada {
     message: String,
+}
+
+#[derive(Deserialize, Serialize)]
+struct Svg {
+    x: i32,
+    y: i32,
+    period: i32,
+    count: i32,
+    spectrum: i32,
+    svg: String,
 }
 
 #[tokio::main]
@@ -66,17 +76,36 @@ async fn main() {
     });
 
     let dada = warp::options()
-        .and(warp::path!("dada"))
+        .and(warp::path!("svg"))
         .map(|| warp::reply())
         .or(warp::post()
-            .and(warp::path!("dada"))
-            .and(warp::body::content_length_limit(1024 * 16))
+            .and(warp::path!("svg"))
+            .and(warp::body::content_length_limit(1024 * 256))
             .and(warp::body::json())
-            .map(|dada: Dada| {
-                let res = dada_poem_generator::dada(&dada.message);
-                warp::reply::html(res)
+            .map(|svg: Svg| {
+                let s = format!(
+                    "./svgs/{}_{}_{}_{}_{}.svg",
+                    svg.x, svg.y, svg.period, svg.count, svg.spectrum
+                );
+                let mut file = File::create(s.clone()).unwrap();
+                println!("{}", s);
+                write!(file, "{}", svg.svg).unwrap();
+                warp::reply::html(s)
             }))
         .with(with_content_allow);
+    //
+    // let dada = warp::options()
+    //     .and(warp::path!("dada"))
+    //     .map(|| warp::reply())
+    //     .or(warp::post()
+    //         .and(warp::path!("dada"))
+    //         .and(warp::body::content_length_limit(1024 * 16))
+    //         .and(warp::body::json())
+    //         .map(|dada: Dada| {
+    //             let res = dada_poem_generator::dada(&dada.message);
+    //             warp::reply::html(res)
+    //         }))
+    //     .with(with_content_allow);
 
     let end = home
         .or(dada.or(blog_home.or(blog_page)).with(with_control_origin))
