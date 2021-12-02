@@ -1,7 +1,12 @@
 www/node_modules
 www/dist
 
+server/svgs
+
 target
 articles
 dist
 .env
+.Ds_Store
+
+svgs*
