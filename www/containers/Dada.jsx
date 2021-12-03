@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { css } from "@emotion/css"
-const axios = require('axios')
+import * as dada from "dada-poem-generator"
 
 import FlexRow from '../components/FlexRow.jsx'
 
@@ -17,44 +17,26 @@ The poem will resemble you.
 And there you are – an infinitely original author of charming sensibility, even though unappreciated by the vulgar herd.`
 
 export default function Dada(props) {
-  const { backendUrl } = props
-  const [poem, setPoem] = useState("...Loading")
   const [input, setInput] = useState(defaultMessage)
 
-  useEffect(() => {
-    fetchPoem(defaultMessage)
-  }, [])
-
   const handleInput = ({target}) => {
-    const inputVal = target.value
-    setInput(inputVal)
-    fetchPoem(inputVal)
-  }
-
-  const fetchPoem = (originalPoem) => {
-    axios.post(`${backendUrl}/dada`,{
-      message: originalPoem,
-    }).then((r) => {
-      setPoem(r.data)
-    }).catch((r) => {
-      setPoem(`Oh no... ${r}`)
-    })
+    setInput(target.value)
   }
 
   return (
     <>
-    <h2>Dadaist Poems</h2>
-    <p>Express your own irrationality! Enter words into the box on the left; see the output on the right.</p>
-    <FlexRow flex="flex">
-      <div className={css`width: 30%;`}>
-        <textarea  onChange={handleInput} value={input} />
-      </div>
-      <div className={css`width: 60%; margin-left: 40px`}>
-        <pre>
-          {poem}
-        </pre>
-      </div>
-    </FlexRow>
+      <h2>Dadaist Poems</h2>
+      <p>Express your own irrationality! Enter words into the box on the left; see the output on the right.</p>
+      <FlexRow flex="flex">
+        <div className={css`width: 30%;`}>
+          <textarea  onChange={handleInput} value={input} />
+        </div>
+        <div className={css`width: 60%; margin-left: 40px`}>
+          <pre>
+            {dada.dada(input)}
+          </pre>
+        </div>
+      </FlexRow>
     </>
   )
 }
