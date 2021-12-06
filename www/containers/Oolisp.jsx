@@ -171,7 +171,7 @@ export default function Oolisp( props )  {
       <h2>Oolisp</h2>
       <p>Web-based LISP interpreter. ~994 lines of Rust, compiled to WASM. Enter <code>help</code> into the prompt below for instructions.</p>
       <div className={terminal}>
-        <FlexRow direction="column-reverse" overflowY="scroll" height="500px">
+        <FlexRow direction="column-reverse" overflowY="scroll" maxHeight="500px">
           {shellBuffer}
         </FlexRow>
         <FlexRow align="center">
