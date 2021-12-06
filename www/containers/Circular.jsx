@@ -12,7 +12,7 @@ export default function CircularContainer(props) {
     <>
       <h2>Radial Cartesian</h2>
       <p>Draw Squiggles with polar coordinates and simple harmonic motion. Experiment with the values and see what happens.</p>
-      <Circular x={query.get("x")} y={query.get("y")} p={query.get("p")} {...props} />
+      <Circular x={query.get("x")} y={query.get("y")} p={query.get("p")} s={query.get("s")} c={query.get("c")} {...props} />
     </>
   )
 }
