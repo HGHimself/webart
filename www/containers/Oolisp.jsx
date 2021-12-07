@@ -24,13 +24,17 @@ list
 (fun {curry f xs} {eval (join (list f) xs)})
 (fun {uncurry f : xs} {f xs})
 (fun {len l} {if (empty l) {0} {+ 1 (len (tail l))}})
-(fun {reverse x} {if (== (len l) 1) {l} {snoc (head l) (reverse (tail l)) }})
+(fun {reverse l} {if (== (len l) 1) {l} {snoc (head l) (reverse (tail l)) }})
 (fun {empty l} {if (== l {}) {true} {false}})
 (fun {dec n} {- n 1})
 (fun {add1 n} {+ n 1})
-(fun {nth l n} {if (== n 0) {head l} {nth (tail l) (dec n)}})
 (fun {add a b} {iter a b (\\ {n-1} {+ 1 n-1})})
 (fun {gauss n} {rec n 0 (\\ {n-1 gaussn-1} {+ (add1 n-1) (gaussn-1)})})
+
+(fun {nth n l}
+  {head (rec n
+    l
+    (\\ {n-1 nthn-1} {tail (nthn-1)}))})
 
 (fun {fac n}
   {rec n
@@ -64,6 +68,14 @@ list
 
 (fun {gcd a b}
   {if (== b 0) {a} {gcd b (% a b)}})
+
+(fun {zip a b}
+  {reverse (rec (len a)
+    {}
+    (\\ {n-1 zipn-1}
+      {cons
+        (list (nth n-1 a) (nth n-1 b))
+        (zipn-1)}))})
 `
 
 const terminalInput = css`

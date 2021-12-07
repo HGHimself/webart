@@ -12,6 +12,7 @@ export default function FlexRow(props) {
     width: ${props.width};
     height: ${props.height};
     overflow-y: ${props.overflowY};
+    max-height: ${props.maxHeight};
   `;
 
   return <div className={flexRow}>{props.children}</div>;
