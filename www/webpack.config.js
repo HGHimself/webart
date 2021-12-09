@@ -7,6 +7,11 @@ module.exports = {
     aesthetic: "./containers/Aesthetic.jsx",
     blog: "./containers/Blog.jsx",
     'radial-cartesian': "./containers/Circular.jsx",
+    'color-plot': "./containers/ColorPlot.jsx",
+    'color-study': "./containers/ColorStudy.jsx",
+    'fourier': "./containers/Fourier.jsx",
+    'oolisp': "./containers/Oolisp.jsx",
+    'dada': "./containers/Dada.jsx"
   },
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -17,6 +22,9 @@ module.exports = {
     splitChunks: {
       chunks: 'all',
     },
+  },
+  experiments: {
+    asyncWebAssembly: true,
   },
   mode: "development",
   plugins: [
@@ -39,6 +47,41 @@ module.exports = {
       env: process.env.NODE_ENV,
       chunks: ['radial-cartesian'],
       filename: 'radial-cartesian.html',
+      template: 'build/template.html'
+    }),
+    new HtmlWebpackPlugin({
+      title: 'ColorPlot',
+      env: process.env.NODE_ENV,
+      chunks: ['color-plot'],
+      filename: 'color-plot.html',
+      template: 'build/template.html'
+    }),
+    new HtmlWebpackPlugin({
+      title: 'ColorStudy',
+      env: process.env.NODE_ENV,
+      chunks: ['color-study'],
+      filename: 'color-study.html',
+      template: 'build/template.html'
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Fourier',
+      env: process.env.NODE_ENV,
+      chunks: ['fourier'],
+      filename: 'fourier.html',
+      template: 'build/template.html'
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Oolisp',
+      env: process.env.NODE_ENV,
+      chunks: ['oolisp'],
+      filename: 'oolisp.html',
+      template: 'build/template.html'
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Dada',
+      env: process.env.NODE_ENV,
+      chunks: ['dada'],
+      filename: 'dada.html',
       template: 'build/template.html'
     }),
     new CopyWebpackPlugin(['public/']),

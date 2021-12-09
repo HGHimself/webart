@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react"
 import { css } from "@emotion/css"
 
-import circular from "../charts/circular.js"
+import circular from "../vectors/circular.js"
 import theme from "../theme"
 import { gcd } from "../utils/maths-tools.js"
 import { copyToClipboard } from "../utils/frontend-tools.js"

@@ -1,11 +1,11 @@
 import React, { useState } from "react"
 import { css } from "@emotion/css"
 
-import fourier from "../charts/fourier.js"
+import fourier from "../vectors/fourier.js"
 import theme from "../theme"
 
-import Animator from "./Animator.jsx"
-import FlexRow from "./FlexRow.jsx"
+import Animator from "../components/Animator.jsx"
+import FlexRow from "../components/FlexRow.jsx"
 
 import entry from "../build/entry.js"
 

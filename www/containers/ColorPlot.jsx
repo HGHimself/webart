@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from "react"
 import { css } from "@emotion/css"
 
-import colorPlot from "../charts/color-plot.js"
+import colorPlot from "../vectors/color-plot.js"
 import theme from "../theme"
 
-import Animator from "./Animator.jsx"
-import Button from "./Button.jsx"
-import Switch from "./Switch.jsx"
-import FlexRow from "./FlexRow.jsx"
+import Animator from "../components/Animator.jsx"
+import Button from "../components/Button.jsx"
+import Switch from "../components/Switch.jsx"
+import FlexRow from "../components/FlexRow.jsx"
 
 import entry from "../build/entry.js"
 

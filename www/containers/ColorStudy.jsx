@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from "react"
 import { css } from "@emotion/css"
 
-import relativity from "../charts/relativity.js"
+import relativity from "../vectors/relativity.js"
 import theme from "../theme"
 
-import Animator from "./Animator.jsx"
+import Animator from "../components/Animator.jsx"
 
 import entry from "../build/entry.js"
 
