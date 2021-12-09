@@ -9,10 +9,12 @@ import Button from "./Button.jsx"
 import Switch from "./Switch.jsx"
 import FlexRow from "./FlexRow.jsx"
 
+import entry from "../build/entry.js"
+
 let vis
 const setVis = (v) => { vis = v }
 
-export default function ColorPlot( props )  {
+function ColorPlot( props )  {
 
   const count = 1000
   const height = 700
@@ -126,3 +128,5 @@ export default function ColorPlot( props )  {
     </>
   )
 }
+
+entry(<ColorPlot />)

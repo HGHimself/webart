@@ -4,6 +4,8 @@ import * as dada from "dada-poem-generator"
 
 import FlexRow from '../components/FlexRow.jsx'
 
+import entry from "../build/entry.js"
+
 const defaultMessage = `TO MAKE A DADAIST POEM
 Take a newspaper.
 Take some scissors.
@@ -16,7 +18,7 @@ Copy conscientiously in the order in which they left the bag.
 The poem will resemble you.
 And there you are – an infinitely original author of charming sensibility, even though unappreciated by the vulgar herd.`
 
-export default function Dada(props) {
+function Dada(props) {
   const [input, setInput] = useState(defaultMessage)
 
   const handleInput = ({target}) => {
@@ -40,3 +42,5 @@ export default function Dada(props) {
     </>
   )
 }
+
+entry(<Dada />)

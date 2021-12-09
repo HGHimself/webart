@@ -6,10 +6,12 @@ import theme from "../theme"
 
 import Animator from "./Animator.jsx"
 
+import entry from "../build/entry.js"
+
 let vis;
 const setVis = (v) => { vis = v }
 
-export default function ColorStudy( props )  {
+function ColorStudy( props )  {
 
   const height = 600
   const width = 1000
@@ -74,3 +76,5 @@ export default function ColorStudy( props )  {
       options={options} />
   )
 }
+
+entry(<ColorStudy />)
