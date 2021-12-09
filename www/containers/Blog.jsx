@@ -8,13 +8,14 @@ import {
   useRouteMatch,
   useParams
 } from "react-router-dom"
+import entry from "../entry.js"
 
 const articleStyle = css`
   width: 50%;
   margin: auto;
 `
 
-export default function BlogContainer(props) {
+function BlogContainer(props) {
   const { backendUrl } = props
 
   const [articleOptions, setArticleOptions] = useState()
@@ -37,7 +38,10 @@ export default function BlogContainer(props) {
     : 'Loading...'
 
   return (
+    <>
+      Moneyman
     <Switch>
+
       <Route path={`${match.path}/:article`}>
         <Link to={match.url}>Back!</Link>
         <Article backendUrl={backendUrl} />
@@ -46,6 +50,7 @@ export default function BlogContainer(props) {
         {articleLinks}
       </Route>
     </Switch>
+    </>
   )
 }
 
@@ -62,7 +67,10 @@ function Article(props) {
 
   return (
     <div className={articleStyle}>
+    Bugs
       <div dangerouslySetInnerHTML={{__html: dangerousHtml}} />
     </div>
   )
 }
+
+entry(<BlogContainer />)

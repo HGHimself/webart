@@ -8,7 +8,9 @@ import Switch from "../components/Switch.jsx"
 import { objectMap } from "../utils/data-tools.js"
 import theme from "../theme"
 
-export default function Aesthetic( props )  {
+import entry from "../entry.js"
+
+function Aesthetic( props )  {
 
   const makeSwatch = (name, color, i) => <div key={i}><Swatch color={color} name={name} /></div>
   const makeButton = (type, i) => (<div key={i}><Button type={type}>{type}</Button></div>)
@@ -55,3 +57,5 @@ console.log('input = ' + String.fromCharCode(34) + input + String.fromCharCode(3
     </div>
   )
 }
+
+entry(<Aesthetic />)
