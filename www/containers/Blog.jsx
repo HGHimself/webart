@@ -8,7 +8,7 @@ import {
   useRouteMatch,
   useParams
 } from "react-router-dom"
-import entry from "../entry.js"
+import entry from "../build/entry.js"
 
 const articleStyle = css`
   width: 50%;

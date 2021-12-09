@@ -1,4 +1,4 @@
-// const CopyWebpackPlugin = require("copy-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
@@ -20,25 +20,28 @@ module.exports = {
   },
   mode: "development",
   plugins: [
-    // new CopyWebpackPlugin(['public/']),
     new HtmlWebpackPlugin({
       title: 'Aesthetic',
+      env: process.env.NODE_ENV,
       chunks: ['aesthetic'],
       filename: 'aesthetic.html',
-      template: 'template.html'
+      template: 'build/template.html'
     }),
     new HtmlWebpackPlugin({
       title: 'Blog',
+      env: process.env.NODE_ENV,
       chunks: ['blog'],
       filename: 'blog.html',
-      template: 'template.html'
+      template: 'build/template.html'
     }),
     new HtmlWebpackPlugin({
       title: 'Radial Cartesian',
+      env: process.env.NODE_ENV,
       chunks: ['radial-cartesian'],
       filename: 'radial-cartesian.html',
-      template: 'template.html'
+      template: 'build/template.html'
     }),
+    new CopyWebpackPlugin(['public/']),
   ],
   module: {
     rules: [

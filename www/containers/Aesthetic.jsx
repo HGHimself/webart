@@ -8,7 +8,7 @@ import Switch from "../components/Switch.jsx"
 import { objectMap } from "../utils/data-tools.js"
 import theme from "../theme"
 
-import entry from "../entry.js"
+import entry from "../build/entry.js"
 
 function Aesthetic( props )  {
 

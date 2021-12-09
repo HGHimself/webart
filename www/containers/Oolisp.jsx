@@ -5,6 +5,8 @@ import { css } from "@emotion/css"
 import FlexRow from "../components/FlexRow.jsx"
 import Button from "../components/Button.jsx"
 
+import entry from "../build/entry.js"
+
 let env;
 const prelude = `
 list
@@ -116,7 +118,7 @@ Welcome to Oolisp, a Web-based LISP interpreter.
         usage: (\\ {arg-list} {body})
 `
 
-export default function Oolisp( props )  {
+function Oolisp( props )  {
 
   const [ shellInput, setShellInputState ] = useState("")
   const [ shellHistory, setShellHistoryState ] = useState([])
@@ -191,3 +193,5 @@ export default function Oolisp( props )  {
     </>
   )
 }
+
+entry(<Oolisp />)

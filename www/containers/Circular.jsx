@@ -11,7 +11,7 @@ import Button from "../components/Button.jsx"
 import FlexRow from "../components/FlexRow.jsx"
 import Switch from "../components/Switch.jsx"
 
-import entry from "../entry.js"
+import entry from "../build/entry.js"
 
 let vis = null;
 const setVis = (v) => { vis = v }
