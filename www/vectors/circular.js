@@ -33,8 +33,8 @@ class Circular {
     const { svg, props } = this
 
     props.width = width
-    props.height = width * 0.4 > 300 ? 600 : 300
-    props.amplitude = width * 0.4 > 300 ? 300 : width * 0.4
+    // props.height = width * 0.4 > 300 ? 600 : 300
+    // props.amplitude = width * 0.4 > 300 ? 300 : width * 0.4
 
     svg.attr('width', props.width)
       .attr('height', props.height)
@@ -110,7 +110,9 @@ class Circular {
 
     svg.selectAll('path')
         .attr("d", d => this.getDrawer(d))
-        .attr("stroke", d => getSpectrumPosition(this.props.spectrum + (d/(this.props.count * 0.4))))
+        .attr("stroke", d => !this.props.spectrum
+          ? theme.colors.black
+          : getSpectrumPosition(this.props.spectrum + (d/(this.props.count * 0.4))))
   }
 
   getSvg() {

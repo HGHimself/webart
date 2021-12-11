@@ -1,21 +1,31 @@
+@font-face {
+  font-family: Adelle;
+  src: url(fonts/Adelle/Adelle_light.otf);
+}
+
 body {
   background-color: #FBFBF8;
-  font-family: 'Jost', sans-serif;
-}
-
-.hidden {
-  display: none;
-}
-
-body {
+  font-family: 'Adelle', sans-serif;
   line-height: 1.4;
 }
 
-textarea {
-  width: 100%;
-  height: 440px;
-  outline: none;
-  overflow: auto;
+main {
+  width: 80%;
+  margin: auto;
+}
+
+#header {
+  border-bottom: 1px solid #161032;
+  padding-bottom: 24px;
+}
+
+#root {
+  border-bottom: 1px solid #161032;
+  padding-bottom: 48px;
+}
+
+#footer {
+  text-align: center;
 }
 
 h1 {
@@ -105,6 +115,7 @@ button, h6  {
 h1, h2, h3, h4, h5, h6 {
   margin-top: 1rem;
   margin-bottom: 1rem;
+  font-family: "Futura";
 }
 
 /* unvisited link */
@@ -129,4 +140,11 @@ input[type=number] {
   font-family: inherit;
   width: 58px;
   text-align: center;
+}
+
+textarea {
+  width: 100%;
+  height: 400px;
+  outline: none;
+  overflow: auto;
 }

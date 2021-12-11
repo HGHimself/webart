@@ -147,17 +147,29 @@ function Oolisp( props )  {
     setShellInputState(target.value)
   }
 
+  const doLisp = (currentBuf) => {
+    let res
+
+    try {
+      res = oolisp.lisp(env, inputRef.current)
+    } catch {
+      res = "... Error: Oolisp has crashed! Perhaps too much recursion?"
+    }
+
+    return (<>
+      <div>{res}</div>
+      <div>{prompt} {inputRef.current}</div>
+      {currentBuf}
+    </>)
+  }
+
   const handleCalculate = () => {
     if (inputRef.current == "clear") {
       setShellBufferState("")
     } else if (inputRef.current == "help") {
       setShellBufferState(<pre>{help}</pre>)
     } else {
-      setShellBufferState((currentBuf) => <>
-        <div>{oolisp.lisp(env, inputRef.current)}</div>
-        <div>{prompt} {inputRef.current}</div>
-        {currentBuf}
-      </>)
+      setShellBufferState(doLisp)
     }
 
     setShellHistoryState(history => [inputRef.current, ...history])
@@ -183,7 +195,7 @@ function Oolisp( props )  {
       <h2>Oolisp</h2>
       <p>Web-based LISP interpreter. ~994 lines of Rust, compiled to WASM. Enter <code>help</code> into the prompt below for instructions.</p>
       <div className={terminal}>
-        <FlexRow direction="column-reverse" overflowY="scroll" maxHeight="500px">
+        <FlexRow direction="column-reverse" overflowY="scroll" maxHeight="390px">
           {shellBuffer}
         </FlexRow>
         <FlexRow align="center">

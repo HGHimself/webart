@@ -155,7 +155,7 @@ function Circular( props )  {
   return (
     <>
       <h2>Radial Cartesian</h2>
-      <p>Draw Squiggles with polar coordinates and simple harmonic motion. Experiment with the values and see what happens.</p>
+      <p>Draw using ratios and simple harmonic motion. Experiment with the values!</p>
       {startOrStopButton}
       <Button type='info' onClick={randomizeHandler}>RANDOMIZE</Button>
       <FlexRow wrap="wrap" flex="space-between" width="50%">
@@ -211,7 +211,7 @@ function Circular( props )  {
           onChange={setMultiplierHandler} />
       </FlexRow>
       <div>
-        <h6>Ratio: {offset}</h6>
+        <h6>Ratio of {ratioX}:{ratioY} - offset: {offset}</h6>
       </div>
       <Animator
         drawer={circular}

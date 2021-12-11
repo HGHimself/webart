@@ -29,19 +29,30 @@
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="any">
     </head>
     <body>
-      <h6>Hello, World!</h6>
-      <p>Digital Arts by HG King - <%= htmlWebpackPlugin.options.env %></p>
-      <nav>
-        <a href="/">Home</a>
-        <a href="/blog.html">Blog</a>
-        <a href="/radial-cartesian.html">Radial Cartesian</a>
-        <a href="/oolisp.html">Oolisp</a>
-        <a href="/color-plot.html">Color Plot</a>
-        <a href="/dada.html">Dada</a>
-        <a href="/color-study.html">Color Study</a>
-        <a href="/fourier.html">Fourier</a>
-        <a href="/aesthetic.html">Aesthetic</a>
-      </nav>
-      <div id="root"></div>
+      <main>
+        <div id="header">
+          <h6>Hello, World!</h6>
+          <nav>
+            <span>Digital Arts by HG King - <%= htmlWebpackPlugin.options.env %> :: </span>
+            <a href="/">Home</a> | 
+            <a href="/radial-cartesian.html">Radial Cartesian</a> |
+            <a href="/oolisp.html">Oolisp</a> |
+            <a href="/color-plot.html">Color Plot</a> |
+            <a href="/dada.html">Dada</a> |
+            <a href="/color-study.html">Color Study</a> |
+            <a href="/fourier.html">Fourier</a> |
+            <a href="/aesthetic.html">Aesthetic</a> |
+          </nav>
+        </div>
+        <div id="root"></div>
+        <div id="footer">
+          <p>
+            v1.0.1&nbsp;|&nbsp;Date updated 12/10/21
+            &nbsp;|&nbsp;Calculations and
+            presentation by <a href="https://github.com/HGHimself/webart">HG King</a>
+            &nbsp;|&nbsp;Made in New York
+          </p>
+        </div>
+      </main>
     </body>
 </html>

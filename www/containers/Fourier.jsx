@@ -76,3 +76,5 @@ export default function Fourier( props )  {
     </>
   )
 }
+
+entry(<Fourier />)

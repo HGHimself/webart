@@ -6,6 +6,17 @@ import { darkOrLight } from "../utils/color-tools.js"
 
 import FlexRow from "./FlexRow.jsx"
 
+const defaultType = 'black'
+
+const opacity = 55
+
+const defaultWidth = 23
+const defaultHeight = 23
+
+const labelStyle = css`
+  width: 64px;
+`;
+
 export default function Switch( props )  {
 
   const {state, type, onClick, ...other} = props
@@ -17,13 +28,7 @@ export default function Switch( props )  {
     flipOnOff(state)
   }, [state])
 
-  const defaultType = 'black'
-
   const color = theme.colors[type || defaultType]
-  const opacity = 55
-
-  const defaultWidth = 23
-  const defaultHeight = 23
 
   const opacityClause = onOff? opacity : 'ff'
   const foreground = onOff? color : theme.colors.white
@@ -37,12 +42,8 @@ export default function Switch( props )  {
     border-radius: 0px;
     border: 1px solid ${color};
     filter: drop-shadow(5px 5px 0px ${background});
-    margin: 24px 8px 24px 24px;
+    margin-right: 8px;
   `
-
-  const labelStyle = css`
-    width: 64px;
-  `;
 
   const clickHandler = (e) => {
     const newState = !onOff

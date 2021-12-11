@@ -11,7 +11,8 @@ module.exports = {
     'color-study': "./containers/ColorStudy.jsx",
     'fourier': "./containers/Fourier.jsx",
     'oolisp': "./containers/Oolisp.jsx",
-    'dada': "./containers/Dada.jsx"
+    'dada': "./containers/Dada.jsx",
+    'home': "./containers/Home.jsx"
   },
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -82,6 +83,13 @@ module.exports = {
       env: process.env.NODE_ENV,
       chunks: ['dada'],
       filename: 'dada.html',
+      template: 'build/template.html'
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Home',
+      env: process.env.NODE_ENV,
+      chunks: ['home'],
+      filename: 'index.html',
       template: 'build/template.html'
     }),
     new CopyWebpackPlugin(['public/']),
