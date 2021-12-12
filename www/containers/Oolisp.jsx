@@ -4,6 +4,7 @@ import { css } from "@emotion/css"
 
 import FlexRow from "../components/FlexRow.jsx"
 import Button from "../components/Button.jsx"
+import Title from "../components/Title.jsx"
 
 import entry from "../build/entry.js"
 
@@ -192,8 +193,9 @@ function Oolisp( props )  {
 
   return (
     <>
-      <h2>Oolisp</h2>
-      <p>Web-based LISP interpreter. ~994 lines of Rust, compiled to WASM. Enter <code>help</code> into the prompt below for instructions.</p>
+      <Title title="Oolisp"
+      description={<span>Web-based LISP interpreter. ~994 lines of Rust, compiled to WASM. Enter <code>help</code> into the prompt below for instructions.</span>}
+      />
       <div className={terminal}>
         <FlexRow direction="column-reverse" overflowY="scroll" maxHeight="390px">
           {shellBuffer}

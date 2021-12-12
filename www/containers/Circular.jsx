@@ -10,6 +10,7 @@ import Animator from "../components/Animator.jsx"
 import Button from "../components/Button.jsx"
 import FlexRow from "../components/FlexRow.jsx"
 import Switch from "../components/Switch.jsx"
+import Title from "../components/Title.jsx"
 
 import entry from "../build/entry.js"
 
@@ -92,10 +93,6 @@ function Circular( props )  {
     setOffsetState(bumpOffset)
   }
 
-  const startOrStopButton = running
-    ? <Button type='danger' onClick={toggleRunning}>STOP</Button>
-    : <Button type='success' onClick={toggleRunning}>START</Button>
-
   const setMultiplierYHandler = ({target}) => {
     const r = Math.abs(target.value)
     setMultiplierYState(r)
@@ -154,11 +151,20 @@ function Circular( props )  {
 
   return (
     <>
-      <h2>Radial Cartesian</h2>
-      <p>Draw using ratios and simple harmonic motion. Experiment with the values!</p>
-      {startOrStopButton}
-      <Button type='info' onClick={randomizeHandler}>RANDOMIZE</Button>
-      <FlexRow wrap="wrap" flex="space-between" width="50%">
+      <Title
+        title="Radial Cartesian"
+        description="Draw using ratios and simple harmonic motion. Experiment with the values!"
+      />
+      <FlexRow align="center">
+        <label>Animate:</label>
+        <Switch type={'warning'} state={running} onClick={toggleRunning} />
+        <Button type='info' onClick={randomizeHandler}>RANDOMIZE</Button>
+        <div>
+          <h6>Ratio of {ratioX}:{ratioY} - offset: {offset}</h6>
+        </div>
+      </FlexRow>
+      <br />
+      <FlexRow wrap="wrap" flex="space-between" width="75%">
         <FlexRow align="center">
           <label htmlFor="multiplierX">X:</label>
           <input
@@ -200,19 +206,6 @@ function Circular( props )  {
             onChange={setSpectrumHandler}  />
         </FlexRow>
       </FlexRow>
-      <FlexRow wrap="wrap" flex="space-beetween" align="center" width="70%">
-        <label htmlFor="multiplierInput">Offset: </label>
-        <input
-          id="multiplierInput"
-          type="range"
-          min={sliderMin}
-          max={sliderMax}
-          value={offset}
-          onChange={setMultiplierHandler} />
-      </FlexRow>
-      <div>
-        <h6>Ratio of {ratioX}:{ratioY} - offset: {offset}</h6>
-      </div>
       <Animator
         drawer={circular}
         setVis={setVis}

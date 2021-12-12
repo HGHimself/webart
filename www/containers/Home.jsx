@@ -8,7 +8,6 @@ import entry from "../build/entry.js"
 function Home(props) {
   return (
     <>
-      <Main />
     </>
   )
 }

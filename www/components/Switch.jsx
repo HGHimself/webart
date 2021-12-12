@@ -14,7 +14,8 @@ const defaultWidth = 23
 const defaultHeight = 23
 
 const labelStyle = css`
-  width: 64px;
+  width: 34px;
+  cursor: pointer;
 `;
 
 export default function Switch( props )  {
@@ -43,6 +44,7 @@ export default function Switch( props )  {
     border: 1px solid ${color};
     filter: drop-shadow(5px 5px 0px ${background});
     margin-right: 8px;
+    cursor: pointer;
   `
 
   const clickHandler = (e) => {
@@ -60,7 +62,7 @@ export default function Switch( props )  {
         onClick={clickHandler}
         {...other} >
       </div>
-      <span className={labelStyle}>{flag}</span>
+      <span className={labelStyle} onClick={clickHandler}>{flag}</span>
     </FlexRow>
   )
 }
