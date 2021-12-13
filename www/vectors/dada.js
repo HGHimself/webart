@@ -1,0 +1,63 @@
+import * as d3 from "d3"
+
+import theme from "../theme"
+import { getSpectrumPosition } from '../utils/color-tools.js'
+
+class Relativity {
+
+  constructor(containerEl, props) {
+    this.containerEl = containerEl
+    this.props = props
+    this.props.counter = 0
+    const { width, height, data } = props
+
+    this.svg = d3.select(containerEl)
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height)
+
+    this.svg.selectAll('text')
+      .data(data.split("\n"))
+      .enter()
+        .append("text")
+        .text(d => d)
+
+    this.update();
+  }
+
+  setData(data) {
+    console.log(data);
+    const { svg } = this
+
+    svg.selectAll('text')
+      .data(data)
+      .join(
+        enter => enter
+          .append("text")
+          .text(d => d),
+      )
+    this.update()
+  }
+
+  resize(width, height) {
+    const { svg, props } = this
+
+    svg.attr('width', width)
+      .attr('height', height)
+
+    props.width = width
+    props.height = height
+
+    this.update()
+  }
+
+  update() {
+    const { svg, props: { width, height, data } } = this
+
+    svg.selectAll('text')
+      .attr('x', (d, i) => 100 + (10 * i))
+      .attr('y', (d, i) => 100 + (10 * i))
+  }
+}
+
+export default Relativity
