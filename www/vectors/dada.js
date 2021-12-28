@@ -1,9 +1,10 @@
 import * as d3 from "d3"
 
 import theme from "../theme"
+import { simpleHarmonicMotionCos, simpleHarmonicMotionSin } from "../utils/maths-tools.js"
 import { getSpectrumPosition } from '../utils/color-tools.js'
 
-class Relativity {
+class Dada {
 
   constructor(containerEl, props) {
     this.containerEl = containerEl
@@ -17,7 +18,7 @@ class Relativity {
       .attr('height', height)
 
     this.svg.selectAll('text')
-      .data(data.split("\n"))
+      .data(data.split(" "))
       .enter()
         .append("text")
         .text(d => d)
@@ -27,15 +28,7 @@ class Relativity {
 
   setData(data) {
     console.log(data);
-    const { svg } = this
-
-    svg.selectAll('text')
-      .data(data)
-      .join(
-        enter => enter
-          .append("text")
-          .text(d => d),
-      )
+    this.props.data = data
     this.update()
   }
 
@@ -54,10 +47,21 @@ class Relativity {
   update() {
     const { svg, props: { width, height, data } } = this
 
+    const originX = width / 2
+    const originY = 0
+    const amplitude = width * 0.35
+    const frequency = 0.04
+
     svg.selectAll('text')
-      .attr('x', (d, i) => 100 + (10 * i))
-      .attr('y', (d, i) => 100 + (10 * i))
+      .data(data.split(" "))
+      .join(
+        enter => enter,
+        update => update
+          .text(d => d)
+          .attr('x', (d, i) => simpleHarmonicMotionSin(originX, amplitude, frequency, i))
+          .attr('y', (d, i) => simpleHarmonicMotionCos(originX, amplitude, frequency, i))
+      )
   }
 }
 
-export default Relativity
+export default Dada

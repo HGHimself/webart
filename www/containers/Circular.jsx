@@ -11,6 +11,7 @@ import Button from "../components/Button.jsx"
 import FlexRow from "../components/FlexRow.jsx"
 import Switch from "../components/Switch.jsx"
 import Title from "../components/Title.jsx"
+import NumberInput from "../components/NumberInput.jsx"
 
 import entry from "../build/entry.js"
 
@@ -93,19 +94,19 @@ function Circular( props )  {
     setOffsetState(bumpOffset)
   }
 
-  const setMultiplierYHandler = ({target}) => {
-    const r = Math.abs(target.value)
+  const setMultiplierYHandler = (value) => {
+    const r = Math.abs(value)
     setMultiplierYState(r)
     vis.setMultiplierY(r)
   }
 
-  const setMultiplierXHandler = ({target}) => {
-    const r = Math.abs(target.value)
+  const setMultiplierXHandler = (value) => {
+    const r = Math.abs(value)
     setMultiplierXState(r)
     vis.setMultiplierX(r)
   }
 
-  const randomizeHandler = ({target}) => {
+  const randomizeHandler = (value) => {
     const y = Math.round(Math.random() * limit)
     setMultiplierYState(y)
     vis.setMultiplierY(y)
@@ -121,26 +122,26 @@ function Circular( props )  {
     setColorState(newColor)
   }
 
-  const setPeriodHandler = ({target}) => {
-    const r = Math.abs(target.value)
+  const setPeriodHandler = (value) => {
+    const r = Math.abs(value)
     setPeriodState(r)
     vis.setFrequency(1 / r)
   }
 
-  const setCountHandler = ({target}) => {
-    const c = Math.abs(target.value)
+  const setCountHandler = (value) => {
+    const c = Math.abs(value)
     setCount(c)
     vis.setCount(c)
   }
 
-  const setMultiplierHandler = ({target}) => {
-    const multiplierInput = +target.value
+  const setMultiplierHandler = (value) => {
+    const multiplierInput = +value
     vis.setOffset(multiplierInput)
     setOffsetState(multiplierInput)
   }
 
-  const setSpectrumHandler = ({target}) => {
-    const spectrumInput = +target.value
+  const setSpectrumHandler = (value) => {
+    const spectrumInput = +value
     vis.setSpectrum(spectrumInput)
     setSpectrumState(spectrumInput)
   }
@@ -151,10 +152,8 @@ function Circular( props )  {
 
   return (
     <>
-      <Title
-        title="Radial Cartesian"
-        description="Draw using ratios and simple harmonic motion. Experiment with the values!"
-      />
+      <h1  className="thick">Radial Cartesian</h1>
+      <span>Draw using ratios and simple harmonic motion. Experiment with the values!</span>
       <FlexRow align="center">
         <label>Animate:</label>
         <Switch type={'warning'} state={running} onClick={toggleRunning} />
@@ -165,46 +164,31 @@ function Circular( props )  {
       </FlexRow>
       <br />
       <FlexRow wrap="wrap" flex="space-between" width="75%">
-        <FlexRow align="center">
-          <label htmlFor="multiplierX">X:</label>
-          <input
-            id="multiplierX"
-            type="number"
-            value={multiplierX}
-            onChange={setMultiplierXHandler}  />
-        </FlexRow>
-        <FlexRow align="center">
-          <label htmlFor="multiplierY">Y:</label>
-          <input
-            id="multiplierY"
-            type="number"
-            value={multiplierY}
-            onChange={setMultiplierYHandler}  />
-        </FlexRow>
-        <FlexRow align="center">
-          <label htmlFor="period">period:</label>
-          <input
-            id="period"
-            type="number"
-            value={period}
-            onChange={setPeriodHandler}  />
-        </FlexRow>
-        <FlexRow align="center">
-          <label htmlFor="count">count:</label>
-          <input
-            id="count"
-            type="number"
-            value={count}
-            onChange={setCountHandler}  />
-        </FlexRow>
-        <FlexRow align="center">
-          <label htmlFor="spectrum">spectrum:</label>
-          <input
-            id="spectrum"
-            type="number"
-            value={spectrum}
-            onChange={setSpectrumHandler}  />
-        </FlexRow>
+        <NumberInput
+          label="X"
+          value={multiplierX}
+          onChange={setMultiplierXHandler}
+         />
+       <NumberInput
+         label="Y"
+         value={multiplierY}
+         onChange={setMultiplierYHandler}
+        />
+      <NumberInput
+        label="period"
+        value={period}
+        onChange={setPeriodHandler}
+       />
+     <NumberInput
+       label="count"
+       value={count}
+       onChange={setCountHandler}
+      />
+      <NumberInput
+        label="spectrum"
+        value={spectrum}
+        onChange={setSpectrumHandler}
+       />
       </FlexRow>
       <Animator
         drawer={circular}

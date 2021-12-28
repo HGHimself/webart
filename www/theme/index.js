@@ -1,13 +1,13 @@
 import c from "./colors"
 
 const colors = {
-  black: c["DARK PURPLE"],
-  white: c["IVORY"],
-  success: c["FERN GREEN"],
-  danger: c["ENGLISH VERMILLION"],
-  info: c["BLUE JEANS"],
-  warning: c["HONEY YELLOW"],
-  purple: c["PLUM"]
+  black: c["BLACK"],
+  white: c["WHITE"],
+  success: c["GREEN"],
+  danger: c["RED"],
+  info: c["BLUE"],
+  warning: c["YELLOW"],
+  purple: c["PURPLE"]
 }
 
 const theme = {

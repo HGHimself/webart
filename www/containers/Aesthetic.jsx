@@ -4,6 +4,7 @@ import Swatch from "../components/Swatch.jsx"
 import FlexRow from "../components/FlexRow.jsx"
 import Button from "../components/Button.jsx"
 import Switch from "../components/Switch.jsx"
+import Link from "../components/Link.jsx"
 
 import { objectMap } from "../utils/data-tools.js"
 import theme from "../theme"
@@ -39,7 +40,14 @@ console.log('input = ' + String.fromCharCode(34) + input + String.fromCharCode(3
         `}</code>
       </pre>
       <h5>typography</h5>
-      <a href="https://indestructibletype.com/Jost" rel="noopener noreferrer" target="_blank">Jost Font↗</a>
+      <h5>Headers displayed in <Link href="https://en.wikipedia.org/wiki/Futura_(typeface)">Futura</Link> font face.</h5>
+      <h5>{
+        [...Array(256 - 32).keys()].map((c, i) => <span key={i}>
+            {String.fromCharCode(c + 32)}
+            {i % 32 ? '' : <br />}
+        </span>)
+      }</h5>
+      <p>Paragraph text displayed in <Link href="https://en.wikipedia.org/wiki/Helvetica">Helvetica</Link> font face.</p>
       <p>{
         [...Array(256 - 32).keys()].map((c, i) => <span key={i}>
             {String.fromCharCode(c + 32)}

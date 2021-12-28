@@ -1,31 +1,13 @@
-@font-face {
-  font-family: Adelle;
-  src: url(fonts/Adelle/Adelle_light.otf);
-}
-
 body {
-  background-color: #FBFBF8;
-  font-family: 'Adelle', sans-serif;
+  background-color: #FFFFFF;
+  color: #2C2E34;
+  font-family: 'Helvetica';
   line-height: 1.4;
 }
 
 main {
-  width: 80%;
-  margin: auto;
-}
-
-#header {
-  border-bottom: 1px solid #161032;
-  padding-bottom: 24px;
-}
-
-#root {
-  border-bottom: 1px solid #161032;
-  padding-bottom: 48px;
-}
-
-#footer {
-  text-align: center;
+  margin-left: 24px;
+  /* width: 80%; */
 }
 
 h1 {
@@ -112,6 +94,10 @@ button, h6  {
   font-weight: 500;
 }
 
+.thick {
+  font-weight: 600;
+}
+
 h1, h2, h3, h4, h5, h6 {
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -137,9 +123,25 @@ pre {
 }
 
 input[type=number] {
-  font-family: 'Adelle', sans-serif;
+  font-family: 'Helvetica', sans-serif;
   width: 58px;
   text-align: center;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.arrow {
+  cursor: pointer;
 }
 
 textarea {

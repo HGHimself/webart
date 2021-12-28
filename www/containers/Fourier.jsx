@@ -6,6 +6,7 @@ import theme from "../theme"
 
 import Animator from "../components/Animator.jsx"
 import FlexRow from "../components/FlexRow.jsx"
+import NumberInput from "../components/NumberInput.jsx"
 
 import entry from "../build/entry.js"
 
@@ -46,24 +47,23 @@ export default function Fourier( props )  {
     })
   }
 
-  const inputHandler = (i) => ({target}) => {
-    const n = target.value < 1 ? 1 : target.value
+  const inputHandler = (i) => (value) => {
+    const n = value < 1 ? 1 : value
     numbers[i] = n
     setNumbers(numbers)
   }
 
-  const numberInputs = numbers.map((n, i) => <>
-    <FlexRow key={i} align="center">
-        <label htmlFor="multiplierY">n_{i}:</label>
-        <input
-          type="number"
-          value={numbers[i]}
-          onChange={inputHandler(i)}  />
-    </FlexRow>
-  </>)
+  const numberInputs = numbers.map((n, i) => <div key={i}>
+    <NumberInput
+      label={`n_${i}`}
+      value={numbers[i]}
+      onChange={inputHandler(i)}  />
+  </div>)
 
   return (
     <>
+      <h1 className="thick">Fourier Series</h1>
+      <p>Use a series of circles to draw irregular lines!</p>
       <FlexRow wrap="wrap" flex="space-between" width="70%">
         {numberInputs}
       </FlexRow>

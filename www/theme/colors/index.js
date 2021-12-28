@@ -1,11 +1,12 @@
 const colors = {
-  "DARK PURPLE": '#161032',
-  "IVORY": '#F5FBEF',
-  "FERN GREEN": '#5B7553',
-  "ENGLISH VERMILLION": '#D64550',
-  "BLUE JEANS": '#33A1FD',
-  "HONEY YELLOW": '#F2AF29',
-  "PLUM": '#673147',
+  "BLACK": '#2C2E34',
+  "WHITE": '#FFFFFF',
+  "GREEN": '#00933C',
+  "RED": '#EE352E',
+  "BLUE": '#0039A6',
+  "YELLOW": '#FCCC0A',
+  "PURPLE": '#B933AD',
+  "ORANGE": '#FF6319',
 };
 
 export default colors
