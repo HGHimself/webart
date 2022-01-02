@@ -57,6 +57,7 @@ p  {
 }
 
 button {
+  font-family: "Futura";
   font-size: 0.875rem;
   letter-spacing: 1.25px;
   border-radius: 0.5em;
@@ -123,7 +124,7 @@ pre {
 }
 
 input[type=number] {
-  font-family: 'Helvetica', sans-serif;
+  font-family: 'Futura', sans-serif;
   width: 58px;
   text-align: center;
 }

@@ -4,10 +4,10 @@ import theme from "../theme"
 
 import FlexRow from "./FlexRow.jsx"
 
-const height = 32
+const height = 16
 const width = 32
 
-const upArrowPoints = `${height/2},1 1,${height} ${width-1},${height}`
+const upArrowPoints = `${width/2},1 1,${height} ${width-1},${height}`
 const downArrowPoints = `1,0 ${width-1},0 ${width/2},${height-1}`
 
 export default function NumberInput( props )  {

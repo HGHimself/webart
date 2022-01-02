@@ -14,29 +14,34 @@ import entry from "../build/entry.js"
 
 function Aesthetic( props )  {
 
-  const makeSwatch = (name, color, i) => <div key={i}><Swatch color={color} name={name} /></div>
+  const makeSwatch = (name, color, i) => (<div key={i}><Swatch color={color} name={name} /></div>)
   const makeButton = (type, i) => (<div key={i}><Button type={type}>{type}</Button></div>)
-  const makeSwitch = (type, i) => <div key={i}><Switch type={type} key={i} /></div>
+  const makeSwitch = (type, i) => (<div key={i}><Switch type={type} key={i} /></div>)
+  const makeNumberInputs = (number, i) => (<div key={i}><NumberInput label="numero" value={number} onChange={()=>{}} /></div>)
 
   const types = Object.keys(theme.colors)
+  const numbers = [1, 7, 2, 9]
 
   return (
     <>
       <h1 className="thick">Aesthetic</h1>
-      <p>Inspect the design motifs of these webapps. Inspirations pulled </p>
+      <p>A study of the design motifs used across the site.</p>
       <h4>colors</h4>
       <FlexRow wrap="wrap">
         {objectMap(theme.shades, makeSwatch)}
       </FlexRow>
+      <br />
       <h4>buttons</h4>
       <FlexRow wrap="wrap">{types.map(makeButton)}</FlexRow>
+      <br />
       <h4>switches</h4>
-      <FlexRow wrap="wrap">{types.map(makeSwitch)}</FlexRow>
+      <FlexRow wrap="wrap" width="50%" flex="space-between">{types.map(makeSwitch)}</FlexRow>
+      <br />
       <h4>inputs</h4>
-      <NumberInput
-        label="label"
-        value={1729}
-        onChange={()=>{}} />
+      <FlexRow wrap="wrap" width="40%" flex="space-between">
+        {numbers.map(makeNumberInputs)}
+      </FlexRow>
+      <br />
       <h4>codeblock</h4>
       <pre>
         <code>{`
@@ -45,6 +50,7 @@ input = "console.log('input = ' + String.fromCharCode(34) + input + String.fromC
 console.log('input = ' + String.fromCharCode(34) + input + String.fromCharCode(34) + ';' + String.fromCharCode(10) + input);
         `}</code>
       </pre>
+      <br />
       <h4>typography</h4>
       <p>Paragraph text displayed in <Link href="https://en.wikipedia.org/wiki/Helvetica">Helvetica</Link> font face.</p>
       <p>{

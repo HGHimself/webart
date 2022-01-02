@@ -20,7 +20,7 @@ const labelStyle = css`
 
 export default function Switch( props )  {
 
-  const {state, type, onClick, ...other} = props
+  const {state, type, onClick, hideLabel, ...other} = props
 
   const [onOff, flipOnOff] = useState(state)
 
@@ -62,7 +62,7 @@ export default function Switch( props )  {
         onClick={clickHandler}
         {...other} >
       </div>
-      <span className={labelStyle} onClick={clickHandler}>{flag}</span>
+      {!hideLabel && <span className={labelStyle} onClick={clickHandler}>{flag}</span>}
     </FlexRow>
   )
 }

@@ -8,9 +8,10 @@ export default function Swatch( props )  {
 
   const { color, name } = props
 
-  const height = props.height ? props.height : 128
+  const height = props.height ? props.height : 100
 
   const swatch = css`
+    text-align: right;
     color: ${darkOrLight(color)};
     height: ${height}px;
     width: ${height}px;
@@ -22,7 +23,7 @@ export default function Swatch( props )  {
   return (
     <div className={swatch}>
       <p>{color}</p>
-      <p>{name}</p>
+      <h5>{name.toLocaleLowerCase()}</h5>
     </div>
   )
 }
