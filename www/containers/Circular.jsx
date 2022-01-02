@@ -152,8 +152,8 @@ function Circular( props )  {
 
   return (
     <>
-      <h1  className="thick">Radial Cartesian</h1>
-      <span>Draw using ratios and simple harmonic motion. Experiment with the values!</span>
+      <h1 className="thick">Radial Cartesian</h1>
+      <p>Draw using ratios and simple harmonic motion. Experiment with the values!</p>
       <FlexRow align="center">
         <label>Animate:</label>
         <Switch type={'warning'} state={running} onClick={toggleRunning} />

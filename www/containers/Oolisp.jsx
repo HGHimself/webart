@@ -194,7 +194,7 @@ function Oolisp( props )  {
   return (
     <>
       <h1 className="thick">Oolisp</h1>
-      <span>Web-based LISP interpreter. ~994 lines of Rust, compiled to WASM. Enter <code>help</code> into the prompt below for instructions.</span>
+      <p>Web-based LISP interpreter. ~994 lines of Rust, compiled to WASM. Enter <code>help</code> into the prompt below for instructions.</p>
       <div className={terminal}>
         <FlexRow direction="column-reverse" overflowY="scroll" maxHeight="390px">
           {shellBuffer}

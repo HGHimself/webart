@@ -47,7 +47,6 @@ function Dada(props) {
   return (
     <>
       <h1 className="thick">Dada Poem</h1>
-      <div className={css`width: 10%;`}><div className="up-down-arrows">HG</div></div>
       <p>Express your own irrationality! Enter words into the box on the left; see the output on the right.</p>
       <FlexRow flex="flex">
         <div className={css`width: 30%;`}>
