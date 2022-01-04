@@ -24,7 +24,7 @@ function Aesthetic( props )  {
 
   return (
     <>
-      <h1 className="thick">Aesthetic</h1>
+      <h1 className="thick">AESTHETIC</h1>
       <p>A study of the design motifs used across the site.</p>
       <h4>colors</h4>
       <FlexRow wrap="wrap">

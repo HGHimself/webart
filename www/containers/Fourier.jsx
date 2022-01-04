@@ -62,7 +62,7 @@ export default function Fourier( props )  {
 
   return (
     <>
-      <h1 className="thick">Fourier Transform</h1>
+      <h1 className="thick">FOURIER</h1>
       <p>Use a series of circles to draw irregular lines!</p>
       <FlexRow wrap="wrap" flex="space-between" width="70%">
         {numberInputs}

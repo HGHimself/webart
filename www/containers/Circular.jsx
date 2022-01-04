@@ -38,7 +38,7 @@ function Circular( props )  {
   const sliderMax = 1974
 
   const [color, setColorState] = useState(defaultColor)
-  const [spectrum, setSpectrumState] = useState(props.s || 1)
+  const [spectrum, setSpectrumState] = useState(props.s || 0)
   const [multiplierX, setMultiplierXState] = useState(props.x || 1)
   const [multiplierY, setMultiplierYState] = useState(props.y || 1)
   const [period, setPeriodState] = useState(props.p || 1)
@@ -152,7 +152,7 @@ function Circular( props )  {
 
   return (
     <>
-      <h1 className="thick">Radial Cartesian</h1>
+      <h1 className="thick">DESCARTES</h1>
       <p>Draw using ratios and simple harmonic motion. Experiment with the values!</p>
       <FlexRow align="center">
         <label>Animate:</label>
