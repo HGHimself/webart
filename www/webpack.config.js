@@ -12,6 +12,7 @@ module.exports = {
     'fourier': "./containers/Fourier.jsx",
     'oolisp': "./containers/Oolisp.jsx",
     'dada': "./containers/Dada.jsx",
+    'music': "./containers/MusicBox.jsx",
     'home': "./containers/Home.jsx"
   },
   output: {
@@ -83,6 +84,13 @@ module.exports = {
       env: process.env.NODE_ENV,
       chunks: ['dada'],
       filename: 'dada.html',
+      template: 'build/template.html'
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Music',
+      env: process.env.NODE_ENV,
+      chunks: ['music'],
+      filename: 'music.html',
       template: 'build/template.html'
     }),
     new HtmlWebpackPlugin({
