@@ -57,11 +57,14 @@ class Music {
   }
 
   update() {
-    const { svg, props: { width, data } } = this
-    console.log((data.length / width));
+    const { svg, props: { width, height, data } } = this
+
+    const originX = (width/2)
+    const originY = (height/2)
+
     svg.selectAll('circle')
-      .attr("cy", d =>  1.3 * d)
-      .attr("cx", (d, i) => (width / (2 * data.length)) + (i / data.length) * width)
+      .attr("cy", (d, i) => d)
+      .attr("cx", (d, i) => 4 * i)
       .attr("r", width / (2 * data.length))
       .attr("fill", (d, i) => getSpectrumPosition(i * 0.09))
   }

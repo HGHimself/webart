@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react"
+import React, {useEffect, useRef, useState} from "react"
 const axios = require('axios')
 
 import music from "../vectors/music.js"
@@ -16,28 +16,54 @@ import Animator from "../components/Animator.jsx"
 
 import entry from "../build/entry.js"
 
-const url = "/neo-soul.m4a"
+const url = "/Lofi2v1.m4a"
 var dataArray
 
 var context = new (window.AudioContext || window.webkitAudioContext)()
 var analyser = context.createAnalyser()
 analyser.fftSize = 128*2*2
 
-let vis = null;
+var source
+
+let vis = null
 const setVis = (v) => { vis = v }
+
+const frameRate = 10
 
 function Music( props )  {
 
   const [song, setSongState] = useState(null)
+  const [running, setRunningState] = useState(false)
 
+  const runningRef = useRef()
+  runningRef.current = running
+
+  // load the song and set up the web api stuff
   useEffect(() => {
     window.fetch(url)
       .then(response => response.arrayBuffer())
       .then(arrayBuffer => context.decodeAudioData(arrayBuffer))
       .then(audioBuffer => {
-        setSongState(audioBuffer)
+        source = context.createBufferSource()
+        source.connect(analyser)
+        source.buffer = audioBuffer
+        source.connect(context.destination)
+        // source.start()
+
+        var bufferLength = analyser.frequencyBinCount
+        dataArray = new Uint8Array(bufferLength)
+        vis.setData(dataArray)
+        console.log('ready', dataArray);
+        // setSongState(audioBuffer)
       })
   }, [])
+
+  const intervalHandler = () => {
+    if ( runningRef.current ) {
+      analyser.getByteTimeDomainData(dataArray)
+      vis.setData(dataArray)
+    }
+  }
 
   const options = {
     data: !dataArray ? [] : dataArray,
@@ -45,31 +71,23 @@ function Music( props )  {
     width: 1300,
   }
 
-  const play = () => {
-    console.log("playing")
-    const source = context.createBufferSource()
-    source.connect(analyser)
-    source.buffer = song
-    source.connect(context.destination)
-    source.start()
-
-    var bufferLength = analyser.frequencyBinCount
-    dataArray = new Uint8Array(bufferLength)
-    console.log(bufferLength);
-    window.setInterval(() => {
-      analyser.getByteTimeDomainData(dataArray)
-      vis.setData(dataArray)
-    }, 10)
+  const toggleRunning = () => {
+    // need to negate the boolean because it hasnt been flipped yet
+    console.log({running});
+    running ? source.stop() : source.start()
+    setRunningState(!running)
   }
 
   return (
     <>
       <h1 className="thick">MUSIC</h1>
-      <Button onClick={play} type="danger">PLAY</Button>
+      <Switch type={'danger'} state={running} onClick={toggleRunning} />
       <Animator
         drawer={music}
         setVis={setVis}
         options={options}
+        intervalCallback={intervalHandler}
+        time={frameRate}
         />
     </>
   )
