@@ -13,11 +13,11 @@ module.exports = {
     'oolisp': "./containers/Oolisp.jsx",
     'dada': "./containers/Dada.jsx",
     'music': "./containers/MusicBox.jsx",
-    'home': "./containers/Home.jsx"
+    'webart': "./containers/Home.jsx"
   },
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "[name].js",
+    filename: "webart/[name].js",
     clean: true
   },
   optimization: {
@@ -34,70 +34,70 @@ module.exports = {
       title: 'Aesthetic',
       env: process.env.NODE_ENV,
       chunks: ['aesthetic'],
-      filename: 'aesthetic.html',
+      filename: 'webart/aesthetic.html',
       template: 'build/template.html'
     }),
     new HtmlWebpackPlugin({
       title: 'Blog',
       env: process.env.NODE_ENV,
       chunks: ['blog'],
-      filename: 'blog.html',
+      filename: 'webart/blog.html',
       template: 'build/template.html'
     }),
     new HtmlWebpackPlugin({
       title: 'Radial Cartesian',
       env: process.env.NODE_ENV,
       chunks: ['radial-cartesian'],
-      filename: 'radial-cartesian.html',
+      filename: 'webart/radial-cartesian.html',
       template: 'build/template.html'
     }),
     new HtmlWebpackPlugin({
       title: 'ColorPlot',
       env: process.env.NODE_ENV,
       chunks: ['color-plot'],
-      filename: 'color-plot.html',
+      filename: 'webart/color-plot.html',
       template: 'build/template.html'
     }),
     new HtmlWebpackPlugin({
       title: 'ColorStudy',
       env: process.env.NODE_ENV,
       chunks: ['color-study'],
-      filename: 'color-study.html',
+      filename: 'webart/color-study.html',
       template: 'build/template.html'
     }),
     new HtmlWebpackPlugin({
       title: 'Fourier',
       env: process.env.NODE_ENV,
       chunks: ['fourier'],
-      filename: 'fourier.html',
+      filename: 'webart/fourier.html',
       template: 'build/template.html'
     }),
     new HtmlWebpackPlugin({
       title: 'Oolisp',
       env: process.env.NODE_ENV,
       chunks: ['oolisp'],
-      filename: 'oolisp.html',
+      filename: 'webart/oolisp.html',
       template: 'build/template.html'
     }),
     new HtmlWebpackPlugin({
       title: 'Dada',
       env: process.env.NODE_ENV,
       chunks: ['dada'],
-      filename: 'dada.html',
+      filename: 'webart/dada.html',
       template: 'build/template.html'
     }),
     new HtmlWebpackPlugin({
       title: 'Music',
       env: process.env.NODE_ENV,
       chunks: ['music'],
-      filename: 'music.html',
+      filename: 'webart/music.html',
       template: 'build/template.html'
     }),
     new HtmlWebpackPlugin({
       title: 'Home',
       env: process.env.NODE_ENV,
       chunks: ['home'],
-      filename: 'index.html',
+      filename: 'webart/index.html',
       template: 'build/template.html'
     }),
     new CopyWebpackPlugin(['public/']),

@@ -5,6 +5,7 @@ server/svgs*
 
 target
 articles
+recipes
 dist
 .env
 .Ds_Store
