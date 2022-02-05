@@ -70,10 +70,13 @@ function ColorStudy( props )  {
   }
 
   return (
-    <Animator
-      drawer={relativity}
-      setVis={setVis}
-      options={options} />
+    <>
+      <a href="/webart">back</a>
+      <Animator
+        drawer={relativity}
+        setVis={setVis}
+        options={options} />
+    </>
   )
 }
 

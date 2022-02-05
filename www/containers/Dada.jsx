@@ -27,6 +27,7 @@ function Dada(props) {
 
   return (
     <>
+      <a href="/webart">back</a>
       <h1 className="thick">DADA</h1>
       <p>Express your own irrationality! Enter words into the box on the left; see the output on the right.</p>
       <FlexRow flex="flex">

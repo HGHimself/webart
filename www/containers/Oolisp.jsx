@@ -193,6 +193,7 @@ function Oolisp( props )  {
 
   return (
     <>
+      <a href="/webart">back</a>
       <h1 className="thick">OOLISP</h1>
       <p>Web-based LISP interpreter. ~994 lines of Rust, compiled to WASM. Enter <code>help</code> into the prompt below for instructions.</p>
       <div className={terminal}>

@@ -104,6 +104,7 @@ function ColorPlot( props )  {
 
   return (
     <>
+      <a href="/webart">back</a>
       <FlexRow wrap="wrap">
         <FlexRow>
           {axis.map(makeSwitchHanlder)}

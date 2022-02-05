@@ -37,6 +37,9 @@ async fn main() {
     }
 
     let home = warp::any().and(warp::fs::dir(public_folder.clone()));
+    let letsencrypt = warp::get()
+        .and(warp::path(".well-known"))
+        .map(|| format!(":)"));
 
     let end = hello!(
         String::from("articles"),
@@ -49,6 +52,7 @@ async fn main() {
         String::from("./templates/recipe-template.html")
     ))
     .or(home)
+    .or(letsencrypt)
     .with(warp::log("webart"));
 
     let socket_address = app_addr

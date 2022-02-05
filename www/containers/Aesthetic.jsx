@@ -24,6 +24,7 @@ function Aesthetic( props )  {
 
   return (
     <>
+      <a href="/webart">back</a>
       <h1 className="thick">AESTHETIC</h1>
       <p>A study of the design motifs used across the site.</p>
       <h4>colors</h4>

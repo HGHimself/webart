@@ -13,7 +13,8 @@ module.exports = {
     'oolisp': "./containers/Oolisp.jsx",
     'dada': "./containers/Dada.jsx",
     'music': "./containers/MusicBox.jsx",
-    'webart': "./containers/Home.jsx"
+    'webart': "./containers/Home.jsx",
+    'game': "./containers/Game.jsx"
   },
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -96,8 +97,15 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: 'Home',
       env: process.env.NODE_ENV,
-      chunks: ['home'],
+      chunks: ['webart'],
       filename: 'webart/index.html',
+      template: 'build/template.html'
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Game',
+      env: process.env.NODE_ENV,
+      chunks: ['game'],
+      filename: 'webart/game.html',
       template: 'build/template.html'
     }),
     new CopyWebpackPlugin(['public/']),
