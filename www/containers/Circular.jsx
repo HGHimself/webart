@@ -153,7 +153,7 @@ function Circular( props )  {
   return (
     <>
       <a href="/webart">back</a>
-      <h1 className="thick">DESCARTES</h1>
+      <h1>DESCARTES</h1>
       <p>Draw using ratios and simple harmonic motion. Experiment with the values!</p>
       <FlexRow align="center">
         <label>Animate:</label>

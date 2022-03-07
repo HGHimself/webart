@@ -25,7 +25,7 @@ function Aesthetic( props )  {
   return (
     <>
       <a href="/webart">back</a>
-      <h1 className="thick">AESTHETIC</h1>
+      <h1>AESTHETIC</h1>
       <p>A study of the design motifs used across the site.</p>
       <h4>colors</h4>
       <FlexRow wrap="wrap">
@@ -68,7 +68,7 @@ console.log('input = ' + String.fromCharCode(34) + input + String.fromCharCode(3
             {i == 0 || i % 32 ? '' : <br />}
         </span>)
       }</h6>
-      <h1 className="thick">Super Big Title - h1</h1>
+      <h1>Super Big Title - h1</h1>
       <h2>Big Title - h2</h2>
       <h3>Section - h3</h3>
       <h4>Subsection - h4</h4>

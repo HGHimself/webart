@@ -81,7 +81,7 @@ function Music( props )  {
   return (
     <>
       <a href="/webart">back</a>
-      <h1 className="thick">MUSIC</h1>
+      <h1>MUSIC</h1>
       <Switch type={'danger'} state={running} onClick={toggleRunning} />
       <Animator
         drawer={music}
