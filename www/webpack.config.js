@@ -14,7 +14,8 @@ module.exports = {
     'dada': "./containers/Dada.jsx",
     'music': "./containers/MusicBox.jsx",
     'webart': "./containers/Home.jsx",
-    'game': "./containers/Game.jsx"
+    'game': "./containers/Game.jsx",
+    'vector': "./containers/Vector.jsx"
   },
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -92,6 +93,13 @@ module.exports = {
       env: process.env.NODE_ENV,
       chunks: ['music'],
       filename: 'webart/music.html',
+      template: 'build/template.html'
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Vectors',
+      env: process.env.NODE_ENV,
+      chunks: ['vector'],
+      filename: 'webart/vector.html',
       template: 'build/template.html'
     }),
     new HtmlWebpackPlugin({
