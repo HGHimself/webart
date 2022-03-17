@@ -13,6 +13,8 @@ function Home(props) {
     <br />
     <a href="/webart/color-plot.html">Color Plot</a>
     <br />
+    <a href="/webart/vector.html">Art Nouveau Doors</a>
+    <br />
     <a href="/webart/dada.html">Dada</a>
     <br />
     <a href="/webart/color-study.html">Color Study</a>

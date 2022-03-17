@@ -126,6 +126,17 @@ function Oolisp( props )  {
   const [ shellBuffer, setShellBufferState ] = useState("")
   const [ historyIndex, setHistoryIndex ] = useState(-1)
 
+  let envObj = {};
+  if ( env ) {
+    let envString = oolisp.lisp(env, "env")
+    const envArray = envString.split("")
+    envArray[envString.length-3] = '' // clear out trailing comma
+    envString = envArray.join("")
+    envObj = JSON.parse(envString);
+  }
+
+
+
   useEffect(() => {
     env = oolisp.init_env()
     console.log(oolisp.lisp(env, prelude))
@@ -191,10 +202,31 @@ function Oolisp( props )  {
       }
   };
 
+  const displayLispObject = (obj, depth) => {
+    const type = obj.type
+    const tab = Array.from({length: depth}).map(_ => " || ").join("")
+    if ( type == "symbol" && envObj[obj.value] ) {
+      return <div>{tab} {type} => {displayLispObject(JSON.parse(oolisp.lisp(env, obj.value)), depth )} </div>
+    } else if ( type == "lambda" ) {
+      const args = obj.args.map(s => <>{s} </>)
+      return <><div>{tab} {type} => {args} -></div>{obj.body.map(displayLispObject, depth + 1)}</>
+    } else if ( type == "sexpression" || type == "qexpression" ) {
+      return <><div>{tab} {type} =></div>{obj.value.map(displayLispObject, depth + 1)}</>
+    } else {
+      return <div>{tab} {type} => {obj.value} </div>
+    }
+  }
+
+  const displayLispObjects = (key, i) => {
+    console.log(key);
+    const obj = envObj[key]
+    return <div>{key} :: {displayLispObject(obj, 1)}</div>
+  }
+
   return (
     <>
       <a href="/webart">back</a>
-      <h1 className="thick">OOLISP</h1>
+      <h1>OOLISP</h1>
       <p>Web-based LISP interpreter. ~994 lines of Rust, compiled to WASM. Enter <code>help</code> into the prompt below for instructions.</p>
       <div className={terminal}>
         <FlexRow direction="column-reverse" overflowY="scroll" maxHeight="390px">
@@ -204,6 +236,7 @@ function Oolisp( props )  {
           <label htmlFor="prompt">{prompt}</label><input name="prompt" type="text" onChange={handleInput} value={shellInput} className={terminalInput} />
         </FlexRow>
       </div>
+      {Object.keys(envObj).map(displayLispObjects)}
     </>
   )
 }

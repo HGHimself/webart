@@ -3,6 +3,8 @@ export const percent = (value, decimals = 0) => {
   return Math.floor(value * multiplier) / (multiplier / 100);
 }
 
+export const random = (a, b) => a + Math.floor(Math.random() * b)
+
 export const gcd = (a, b) => b === 0 ? a : gcd(b, a % b)
 
 export const degreesToRadians = (degrees) => degrees * (Math.PI / 180)
