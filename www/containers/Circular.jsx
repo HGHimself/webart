@@ -64,24 +64,6 @@ function Circular( props )  {
   runningRef.current = running
   const toggleRunning = () => setRunningState(!running)
 
-  const offsetRef = useRef()
-  offsetRef.current = offset
-
-  const multiplierXRef = useRef()
-  multiplierXRef.current = multiplierX
-
-  const multiplierYRef = useRef()
-  multiplierYRef.current = multiplierY
-
-  const spectrumRef = useRef()
-  spectrumRef.current = spectrum
-
-  const periodRef = useRef()
-  periodRef.current = period
-
-  const countRef = useRef()
-  countRef.current = count
-
   const bumpOffset = (offset) => {
     // here we could mod by sliderMax
     const off = (offset + step)

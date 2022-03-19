@@ -26,7 +26,6 @@ class Vector {
       .append("g")
         .attr("filter", "url(#tint)")
 
-
     this.svgs = [
       svgLeft,
       svgRight
@@ -43,10 +42,12 @@ class Vector {
         .attr("class", "mesh")
         .attr("filter", "url(#pencil)")
         .append('path')
+        .attr("class", "outline")
         .attr("d", d3.line().curve(d3['curveMonotoneX'])(box))
         .attr("stroke-width", "4")
-        .attr("fill", "none")
+        .attr("fill", getSpectrumPosition(this.props.spectrum))
         .attr("stroke", theme.colors.black)
+        .attr("filter", "url(#splotch)")
       // svg.selectAll('ellipse')
       //   .data([0])
       //   .enter()
@@ -70,6 +71,21 @@ class Vector {
             .attr("filter", "url(#splotch)")
     })
 
+    this.update()
+  }
+
+  setMultiplierX(multiplierX) {
+    this.props.multiplierX = multiplierX
+    this.update()
+  }
+
+  setMultiplierY(multiplierY) {
+    this.props.multiplierY = multiplierY
+    this.update()
+  }
+
+  setSpectrum(spectrum) {
+    this.props.spectrum = spectrum
     this.update()
   }
 
@@ -101,6 +117,11 @@ class Vector {
     this.update()
   }
 
+  setFrequency(frequency) {
+    this.props.omega = frequency
+    this.update()
+  }
+
   getDrawer(batch) {
     const { count, numbers, amplitude, omega, offset, multiplierX, multiplierY, width, height } = this.props
 
@@ -108,7 +129,7 @@ class Vector {
     const originY = (height/2)
 
     const squarewaveTransformX = (time) => fourier(amplitude, omega, time, numbers, squareWaveSequenceSin)
-    const squarewaveTransformY = (time) => fourier(2 * amplitude, omega, time, numbers, squareWaveSequenceSin)
+    const squarewaveTransformY = (time) => fourier(1.5 * amplitude, omega, time, numbers, squareWaveSequenceSin)
 
     const arc = Array.from({ length: count }, (_, i) => [
       originX + squarewaveTransformX(multiplierX * ((i + batch) - offset)),
@@ -128,7 +149,9 @@ class Vector {
         .attr("stroke", theme.colors.black)
         .attr("fill", d => !this.props.spectrum
           ? "none"
-          : getSpectrumPosition(this.props.spectrum + (d/(this.props.count * 0.4))))
+          : getSpectrumPosition(this.props.spectrum + (d/(this.props.count * 2.4))))
+      svg.selectAll('path.outline')
+        .attr("fill", getSpectrumPosition(this.props.spectrum - 1))
     })
   }
 }
