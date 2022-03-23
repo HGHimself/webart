@@ -117,6 +117,11 @@ class Vector {
     this.update()
   }
 
+  setOffset(offset) {
+    this.props.offset = offset
+    this.update()
+  }
+
   setFrequency(frequency) {
     this.props.omega = frequency
     this.update()

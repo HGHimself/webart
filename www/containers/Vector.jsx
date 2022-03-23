@@ -18,16 +18,26 @@ const setVector = (v) => { vis = v }
 
 function Vector( props )  {
 
+  const time = 100
+  const step = 5
+  const limit = 1000
+  const defaultColor = 'transparent'
+  const sliderMin = 0
+  const sliderMax = 1974
+
+  const [color, setColorState] = useState(defaultColor)
   const [spectrum, setSpectrumState] = useState(props.s || 0)
   const [multiplierX, setMultiplierXState] = useState(props.x || 1)
   const [multiplierY, setMultiplierYState] = useState(props.y || 1)
-  const [period, setPeriodState] = useState(props.p || 1)
+  const [period, setPeriodState] = useState(props.p || 20)
+  const [count, setCount] = useState(props.c || 1000)
 
-  const count = 1
+  const [running, setRunningState] = useState(false)
+  const [offset, setOffsetState] = useState(0)
 
   const options = {
-    numbers: [ 1, 13, 5, 60, 50, 40, 5, 13, 17 ],
-    count: 7,
+    numbers: [ 1, 13, 5, 60, 40, 40, 5, 13, 17 ],
+    count: 6,
     height: 730,
     width: 420,
     amplitude: 380,
@@ -36,6 +46,23 @@ function Vector( props )  {
     spectrum,
     multiplierX,
     multiplierY,
+  }
+
+  // ref to stick into the timer
+  const runningRef = useRef()
+  runningRef.current = running
+  const toggleRunning = () => setRunningState(!running)
+
+  const bumpOffset = (offset) => {
+    // here we could mod by sliderMax
+    const off = (offset + step)
+    vis.setOffset(off)
+    return off
+  }
+
+  const intervalHandler = () => {
+    if ( !runningRef.current ) return
+    setOffsetState(bumpOffset)
   }
 
   const setMultiplierYHandler = (value) => {
@@ -50,10 +77,41 @@ function Vector( props )  {
     vis.setMultiplierX(r)
   }
 
+  const randomizeHandler = (value) => {
+    const y = Math.round(Math.random() * limit)
+    setMultiplierYState(y)
+    vis.setMultiplierY(y)
+
+    const x = Math.round(Math.random() * limit)
+    setMultiplierXState(x)
+    vis.setMultiplierX(x)
+
+    const spectrum = Math.round(Math.random() * limit)
+    vis.setSpectrum(spectrum)
+    setSpectrumState(spectrum)
+
+    const period = Math.round(Math.random() * limit)
+    setPeriodState(period)
+    vis.setFrequency(2 * Math.PI * (1 / period))
+  }
+
+
   const setPeriodHandler = (value) => {
     const r = Math.abs(value)
     setPeriodState(r)
-    vis.setFrequency(2 * Math.PI * (1 / period))
+    vis.setFrequency(2 * Math.PI * (1 / r))
+  }
+
+  const setCountHandler = (value) => {
+    const c = Math.abs(value)
+    setCount(c)
+    vis.setCount(c)
+  }
+
+  const setMultiplierHandler = (value) => {
+    const multiplierInput = +value
+    vis.setOffset(multiplierInput)
+    setOffsetState(multiplierInput)
   }
 
   const setSpectrumHandler = (value) => {
@@ -67,6 +125,13 @@ function Vector( props )  {
       <a href="/webart">back</a>
       <h1>ART NOUVEAU DOORS</h1>
       <p>Procedurally generated art nouveau doors like you would find in Barcelona.</p>
+      <FlexRow align="center">
+      {
+        // <label>Animate:</label>
+        // <Switch type={'warning'} state={running} onClick={toggleRunning} />
+        }
+        <Button type='info' onClick={randomizeHandler}>RANDOMIZE</Button>
+      </FlexRow>
       <FlexRow wrap="wrap" flex="space-between" width="75%">
         <NumberInput
           label="X"
@@ -93,7 +158,9 @@ function Vector( props )  {
       <Animator
         drawer={vector}
         setVis={setVector}
-        options={options} />
+        options={options}
+        time={time}
+        intervalCallback={intervalHandler} />
       <svg>
         <defs>
           <filter id="tint">
