@@ -1,13 +1,17 @@
 body {
-  background-color: #FFFFFF;
+  /* background-image: url("bg.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed; */
   color: #2C2E34;
   font-family: 'Helvetica';
   line-height: 1.4;
 }
 
 main {
-  margin-left: 24px;
-  /* width: 80%; */
+  margin: auto;
+  width: 75%;
+  /* background-color: white; */
 }
 
 h1 {

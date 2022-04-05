@@ -12,23 +12,83 @@ class Vector {
 
     const data = Array.from({ length: count }, (_, i) => i)
 
-    const svgLeft = d3.select(containerEl)
+    this.svg = d3.select(containerEl)
       .append('svg')
-      .attr('width', width)
+      .attr('width', width*2)
       .attr('height', height)
-      .append("g")
-        .attr("filter", "url(#tint)")
-    const svgRight = d3.select(containerEl)
-      .append('svg')
-      .attr('width', width)
-      .attr('height', height)
-      .attr('transform', 'scale(-1,1)')
-      .append("g")
-        .attr("filter", "url(#tint)")
+    this.svg
+      .append('defs')
+        .append('filter')
+          .attr('id', 'tint')
+            .append('feColorMatrix')
+              .attr('values', '1.1 0 0 0 0  0 1.1 0 0 0  0 0 0.9 0 0  0 0 0 1 0')
+    this.svg
+      .select('defs')
+      .append('filter')
+        .attr('id', 'splotch')
+          .append('feTurbulence')
+            .attr('type', 'fractalNoise')
+            .attr('baseFrequency', '0.01')
+            .attr('numOctaves', '4')
+    this.svg
+      .select('defs')
+      .select('filter#splotch')
+      .append('feColorMatrix')
+        .attr('values', '0 0 0 0 0, 0 0 0 0 0, 0 0 0 0 0, 0 0 0 -0.9 1.2')
+        .attr('result', 'texture')
+    this.svg
+      .select('defs')
+      .select('filter#splotch')
+      .append('feComposite')
+        .attr('in', 'SourceGraphic')
+        .attr('in2', 'texture')
+        .attr('operator', 'in')
+    this.svg
+      .select('defs')
+      .select('filter#splotch')
+      .append('feGaussianBlur')
+        .attr('stdDeviation', '0.7')
+    this.svg
+      .select('defs')
+      .append('filter')
+        .attr('id', 'pencil')
+          .append('feTurbulence')
+            .attr('type', 'fractalNoise')
+            .attr('baseFrequency', '.01')
+            .attr('numOctaves', '4')
+    this.svg
+      .select('defs')
+      .select('filter#pencil')
+      .append('feTurbulence')
+        .attr('baseFrequency', '0.03')
+        .attr('type', 'fractalNoise')
+        .attr('numOctaves', '2')
+    this.svg
+      .select('defs')
+      .select('filter#pencil')
+      .append('feDisplacementMap')
+        .attr('in', 'SourceGraphic')
+        .attr('scale', '1')
+        .attr('xChannelSelector', 'R')
+        .attr('yChannelSelector', 'G')
+    this.svg
+      .select('defs')
+      .select('filter#pencil')
+      .append('feGaussianBlur')
+        .attr('stdDeviation', '0.6')
+    this.svg.append("g")
+        .attr('width', width)
+        .attr('height', height)
+        .attr("class", "left")
+    this.svg.append("g")
+        .attr('width', width)
+        .attr('height', height)
+        .attr("class", "right")
+        .attr('transform', `translate(${width*2},0) scale(-1,1)`)
 
-    this.svgs = [
-      svgLeft,
-      svgRight
+    this.classes = [
+      "left",
+      "right"
     ]
 
     const pad = 6
@@ -37,16 +97,15 @@ class Vector {
       [0,pad],[width-pad,0],[width-0,height-pad],[pad,height-0],[0,pad]
     ]
 
-    this.svgs.forEach(svg => {
-      svg.append("g")
-        .attr("class", "mesh")
-        .attr("filter", "url(#pencil)")
+    this.classes.forEach(c => {
+      this.svg.select(`g.${c}`)
+        .append("g")
         .append('path')
         .attr("class", "outline")
         .attr("d", d3.line().curve(d3['curveMonotoneX'])(box))
         .attr("stroke-width", "4")
         .attr("fill", getSpectrumPosition(this.props.spectrum))
-        .attr("stroke", theme.colors.black)
+        // .attr("stroke", theme.colors.black)
         .attr("filter", "url(#splotch)")
       // svg.selectAll('ellipse')
       //   .data([0])
@@ -58,7 +117,7 @@ class Vector {
       //     .attr("cy", height / 2)
       //     .attr("fill", "#8b9b8a")
           // .attr("stroke-width", "3")
-      svg.append("g")
+      this.svg.select(`g.${c}`).append("g")
         .attr("class", "mesh")
         .attr("filter", "url(#pencil)")
         .selectAll('path.door') // you can draw other paths if you use classes
@@ -69,6 +128,15 @@ class Vector {
             .attr("fill", "none")
             .attr("stroke-width", "4")
             .attr("filter", "url(#splotch)")
+      this.svg.select(`g.${c}`)
+        .append("g")
+        .append('path')
+        .attr("class", "outline1")
+        .attr("d", d3.line().curve(d3['curveMonotoneX'])(box))
+        .attr("stroke-width", "4")
+        .attr("fill", "none")
+        .attr("stroke", theme.colors.black)
+        .attr("filter", "url(#splotch)")
     })
 
     this.update()
@@ -130,11 +198,11 @@ class Vector {
   getDrawer(batch) {
     const { count, numbers, amplitude, omega, offset, multiplierX, multiplierY, width, height } = this.props
 
-    const originX = (width/2)
+    const originX = (width/2) * 1.1
     const originY = (height/2)
 
-    const squarewaveTransformX = (time) => fourier(amplitude, omega, time, numbers, squareWaveSequenceSin)
-    const squarewaveTransformY = (time) => fourier(1.5 * amplitude, omega, time, numbers, squareWaveSequenceSin)
+    const squarewaveTransformX = (time) => fourier(1.2 * amplitude, omega, time, numbers, squareWaveSequenceSin)
+    const squarewaveTransformY = (time) => fourier(1.9 * amplitude, omega, time, numbers, squareWaveSequenceSin)
 
     const arc = Array.from({ length: count }, (_, i) => [
       originX + squarewaveTransformX(multiplierX * ((i + batch) - offset)),
@@ -145,19 +213,25 @@ class Vector {
   }
 
   update() {
-    const { svgs } = this
+    const { classes } = this
     const drawer = this.getDrawer()
 
-    svgs.forEach(svg => {
-      svg.selectAll('path.door')
+    this.classes.forEach(c => {
+      this.svg.select(`g.${c}`)
+        .selectAll('path.door')
         .attr("d", d => this.getDrawer(d))
         .attr("stroke", theme.colors.black)
         .attr("fill", d => !this.props.spectrum
           ? "none"
-          : getSpectrumPosition(this.props.spectrum + (d/(this.props.count * 2.4))))
-      svg.selectAll('path.outline')
-        .attr("fill", getSpectrumPosition(this.props.spectrum - 1))
+          : getSpectrumPosition(this.props.spectrum + (d/(this.props.count * 2.4)), 0.3))
+      this.svg.select(`g.${c}`).selectAll('path.outline')
+        .attr("fill", this.props.spectrum ? getSpectrumPosition(this.props.spectrum - 0.5, 0.3) : "none")
     })
+  }
+
+  getSvg() {
+    const { svg } = this
+    return svg
   }
 }
 

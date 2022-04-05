@@ -51,5 +51,5 @@ export const getRgbSpectrumArray = (i) => {
 
 export const getSpectrumPosition = (i, a) => {
   const [r, g, b] = getRgbSpectrumArray(i)
-  return a ? `rgb(${r}, ${g}, ${b}, ${a})` : `rgb(${r}, ${g}, ${b})` 
+  return a ? `rgba(${r}, ${g}, ${b}, ${a})` : `rgb(${r}, ${g}, ${b})` 
 }
