@@ -3,6 +3,7 @@ import { css } from "@emotion/css"
 import * as dada from "dada-poem-generator"
 
 import FlexRow from '../components/FlexRow.jsx'
+import Title from "../components/Title.jsx"
 
 import entry from "../build/entry.js"
 
@@ -28,8 +29,10 @@ function Dada(props) {
   return (
     <>
       <a href="/webart">back</a>
-      <h1>DADA</h1>
-      <p>Express your own irrationality! Enter words into the box on the left; see the output on the right.</p>
+      <Title
+        title="DADA"
+        description="Express your own irrationality! Enter words into the box on the left; see the output on the right."
+        />
       <FlexRow flex="flex">
         <div className={css`width: 30%;`}>
           <textarea  onChange={handleInput} value={input} />

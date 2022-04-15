@@ -15,7 +15,9 @@ module.exports = {
     'music': "./containers/MusicBox.jsx",
     'webart': "./containers/Home.jsx",
     'game': "./containers/Game.jsx",
-    'vector': "./containers/Vector.jsx"
+    'vector': "./containers/Vector.jsx",
+    'spectral-circle': "./containers/SpectralCircle.jsx",
+    'escher': "./containers/Escher.jsx"
   },
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -96,10 +98,24 @@ module.exports = {
       template: 'build/template.html'
     }),
     new HtmlWebpackPlugin({
-      title: 'Vectors',
+      title: 'Barcelona Doors',
       env: process.env.NODE_ENV,
       chunks: ['vector'],
       filename: 'webart/vector.html',
+      template: 'build/template.html'
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Spectral Circle',
+      env: process.env.NODE_ENV,
+      chunks: ['spectral-circle'],
+      filename: 'webart/spectral-circle.html',
+      template: 'build/template.html'
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Escher',
+      env: process.env.NODE_ENV,
+      chunks: ['escher'],
+      filename: 'webart/escher.html',
       template: 'build/template.html'
     }),
     new HtmlWebpackPlugin({

@@ -226,8 +226,10 @@ function Oolisp( props )  {
   return (
     <>
       <a href="/webart">back</a>
-      <h1>OOLISP</h1>
-      <p>Web-based LISP interpreter. ~994 lines of Rust, compiled to WASM. Enter <code>help</code> into the prompt below for instructions.</p>
+      <Title
+        title="OOLISP"
+        description="Web-based LISP interpreter. ~994 lines of Rust, compiled to WASM. Enter <code>help</code> into the prompt below for instructions."
+        />
       <div className={terminal}>
         <FlexRow direction="column-reverse" overflowY="scroll" maxHeight="390px">
           {shellBuffer}

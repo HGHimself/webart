@@ -4,6 +4,7 @@ export const percent = (value, decimals = 0) => {
 }
 
 export const random = (a, b) => a + Math.floor(Math.random() * b)
+export const coinFlip = () => random(0, 2)
 
 export const gcd = (a, b) => b === 0 ? a : gcd(b, a % b)
 

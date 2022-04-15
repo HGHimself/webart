@@ -7,6 +7,7 @@ import theme from "../theme"
 import Animator from "../components/Animator.jsx"
 import FlexRow from "../components/FlexRow.jsx"
 import NumberInput from "../components/NumberInput.jsx"
+import Title from "../components/Title.jsx"
 
 import entry from "../build/entry.js"
 
@@ -63,8 +64,10 @@ export default function Fourier( props )  {
   return (
     <>
       <a href="/webart">back</a>
-      <h1>FOURIER</h1>
-      <p>Use a series of circles to draw irregular lines!</p>
+      <Title
+        title="FOURIER"
+        description="Use a series of circles to draw irregular lines!"
+        />
       <FlexRow wrap="wrap" flex="space-between" width="70%">
         {numberInputs}
       </FlexRow>

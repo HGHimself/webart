@@ -6,6 +6,7 @@ import Button from "../components/Button.jsx"
 import Switch from "../components/Switch.jsx"
 import Link from "../components/Link.jsx"
 import NumberInput from "../components/NumberInput.jsx"
+import Title from "../components/Title.jsx"
 
 import { objectMap } from "../utils/data-tools.js"
 import theme from "../theme"
@@ -25,8 +26,10 @@ function Aesthetic( props )  {
   return (
     <>
       <a href="/webart">back</a>
-      <h1>AESTHETIC</h1>
-      <p>A study of the design motifs used across the site.</p>
+      <Title
+        title="AESTHETIC"
+        description="A study of the design motifs used across the site."
+        />
       <h4>colors</h4>
       <FlexRow wrap="wrap">
         {objectMap(theme.shades, makeSwatch)}

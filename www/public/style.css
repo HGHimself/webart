@@ -1,16 +1,16 @@
 body {
   /* background-image: url("bg.svg");
   background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed; */
-  color: #2C2E34;
+  background-size: cover; */
+  /* background-attachment: fixed; */
+  color: rgb(28,27,25);
   font-family: 'Helvetica';
   line-height: 1.4;
 }
 
 main {
-  margin: auto;
-  width: 75%;
+  /* margin: auto;
+  width: 75%; */
   /* background-color: white; */
 }
 

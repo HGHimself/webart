@@ -1,6 +1,6 @@
 // save in vectors/vector.js
 import * as d3 from "d3"
-import { degreesToRadians, polarToCartesian, fourier, squareWaveCos, squareWaveSin, squareWaveSequenceSin, squareWaveSequenceCos, distance } from "../utils/maths-tools.js"
+import { degreesToRadians, polarToCartesian, fourier, squareWaveSequenceSin, squareWaveSequenceCos, distance } from "../utils/maths-tools.js"
 import theme from "../theme"
 import { getSpectrumPosition } from "../utils/color-tools.js"
 
@@ -196,13 +196,13 @@ class Vector {
   }
 
   getDrawer(batch) {
-    const { count, numbers, amplitude, omega, offset, multiplierX, multiplierY, width, height } = this.props
+    const { count, numbers, amplitudeX, amplitudeY, omega, offset, multiplierX, multiplierY, width, height } = this.props
 
-    const originX = (width/2) * 1.1
+    const originX = (width/2)
     const originY = (height/2)
 
-    const squarewaveTransformX = (time) => fourier(1.2 * amplitude, omega, time, numbers, squareWaveSequenceSin)
-    const squarewaveTransformY = (time) => fourier(1.9 * amplitude, omega, time, numbers, squareWaveSequenceSin)
+    const squarewaveTransformX = (time) => fourier(amplitudeX, omega, time, numbers, squareWaveSequenceSin)
+    const squarewaveTransformY = (time) => fourier(amplitudeY, omega, time, numbers, squareWaveSequenceSin)
 
     const arc = Array.from({ length: count }, (_, i) => [
       originX + squarewaveTransformX(multiplierX * ((i + batch) - offset)),

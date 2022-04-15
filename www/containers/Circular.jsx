@@ -135,8 +135,10 @@ function Circular( props )  {
   return (
     <>
       <a href="/webart">back</a>
-      <h1>DESCARTES</h1>
-      <p>Draw using ratios and simple harmonic motion. Experiment with the values!</p>
+      <Title
+        title="DESCARTES"
+        description="Draw using ratios and simple harmonic motion. Experiment with the values!"
+        />
       <FlexRow align="center">
         <label>Animate:</label>
         <Switch type={'warning'} state={running} onClick={toggleRunning} />
