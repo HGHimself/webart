@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react"
-import { css } from "@emotion/css"
-import * as dada from "dada-poem-generator"
+import React, { useState, useEffect } from 'react'
+import { css } from '@emotion/css'
+import * as dada from 'dada-poem-generator'
 
 import FlexRow from '../components/FlexRow.jsx'
-import Title from "../components/Title.jsx"
+import Title from '../components/Title.jsx'
 
-import entry from "../build/entry.js"
+import entry from '../build/entry.js'
 
 const defaultMessage = `TO MAKE A DADAIST POEM
 Take a newspaper.
@@ -20,31 +20,38 @@ The poem will resemble you.
 And there you are – an infinitely original author of charming sensibility, even though unappreciated by the vulgar herd.`
 
 function Dada(props) {
-  const [input, setInput] = useState(defaultMessage)
+    const [input, setInput] = useState(defaultMessage)
 
-  const handleInput = ({target}) => {
-    setInput(target.value)
-  }
+    const handleInput = ({ target }) => {
+        setInput(target.value)
+    }
 
-  return (
-    <>
-      <a href="/webart">back</a>
-      <Title
-        title="DADA"
-        description="Express your own irrationality! Enter words into the box on the left; see the output on the right."
-        />
-      <FlexRow flex="flex">
-        <div className={css`width: 30%;`}>
-          <textarea  onChange={handleInput} value={input} />
-        </div>
-        <div className={css`width: 60%; margin-left: 40px`}>
-          <pre>
-            {dada.dada(input)}
-          </pre>
-        </div>
-      </FlexRow>
-    </>
-  )
+    return (
+        <>
+            <a href="/webart">back</a>
+            <Title
+                title="DADA"
+                description="Express your own irrationality! Enter words into the box on the left; see the output on the right."
+            />
+            <FlexRow flex="flex">
+                <div
+                    className={css`
+                        width: 30%;
+                    `}
+                >
+                    <textarea onChange={handleInput} value={input} />
+                </div>
+                <div
+                    className={css`
+                        width: 60%;
+                        margin-left: 40px;
+                    `}
+                >
+                    <pre>{dada.dada(input)}</pre>
+                </div>
+            </FlexRow>
+        </>
+    )
 }
 
 entry(<Dada />)

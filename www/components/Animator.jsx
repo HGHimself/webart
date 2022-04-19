@@ -1,57 +1,57 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from 'react'
 
 let vis = null
 
-export default function Animator( props ) {
-  const { drawer, options, setVis, intervalCallback, time, ...other } = props
+export default function Animator(props) {
+    const { drawer, options, setVis, intervalCallback, time, ...other } = props
 
-  // const [vis, setVisState] = useState(null)
-  const [width, setWidth] = useState(options.width || 600)
-  const [height, setHeight] = useState(options.height || 600)
+    // const [vis, setVisState] = useState(null)
+    const [width, setWidth] = useState(options.width || 600)
+    const [height, setHeight] = useState(options.height || 600)
 
-  const refElement = useRef(null)
+    const refElement = useRef(null)
 
-  const initVis = () => {
-    const v = new drawer(refElement.current, options)
-    setVis(v)
-    vis = v
-  }
-
-  const updateVisOnResize = () => {
-    const w = width - 96
-    const h = options.height
-    vis && vis.resize(w, h)
-  }
-
-  const handleResizeEvent = () => {
-    let resizeTimer
-    const handleResize = () => {
-      clearTimeout(resizeTimer)
-      resizeTimer = setTimeout(function() {
-        setWidth(window.innerWidth)
-        setHeight(window.innerHeight)
-      }, 300)
+    const initVis = () => {
+        const v = new drawer(refElement.current, options)
+        setVis(v)
+        vis = v
     }
-    window.addEventListener('resize', handleResize)
 
-    return () => {
-      window.removeEventListener('resize', handleResize)
+    const updateVisOnResize = () => {
+        const w = width - 96
+        const h = options.height
+        vis && vis.resize(w, h)
     }
-  }
 
-  const setupTimer = () => {
-    if ( !intervalCallback )  { return }
+    const handleResizeEvent = () => {
+        let resizeTimer
+        const handleResize = () => {
+            clearTimeout(resizeTimer)
+            resizeTimer = setTimeout(function () {
+                setWidth(window.innerWidth)
+                setHeight(window.innerHeight)
+            }, 300)
+        }
+        window.addEventListener('resize', handleResize)
 
-    const interval = setInterval(intervalCallback, time)
-    return () => clearInterval(interval)
-  }
+        return () => {
+            window.removeEventListener('resize', handleResize)
+        }
+    }
 
-  useEffect(initVis, [])
-  useEffect(setupTimer, [])
-  useEffect(handleResizeEvent, [])
-  useEffect(updateVisOnResize, [ width, height ])
+    const setupTimer = () => {
+        if (!intervalCallback) {
+            return
+        }
 
-  return (
-      <div ref={refElement} {...other} />
-  )
+        const interval = setInterval(intervalCallback, time)
+        return () => clearInterval(interval)
+    }
+
+    useEffect(initVis, [])
+    useEffect(setupTimer, [])
+    useEffect(handleResizeEvent, [])
+    useEffect(updateVisOnResize, [width, height])
+
+    return <div ref={refElement} {...other} />
 }
