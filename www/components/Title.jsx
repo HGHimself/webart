@@ -11,10 +11,8 @@ export default function Title(props) {
 
     return (
         <div class="header">
-            <h2>{title}</h2>
-            <p className={descriptionStyle}>
-                <a href="/webart">back</a> | {description}
-            </p>
+            <h3>{title}</h3>
+            <p className={descriptionStyle}>{description}</p>
         </div>
     )
 }

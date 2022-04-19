@@ -53,5 +53,5 @@ export default function Animator(props) {
     useEffect(handleResizeEvent, [])
     useEffect(updateVisOnResize, [width, height])
 
-    return <div ref={refElement} {...other} />
+    return <div className="animator" ref={refElement} {...other} />
 }

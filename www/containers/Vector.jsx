@@ -15,18 +15,6 @@ import { random } from '../utils/maths-tools.js'
 
 import entry from '../build/entry.js'
 
-const s = new XMLSerializer()
-const GIF = require('../utils/gif.js')
-const gif = new GIF({
-    workers: 7,
-    quality: 1,
-    background: '#fff',
-})
-
-gif.on('finished', function (blob) {
-    window.open(URL.createObjectURL(blob))
-})
-
 let vis = null
 const setVector = (v) => {
     vis = v
@@ -39,42 +27,23 @@ function Vector(props) {
     const defaultColor = 'transparent'
     const sliderMin = 0
     const sliderMax = 1974
+    const amplitude = 380
+    const height = 500
+    const width = 500 / 2
 
     const [color, setColorState] = useState(defaultColor)
-    const [spectrum, setSpectrumState] = useState(props.s || 1)
+    const [spectrum, setSpectrumState] = useState(props.s || 0)
     const [multiplierX, setMultiplierXState] = useState(props.x || 5)
     const [multiplierY, setMultiplierYState] = useState(props.y || 16)
     const [period, setPeriodState] = useState(props.p || 20)
-    const [count, setCount] = useState(props.c || 1000)
+    const [count, setCount] = useState(props.c || 6)
 
     const [running, setRunningState] = useState(false)
     const [offset, setOffsetState] = useState(0)
 
-    const offsetRef = useRef()
-    offsetRef.current = offset
-
-    const multiplierXRef = useRef()
-    multiplierXRef.current = multiplierX
-
-    const multiplierYRef = useRef()
-    multiplierYRef.current = multiplierY
-
-    const spectrumRef = useRef()
-    spectrumRef.current = spectrum
-
-    const periodRef = useRef()
-    periodRef.current = period
-
-    const countRef = useRef()
-    countRef.current = count
-
-    const amplitude = 380
-    const height = 600
-    const width = 360
-
     const options = {
         numbers: [1, 3, 5, 7, 9, 11, 13, 15, 17],
-        count: 6,
+        count,
         height,
         width,
         amplitudeX: 0.9 * width,
@@ -100,7 +69,6 @@ function Vector(props) {
 
     const intervalHandler = () => {
         if (!runningRef.current) return
-        saveSvg()
         randomizeHandler()
     }
 
@@ -134,18 +102,6 @@ function Vector(props) {
         vis.setFrequency(2 * Math.PI * (1 / period))
     }
 
-    const saveSvg = () => {
-        // window.hg = vis.getSvg()
-        axios.post(`http://0.0.0.0:3030/svg`, {
-            x: multiplierXRef.current,
-            y: multiplierYRef.current,
-            period: periodRef.current,
-            count: countRef.current,
-            spectrum: spectrumRef.current,
-            svg: s.serializeToString(vis.getSvg().node()),
-        })
-    }
-
     const setPeriodHandler = (value) => {
         const r = Math.abs(value)
         setPeriodState(r)
@@ -172,54 +128,62 @@ function Vector(props) {
 
     return (
         <>
-            <a href="/webart">back</a>
+            <div class="content">
+                <FlexRow flex="space-around">
+                    <div className="control-box">
+                        <FlexRow direction="column" flex="space-between">
+                            <FlexRow direction="column" align="center">
+                                <div>-XFREQUENCY-</div>
+                                <NumberInput
+                                    value={multiplierX}
+                                    onChange={setMultiplierXHandler}
+                                />
+                            </FlexRow>
+                            <FlexRow direction="column" align="center">
+                                <div>-YFREQUENCY-</div>
+                                <NumberInput
+                                    value={multiplierY}
+                                    onChange={setMultiplierYHandler}
+                                />
+                            </FlexRow>
+                            <FlexRow direction="column" align="center">
+                                <div>-PERIOD-</div>
+                                <NumberInput
+                                    value={period}
+                                    onChange={setPeriodHandler}
+                                />
+                            </FlexRow>
+                            <FlexRow direction="column" align="center">
+                                <div>-COUNT-</div>
+                                <NumberInput
+                                    value={count}
+                                    onChange={setCountHandler}
+                                />
+                            </FlexRow>
+                            <FlexRow direction="column" align="center">
+                                <div>-SPECTRUM-</div>
+                                <NumberInput
+                                    value={spectrum}
+                                    onChange={setSpectrumHandler}
+                                />
+                            </FlexRow>
+                            <FlexRow direction="column" align="center">
+                              <Button type="info" onClick={randomizeHandler}>RANDOM</Button>
+                            </FlexRow>
+                        </FlexRow>
+                    </div>
+                    <Animator
+                        drawer={vector}
+                        setVis={setVector}
+                        options={options}
+                        time={time}
+                        intervalCallback={intervalHandler}
+                    />
+                </FlexRow>
+            </div>
             <Title
                 title="BARCELONA DOORS"
                 description="Procedurally generated art nouveau doors like you would find in Barcelona."
-            />
-            <FlexRow align="center">
-                <label>Animate:</label>
-                <Switch
-                    type={'warning'}
-                    state={running}
-                    onClick={toggleRunning}
-                />
-                <Button type="info" onClick={randomizeHandler}>
-                    RANDOMIZE
-                </Button>
-                <Button type="black" onClick={saveSvg}>
-                    SAVE
-                </Button>
-            </FlexRow>
-            <FlexRow wrap="wrap" flex="space-between" width="75%">
-                <NumberInput
-                    label="X"
-                    value={multiplierX}
-                    onChange={setMultiplierXHandler}
-                />
-                <NumberInput
-                    label="Y"
-                    value={multiplierY}
-                    onChange={setMultiplierYHandler}
-                />
-                <NumberInput
-                    label="period"
-                    value={period}
-                    onChange={setPeriodHandler}
-                />
-                <NumberInput
-                    label="spectrum"
-                    value={spectrum}
-                    onChange={setSpectrumHandler}
-                />
-            </FlexRow>
-            <br />
-            <Animator
-                drawer={vector}
-                setVis={setVector}
-                options={options}
-                time={time}
-                intervalCallback={intervalHandler}
             />
         </>
     )

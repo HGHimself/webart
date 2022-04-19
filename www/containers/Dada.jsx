@@ -28,28 +28,29 @@ function Dada(props) {
 
     return (
         <>
-            <a href="/webart">back</a>
+            <div class="content">
+                <FlexRow flex="flex">
+                    <div
+                        className={css`
+                            width: 30%;
+                        `}
+                    >
+                        <textarea onChange={handleInput} value={input} />
+                    </div>
+                    <div
+                        className={css`
+                            width: 60%;
+                            margin-left: 40px;
+                        `}
+                    >
+                        <pre>{dada.dada(input)}</pre>
+                    </div>
+                </FlexRow>
+            </div>
             <Title
                 title="DADA"
                 description="Express your own irrationality! Enter words into the box on the left; see the output on the right."
             />
-            <FlexRow flex="flex">
-                <div
-                    className={css`
-                        width: 30%;
-                    `}
-                >
-                    <textarea onChange={handleInput} value={input} />
-                </div>
-                <div
-                    className={css`
-                        width: 60%;
-                        margin-left: 40px;
-                    `}
-                >
-                    <pre>{dada.dada(input)}</pre>
-                </div>
-            </FlexRow>
         </>
     )
 }

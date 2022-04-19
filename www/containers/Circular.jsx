@@ -50,10 +50,10 @@ function Circular(props) {
 
     const options = {
         count,
-        height: 600,
-        width: 600,
+        height: 500,
+        width: 500,
         offset,
-        amplitude: 300,
+        amplitude: 240,
         frequency: 1 / period,
         multiplierY,
         multiplierX,
@@ -136,31 +136,49 @@ function Circular(props) {
     return (
         <>
             <div class="content">
-                <FlexRow flex="space-between">
-                    <FlexRow direction="column" flex="space-between">
-                        <div>X</div>
-                        <NumberInput
-                            value={multiplierX}
-                            onChange={setMultiplierXHandler}
-                        />
-                        <div>Y</div>
-                        <NumberInput
-                            value={multiplierY}
-                            onChange={setMultiplierYHandler}
-                        />
-                        <div>Period</div>
-                        <NumberInput
-                            value={period}
-                            onChange={setPeriodHandler}
-                        />
-                        <div>Count</div>
-                        <NumberInput value={count} onChange={setCountHandler} />
-                        <div>X</div>
-                        <NumberInput
-                            value={spectrum}
-                            onChange={setSpectrumHandler}
-                        />
-                    </FlexRow>
+                <FlexRow flex="space-around">
+                    <div className="control-box">
+                        <FlexRow direction="column" flex="space-between">
+                            <FlexRow direction="column" align="center">
+                                <div>-XFREQUENCY-</div>
+                                <NumberInput
+                                    value={multiplierX}
+                                    onChange={setMultiplierXHandler}
+                                />
+                            </FlexRow>
+                            <FlexRow direction="column" align="center">
+                                <div>-YFREQUENCY-</div>
+                                <NumberInput
+                                    value={multiplierY}
+                                    onChange={setMultiplierYHandler}
+                                />
+                            </FlexRow>
+                            <FlexRow direction="column" align="center">
+                                <div>-PERIOD-</div>
+                                <NumberInput
+                                    value={period}
+                                    onChange={setPeriodHandler}
+                                />
+                            </FlexRow>
+                            <FlexRow direction="column" align="center">
+                                <div>-COUNT-</div>
+                                <NumberInput
+                                    value={count}
+                                    onChange={setCountHandler}
+                                />
+                            </FlexRow>
+                            <FlexRow direction="column" align="center">
+                                <div>-SPECTRUM-</div>
+                                <NumberInput
+                                    value={spectrum}
+                                    onChange={setSpectrumHandler}
+                                />
+                            </FlexRow>
+                            <FlexRow direction="column" align="center">
+                              <Button type="info" onClick={randomizeHandler}>RANDOM</Button>
+                            </FlexRow>
+                        </FlexRow>
+                    </div>
                     <Animator
                         drawer={circular}
                         setVis={setVis}

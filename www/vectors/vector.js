@@ -177,14 +177,14 @@ class Vector {
     }
 
     resize(width, height) {
-        const { svg, props } = this
-
-        props.width = width
-        props.height = height
-
-        svg.attr('width', props.width).attr('height', props.height)
-
-        this.update()
+        // const { svg, props } = this
+        //
+        // props.width = width
+        // props.height = height
+        //
+        // svg.attr('width', props.width).attr('height', props.height)
+        //
+        // this.update()
     }
 
     setOptions(options) {
@@ -199,6 +199,27 @@ class Vector {
 
     setFrequency(frequency) {
         this.props.omega = frequency
+        this.update()
+    }
+
+    setCount(count) {
+        const { svg, props } = this
+        this.props.count = count
+
+        const data = Array.from({ length: count }, (_, i) => i)
+
+        this.classes.forEach((c) => {
+            this.svg
+                .select(`g.${c}`)
+                .selectAll('path.door')
+                .data(data)
+                .join((enter) =>
+                    enter
+                        .append('path')
+                        .attr('fill', 'none')
+                        .attr('stroke-width', '1')
+                )
+        })
         this.update()
     }
 
