@@ -1,0 +1,8 @@
+.button {
+  color: ${darkOrLight(color)};
+  background-color: ${color};
+  border-radius: 0px;
+  border: none;
+  text-transform: uppercase;
+  cursor: pointer;
+}

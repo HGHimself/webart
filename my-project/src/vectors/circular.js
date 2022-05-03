@@ -1,5 +1,5 @@
-import {select} from 'd3-selection'
-import {line} from 'd3-shape'
+import { select } from 'd3-selection'
+import { line } from 'd3-shape'
 
 import theme from '../theme'
 import {
@@ -135,7 +135,7 @@ class Circular {
             .attr('d', (d) => this.getDrawer(d))
             .attr('stroke', (d) =>
                 !this.props.spectrum
-                    ? theme.colors.black
+                    ? "#ca7037"
                     : getSpectrumPosition(
                           this.props.spectrum + d / (this.props.count * 0.4)
                       )

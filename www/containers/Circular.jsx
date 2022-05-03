@@ -135,7 +135,7 @@ function Circular(props) {
 
     return (
         <>
-            <div class="content">
+            <div className="content">
                 <FlexRow flex="space-around">
                     <div className="control-box">
                         <FlexRow direction="column" flex="space-between">

@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import { css } from '@emotion/css'
+import { h } from 'preact'
+import { useState, useEffect, useRef } from 'preact/hooks'
 import * as dada from 'dada-poem-generator'
 
-import FlexRow from '../components/FlexRow.jsx'
-import Title from '../components/Title.jsx'
+import FlexRow from '../components/FlexRow/'
+import Title from '../components/Title/'
 
-import entry from '../build/entry.js'
 
 const defaultMessage = `TO MAKE A DADAIST POEM
 Take a newspaper.
@@ -19,7 +18,7 @@ Copy conscientiously in the order in which they left the bag.
 The poem will resemble you.
 And there you are – an infinitely original author of charming sensibility, even though unappreciated by the vulgar herd.`
 
-function Dada(props) {
+export default function Dada(props) {
     const [input, setInput] = useState(defaultMessage)
 
     const handleInput = ({ target }) => {
@@ -54,5 +53,3 @@ function Dada(props) {
         </>
     )
 }
-
-entry(<Dada />)

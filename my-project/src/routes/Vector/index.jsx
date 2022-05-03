@@ -1,70 +1,45 @@
 // containers/vector.jsx
-import React, { useState, useRef } from 'react'
-import vector from '../vectors/vector.js'
-import * as axios from 'axios'
-import { copyToClipboard, imgFromSvg } from '../utils/frontend-tools.js'
+import { h } from 'preact'
+import { useState } from 'preact/hooks'
+import vector from '../../vectors/vector.js'
+import style from './style.css'
 
-import Animator from '../components/Animator.jsx'
-import Button from '../components/Button.jsx'
-import FlexRow from '../components/FlexRow.jsx'
-import Switch from '../components/Switch.jsx'
-import Title from '../components/Title.jsx'
-import NumberInput from '../components/NumberInput.jsx'
+import Animator from '../../components/Animator'
+import Button from '../../components/Button'
+import FlexRow from '../../components/FlexRow'
+import Title from '../../components/Title'
+import NumberInput from '../../components/NumberInput'
 
-import { random } from '../utils/maths-tools.js'
-
-import entry from '../build/entry.js'
 
 let vis = null
 const setVector = (v) => {
     vis = v
 }
 
-function Vector(props) {
+export default function Vector(props) {
     const time = 1000
-    const step = 5
     const limit = 1000
-    const defaultColor = 'transparent'
-    const sliderMin = 0
-    const sliderMax = 1974
-    const amplitude = 380
     const height = 500
     const width = 500 / 2
 
-    const [color, setColorState] = useState(defaultColor)
     const [spectrum, setSpectrumState] = useState(props.s || 0)
     const [multiplierX, setMultiplierXState] = useState(props.x || 5)
     const [multiplierY, setMultiplierYState] = useState(props.y || 16)
     const [period, setPeriodState] = useState(props.p || 20)
     const [count, setCount] = useState(props.c || 6)
 
-    const [running, setRunningState] = useState(false)
-    const [offset, setOffsetState] = useState(0)
-
     const options = {
         numbers: [1, 3, 5, 7, 9, 11, 13, 15, 17],
         count,
         height,
         width,
-        amplitudeX: 0.9 * width,
-        amplitudeY: 0.9 * height,
+        amplitudeX: 1 * width,
+        amplitudeY: 1 * height,
         omega: 2 * Math.PI * (1 / period),
         offset: 40,
         spectrum,
         multiplierX,
         multiplierY,
-    }
-
-    // ref to stick into the timer
-    const runningRef = useRef()
-    runningRef.current = running
-    const toggleRunning = () => setRunningState(!running)
-
-    const bumpOffset = (offset) => {
-        // here we could mod by sliderMax
-        const off = offset + step
-        vis.setOffset(off)
-        return off
     }
 
     const intervalHandler = () => {
@@ -114,12 +89,6 @@ function Vector(props) {
         vis.setCount(c)
     }
 
-    const setMultiplierHandler = (value) => {
-        const multiplierInput = +value
-        vis.setOffset(multiplierInput)
-        setOffsetState(multiplierInput)
-    }
-
     const setSpectrumHandler = (value) => {
         const spectrumInput = +value
         vis.setSpectrum(spectrumInput)
@@ -127,7 +96,7 @@ function Vector(props) {
     }
 
     return (
-        <>
+        <div className={style.page}>
             <div className="content">
                 <FlexRow flex="space-around">
                     <div className="control-box">
@@ -185,8 +154,7 @@ function Vector(props) {
                 title="BARCELONA DOORS"
                 description="Procedurally generated art nouveau doors like you would find in Barcelona."
             />
-        </>
+            <a href="/webart">[back]</a>
+        </div>
     )
 }
-
-entry(<Vector />)
