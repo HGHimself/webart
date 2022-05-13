@@ -1,0 +1,15 @@
+.link {
+  width: 34px;
+  cursor: pointer;
+}
+
+.button {
+  height: ${other.height || defaultHeight}px;
+  width: ${other.width || defaultWidth}px;
+  background-color: ${foreground};
+  border-radius: 0px;
+  border: 1px solid ${color};
+  filter: drop-shadow(5px 5px 0px ${background});
+  margin-right: 8px;
+  cursor: pointer;
+}

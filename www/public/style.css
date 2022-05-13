@@ -17,7 +17,6 @@ main {
 
 .control-box {
     width: 500px;
-    border-right: 6px solid black;
 }
 
 .animator {
@@ -26,7 +25,6 @@ main {
 
 .header {
     padding: 0px 24px 0px 24px;
-    border-top: 6px solid black;
 }
 
 h1 {
@@ -81,14 +79,12 @@ button {
     font-size: 0.875rem;
     letter-spacing: 1.25px;
     border-radius: 0.5em;
-    color: white;
+    color: inherit;
     padding: 15px 32px;
-    height: 47px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     text-transform: capitalize;
-    border: 1px solid black;
 }
 
 .success-button {
@@ -158,6 +154,9 @@ input[type='number'] {
     font-family: 'Futura', sans-serif;
     width: 58px;
     text-align: center;
+    background-color: transparent;
+    color: inherit;
+    border: none;
 }
 
 /* Chrome, Safari, Edge, Opera */
