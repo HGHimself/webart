@@ -1,9 +1,0 @@
-.swatch {
-  text-align: right;
-  color: ${darkOrLight(color)};
-  height: ${height}px;
-  width: ${height}px;
-  background-color: ${color};
-  border: 1px solid ${theme.colors.black};
-  padding: 24px;
-}
