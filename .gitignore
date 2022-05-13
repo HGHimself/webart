@@ -1,10 +1,10 @@
-www/node_modules
-www/dist
+*/node_modules
+*/dist
 
 server/svgs*
 
 target
 articles
-dist
+recipes
 .env
 .Ds_Store

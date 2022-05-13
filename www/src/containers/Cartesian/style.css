@@ -1,0 +1,14 @@
+.page {
+    background-color: black;
+    color: #ca7037;
+    border: 4px solid #ca7037;
+}
+
+.page svg {
+    fill: #ca7037;
+}
+
+.page .button {
+    background-color: black;
+    border: 4px solid #ca7037;
+}
