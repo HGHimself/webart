@@ -1,12 +1,12 @@
-import { h } from 'preact'
-import { useState, useEffect, useRef } from 'preact/hooks'
-import * as oolisp from 'oolisp'
+import { h } from "preact";
+import { useState, useEffect, useRef } from "preact/hooks";
+import * as oolisp from "oolisp";
 
-import FlexRow from '../components/FlexRow/'
-import Button from '../components/Button/'
-import Title from '../components/Title/'
+import FlexRow from "../components/FlexRow/";
+import Button from "../components/Button/";
+import Title from "../components/Title/";
 
-let env
+let env;
 const prelude = `
 list
 (def {true} 1)
@@ -75,9 +75,9 @@ list
       {cons
         (list (nth n-1 a) (nth n-1 b))
         (zipn-1)}))})
-`
+`;
 
-const prompt = 'oolisp >'
+const prompt = "oolisp >";
 
 const help = `
 Welcome to Oolisp, a Web-based LISP interpreter.
@@ -104,162 +104,157 @@ Welcome to Oolisp, a Web-based LISP interpreter.
     lambda:
         - Lambda functions are how you build functions, can be partially applied. (ie. (\\ {a b} {+ a b}))
         usage: (\\ {arg-list} {body})
-`
+`;
 
 export default function Oolisp(props) {
-    const [shellInput, setShellInputState] = useState('')
-    const [shellHistory, setShellHistoryState] = useState([])
-    const [shellBuffer, setShellBufferState] = useState('')
-    const [historyIndex, setHistoryIndex] = useState(-1)
+  const [shellInput, setShellInputState] = useState("");
+  const [shellHistory, setShellHistoryState] = useState([]);
+  const [shellBuffer, setShellBufferState] = useState("");
+  const [historyIndex, setHistoryIndex] = useState(-1);
 
-    let envObj = {}
-    if (env) {
-        let envString = oolisp.lisp(env, 'env')
-        const envArray = envString.split('')
-        envArray[envString.length - 3] = '' // clear out trailing comma
-        envString = envArray.join('')
-        envObj = JSON.parse(envString)
-    }
+  let envObj = {};
+  if (env) {
+    let envString = oolisp.lisp(env, "env");
+    const envArray = envString.split("");
+    envArray[envString.length - 3] = ""; // clear out trailing comma
+    envString = envArray.join("");
+    envObj = JSON.parse(envString);
+  }
 
-    useEffect(() => {
-        env = oolisp.init_env()
-        console.log(oolisp.lisp(env, prelude))
-        document.addEventListener('keydown', handleKeyPress)
-        return () => {
-            document.removeEventListener('keydown', handleKeyPress)
-        }
-    }, [])
+  useEffect(() => {
+    env = oolisp.init_env();
+    console.log(oolisp.lisp(env, prelude));
+    document.addEventListener("keydown", handleKeyPress);
+    return () => {
+      document.removeEventListener("keydown", handleKeyPress);
+    };
+  }, []);
 
-    const inputRef = useRef()
-    inputRef.current = shellInput
+  const inputRef = useRef();
+  inputRef.current = shellInput;
 
-    const historyRef = useRef()
-    historyRef.current = shellHistory
+  const historyRef = useRef();
+  historyRef.current = shellHistory;
 
-    const bufferRef = useRef()
-    bufferRef.current = shellBuffer
+  const bufferRef = useRef();
+  bufferRef.current = shellBuffer;
 
-    const handleInput = ({ target }) => {
-        setShellInputState(target.value)
-    }
+  const handleInput = ({ target }) => {
+    setShellInputState(target.value);
+  };
 
-    const doLisp = (currentBuf) => {
-        let res
+  const doLisp = (currentBuf) => {
+    let res;
 
-        try {
-            res = oolisp.lisp(env, inputRef.current)
-        } catch {
-            res = '... Error: Oolisp has crashed! Perhaps too much recursion?'
-        }
-
-        return (
-            <>
-                <div>{res}</div>
-                <div>
-                    {prompt} {inputRef.current}
-                </div>
-                {currentBuf}
-            </>
-        )
-    }
-
-    const handleCalculate = () => {
-        if (inputRef.current == 'clear') {
-            setShellBufferState('')
-        } else if (inputRef.current == 'help') {
-            setShellBufferState(<pre>{help}</pre>)
-        } else {
-            setShellBufferState(doLisp)
-        }
-
-        setShellHistoryState((history) => [inputRef.current, ...history])
-        setShellInputState('')
-        setHistoryIndex(-1)
-    }
-
-    const handleKeyPress = (e) => {
-        e = e || window.event
-        if (e.key == 'Enter') {
-            handleCalculate()
-        } else if (e.key == 'ArrowUp') {
-            setHistoryIndex((i) =>
-                i == historyRef.current.length - 1 ? i : i + 1
-            )
-            // setShellInputState(historyRef.current[historyIndex])
-        } else if (e.key == 'ArrowDown') {
-            setHistoryIndex((i) => (i == -1 ? -1 : i - 1))
-            // setShellInputState(historyIndex == -1 ? "" : historyRef.current[historyIndex])
-        }
-    }
-
-    const displayLispObject = (obj, depth) => {
-        const type = obj.type
-        const tab = Array.from({ length: depth })
-            .map((_) => ' || ')
-            .join('')
-        if (type == 'symbol' && envObj[obj.value]) {
-            return (
-                <div>
-                    {tab} {type} =>{' '}
-                    {displayLispObject(
-                        JSON.parse(oolisp.lisp(env, obj.value)),
-                        depth
-                    )}{' '}
-                </div>
-            )
-        } else if (type == 'lambda') {
-            const args = obj.args.map((s) => <>{s} </>)
-            return (
-                <>
-                    <div>
-                        {tab} {type} => {args} ->
-                    </div>
-                    {obj.body.map(displayLispObject, depth + 1)}
-                </>
-            )
-        } else if (type == 'sexpression' || type == 'qexpression') {
-            return (
-                <>
-                    <div>
-                        {tab} {type} =>
-                    </div>
-                    {obj.value.map(displayLispObject, depth + 1)}
-                </>
-            )
-        } else {
-            return (
-                <div>
-                    {tab} {type} => {obj.value}{' '}
-                </div>
-            )
-        }
+    try {
+      res = oolisp.lisp(env, inputRef.current);
+    } catch {
+      res = "... Error: Oolisp has crashed! Perhaps too much recursion?";
     }
 
     return (
+      <>
+        <div>{res}</div>
+        <div>
+          {prompt} {inputRef.current}
+        </div>
+        {currentBuf}
+      </>
+    );
+  };
+
+  const handleCalculate = () => {
+    if (inputRef.current == "clear") {
+      setShellBufferState("");
+    } else if (inputRef.current == "help") {
+      setShellBufferState(<pre>{help}</pre>);
+    } else {
+      setShellBufferState(doLisp);
+    }
+
+    setShellHistoryState((history) => [inputRef.current, ...history]);
+    setShellInputState("");
+    setHistoryIndex(-1);
+  };
+
+  const handleKeyPress = (e) => {
+    e = e || window.event;
+    if (e.key == "Enter") {
+      handleCalculate();
+    } else if (e.key == "ArrowUp") {
+      setHistoryIndex((i) => (i == historyRef.current.length - 1 ? i : i + 1));
+      // setShellInputState(historyRef.current[historyIndex])
+    } else if (e.key == "ArrowDown") {
+      setHistoryIndex((i) => (i == -1 ? -1 : i - 1));
+      // setShellInputState(historyIndex == -1 ? "" : historyRef.current[historyIndex])
+    }
+  };
+
+  const displayLispObject = (obj, depth) => {
+    const type = obj.type;
+    const tab = Array.from({ length: depth })
+      .map((_) => " || ")
+      .join("");
+    if (type == "symbol" && envObj[obj.value]) {
+      return (
+        <div>
+          {tab} {type} =>{" "}
+          {displayLispObject(JSON.parse(oolisp.lisp(env, obj.value)), depth)}{" "}
+        </div>
+      );
+    } else if (type == "lambda") {
+      const args = obj.args.map((s) => <>{s} </>);
+      return (
         <>
-            <a href="/webart">back</a>
-            <Title
-                title="OOLISP"
-                description="Web-based LISP interpreter. ~994 lines of Rust, compiled to WASM. Enter <code>help</code> into the prompt below for instructions."
-            />
-            <div>
-                <FlexRow
-                    direction="column-reverse"
-                    overflowY="scroll"
-                    maxHeight="390px"
-                >
-                    {shellBuffer}
-                </FlexRow>
-                <FlexRow align="center">
-                    <label for="prompt">{prompt}</label>
-                    <input
-                        name="prompt"
-                        type="text"
-                        onChange={handleInput}
-                        value={shellInput}
-                    />
-                </FlexRow>
-            </div>
+          <div>
+            {tab} {type} => {args} ->
+          </div>
+          {obj.body.map(displayLispObject, depth + 1)}
         </>
-    )
+      );
+    } else if (type == "sexpression" || type == "qexpression") {
+      return (
+        <>
+          <div>
+            {tab} {type} =>
+          </div>
+          {obj.value.map(displayLispObject, depth + 1)}
+        </>
+      );
+    } else {
+      return (
+        <div>
+          {tab} {type} => {obj.value}{" "}
+        </div>
+      );
+    }
+  };
+
+  return (
+    <>
+      <a href="/webart">back</a>
+      <Title
+        title="OOLISP"
+        description="Web-based LISP interpreter. ~994 lines of Rust, compiled to WASM. Enter <code>help</code> into the prompt below for instructions."
+      />
+      <div>
+        <FlexRow
+          direction="column-reverse"
+          overflowY="scroll"
+          maxHeight="390px"
+        >
+          {shellBuffer}
+        </FlexRow>
+        <FlexRow align="center">
+          <label for="prompt">{prompt}</label>
+          <input
+            name="prompt"
+            type="text"
+            onChange={handleInput}
+            value={shellInput}
+          />
+        </FlexRow>
+      </div>
+    </>
+  );
 }

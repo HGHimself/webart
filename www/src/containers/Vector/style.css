@@ -1,15 +1,14 @@
 .page {
-    background-color: rgb(236, 193, 245);
-    color: black;
-    border: 4px solid black;
+  background-color: rgb(236, 193, 245);
+  color: black;
+  border: 4px solid black;
 }
 
-
 .page svg {
-    fill: black;
+  fill: black;
 }
 
 .page button {
-    border: 4px solid black;
-    background-color: inherit;
+  border: 4px solid black;
+  background-color: inherit;
 }
