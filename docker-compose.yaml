@@ -1,9 +1,5 @@
 version: '3'
 services:
-  www:
-    build: ./www/
-    volumes:
-      - ./dist:/app/dist
   server:
     build: ./server/
     ports:

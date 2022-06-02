@@ -3,10 +3,11 @@ use env_logger::Env;
 use lazy_regex::regex;
 use log::info;
 use serde_derive::{Deserialize, Serialize};
+use server::{handlers::hello_handler, hello, routes::hello_route};
 use std::{
     env,
-    fs::{self, DirEntry, File},
-    io::{self, Write},
+    fs::{self, DirEntry},
+    io::{self},
     net::SocketAddr,
     path::Path,
 };
@@ -39,7 +40,8 @@ async fn main() {
 
     let public_folder = env::var("PUBLIC_DIR").expect("PUBLIC_DIR must be set");
     let article_folder = env::var("ARTICLE_DIR").expect("ARTICLE_DIR must be set");
-    let article_folder_clone = article_folder.clone();
+    let recipe_folder = env::var("RECIPE_DIR").expect("RECIPE_DIR must be set");
+
     // prepare tls if necessary
     let tls = env::var("ENABLE_TLS")
         .expect("ENABLE_TLS must be set")
@@ -56,59 +58,20 @@ async fn main() {
         key_path = None;
     }
 
-    let with_control_origin = warp::reply::with::header("Access-Control-Allow-Origin", "*");
-    let with_content_allow =
-        warp::reply::with::header("Access-Control-Allow-Headers", "Content-Type");
-
     let home = warp::any().and(warp::fs::dir(public_folder.clone()));
-
-    let blog_home = warp::path!("blog").map(move || {
-        let mut agg: Vec<String> = vec![];
-        visit_dirs(Path::new(&article_folder_clone), &mut agg);
-        warp::reply::json(&agg)
-    });
-
-    let blog_page = warp::path!("blog" / String).map(move |name| {
-        let body = markdown_to_html::markdown(
-            &fs::read_to_string(format!("{}/{}", article_folder, name)).expect("File not found!"),
-        );
-        warp::reply::html(body)
-    });
-
-    let dada = warp::options()
-        .and(warp::path!("svg"))
-        .map(|| warp::reply())
-        .or(warp::post()
-            .and(warp::path!("svg"))
-            .and(warp::body::content_length_limit(1024 * 256))
-            .and(warp::body::json())
-            .map(|svg: Svg| {
-                let s = format!(
-                    "./svgs/{}_{}_{}_{}_{}.svg",
-                    svg.x, svg.y, svg.period, svg.count, svg.spectrum
-                );
-                let mut file = File::create(s.clone()).unwrap();
-                println!("{}", s);
-                write!(file, "{}", svg.svg).unwrap();
-                warp::reply::html(s)
-            }))
-        .with(with_content_allow);
-    //
-    // let dada = warp::options()
-    //     .and(warp::path!("dada"))
-    //     .map(|| warp::reply())
-    //     .or(warp::post()
-    //         .and(warp::path!("dada"))
-    //         .and(warp::body::content_length_limit(1024 * 16))
-    //         .and(warp::body::json())
-    //         .map(|dada: Dada| {
-    //             let res = dada_poem_generator::dada(&dada.message);
-    //             warp::reply::html(res)
-    //         }))
-    //     .with(with_content_allow);
-
-    let end = home
-        .or(dada.or(blog_home.or(blog_page)).with(with_control_origin))
+    let articles = hello!(
+        String::from("articles"),
+        String::from("./templates/articles.html"),
+        String::from("./templates/article-template.html")
+    );
+    let recipes = hello!(
+        String::from("recipes"),
+        String::from("./templates/recipes.html"),
+        String::from("./templates/recipe-template.html")
+    );
+    let end = articles
+        .or(recipes)
+        .or(home)
         .or(warp::any().and(warp::fs::file(format!("{}/index.html", public_folder))))
         .with(warp::log("webart"));
 
@@ -132,24 +95,4 @@ async fn main() {
         // otherwise serve normally
         warp::serve(end).run(socket_address).await;
     }
-}
-
-fn spit_out_file_name(file: &DirEntry) -> String {
-    let re = regex!("^./[^/]*/");
-    re.replace(&file.path().to_str().unwrap(), "").to_string()
-}
-
-fn visit_dirs(dir: &Path, agg: &mut Vec<String>) -> io::Result<()> {
-    if dir.is_dir() {
-        for entry in fs::read_dir(dir)? {
-            let entry = entry?;
-            let path = entry.path();
-            if path.is_dir() {
-                visit_dirs(&path, agg)?;
-            } else {
-                agg.push(spit_out_file_name(&entry));
-            }
-        }
-    }
-    Ok(())
 }

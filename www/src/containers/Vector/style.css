@@ -1,6 +1,7 @@
 .page {
     background-color: rgb(236, 193, 245);
     color: black;
+    border: 4px solid black;
 }
 
 

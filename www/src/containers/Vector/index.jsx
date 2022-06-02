@@ -145,7 +145,6 @@ function Vector(props) {
                 title="BARCELONA DOORS"
                 description="Gaudí inspired, procedurally generated, art nouveau doors. Experiment with the values!"
             />
-            <a href="/webart">[back]</a>
         </div>
     )
 }
