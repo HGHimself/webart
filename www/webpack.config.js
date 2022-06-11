@@ -14,6 +14,7 @@ module.exports = {
     ),
     vector: path.resolve(__dirname, "src", "containers", "Vector", "index.jsx"),
     dada: path.resolve(__dirname, "src", "containers", "Dada", "index.jsx"),
+    oolisp: path.resolve(__dirname, "src", "containers", "Oolisp", "index.jsx"),
   },
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -48,6 +49,12 @@ module.exports = {
       title: "Dada",
       chunks: ["dada"],
       filename: "webart/dada.html",
+      template: path.resolve(__dirname, "src", "build", "template.html"),
+    }),
+    new HtmlWebpackPlugin({
+      title: "Oolisp",
+      chunks: ["oolisp"],
+      filename: "webart/oolisp.html",
       template: path.resolve(__dirname, "src", "build", "template.html"),
     }),
   ],

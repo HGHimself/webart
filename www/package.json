@@ -11,7 +11,7 @@
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-react": "^7.12.1",
-    "@wasm-tool/wasm-pack-plugin": "1.0.1",
+    "@wasm-tool/wasm-pack-plugin": "^1.6.0",
     "babel-loader": "^8.1.0",
     "copy-webpack-plugin": "^5.0.0",
     "css-loader": "^6.3.0",
@@ -29,7 +29,7 @@
     "d3-shape": "^3.1.0",
     "dada-poem-generator": "^0.1.7",
     "game-engine": "file:../../game-engine/pkg",
-    "oolisp": "^0.1.7",
+    "oolisp": "^0.2",
     "preact": "^10.3.2"
   }
 }

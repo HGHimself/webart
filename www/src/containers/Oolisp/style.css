@@ -1,0 +1,19 @@
+.shell-buffer {
+  overflow-y: scroll;
+  max-height: 390px;
+}
+
+.page {
+    border: 4px solid black;
+}
+
+.content {
+    font-family: monospace;
+    height: 390px;
+}
+
+.shell-input {
+    background: none;
+    width: 80%;
+    border: none;
+}

@@ -44,6 +44,10 @@
   flex-direction: column;
 }
 
+.direction-column-reverse {
+  flex-direction: column-reverse;
+}
+
 .wrap {
   flex-wrap: wrap;
 }

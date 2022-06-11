@@ -35,6 +35,8 @@ export default function FlexRow(props) {
     const direction =
       props.direction == "column"
         ? "direction-column"
+        : props.direction == "column-reverse"
+        ? "direction-column-reverse"
         : props.direction == "row"
         ? "direction-row"
         : "";
