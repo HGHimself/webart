@@ -16,8 +16,14 @@ function Oolisp(props) {
 
   useEffect(() => {
     env = oolisp.init_env();
-    const res = oolisp.lisp(env, prelude);
-    console.log(res);
+    const res = JSON.parse(oolisp.lisp(env, prelude));
+    setShellBufferState(
+      res.type == "error" ? (
+        <div>Error loading prelude</div>
+      ) : (
+        <div>... Loaded Prelude</div>
+      )
+    );
     document.addEventListener("keydown", handleKeyPress);
     return () => {
       // returning a method will clean up any listeners

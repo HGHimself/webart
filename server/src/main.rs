@@ -58,7 +58,7 @@ async fn main() {
         key_path = None;
     }
 
-    let home = warp::any().and(warp::fs::dir(public_folder.clone()));
+    let home = warp::get().and(warp::fs::dir(public_folder.clone()));
     let articles = hello!(
         String::from("articles"),
         String::from("./templates/articles.html"),
@@ -72,7 +72,8 @@ async fn main() {
     let end = articles
         .or(recipes)
         .or(home)
-        .or(warp::any().and(warp::fs::file(format!("{}/index.html", public_folder))))
+        .or(warp::get().and(warp::path::end()).and(warp::fs::file(format!("{}/index.html", public_folder))))
+        .recover(hello_handler::handle_rejection)
         .with(warp::log("webart"));
 
     let socket_address = app_addr

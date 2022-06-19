@@ -37,35 +37,37 @@ export default function NumberInput(props) {
   };
 
   return (
-    <FlexRow align="center">
-      <label htmlFor={label}>{label}</label>
-      <FlexRow direction="column" align="center">
-        <svg
-          class="arrow"
-          height={height}
-          width={width}
-          onClick={handleIncrease}
-        >
-          <polygon
-            points={upArrowPoints}
-            class={style.arrow}
-            style={{ strokeWidth: 1 }}
-          />
-        </svg>
-        <input id={label} type="number" value={v} onChange={handleInput} />
-        <svg
-          class="arrow"
-          height={height}
-          width={width}
-          onClick={handleDecrease}
-        >
-          <polygon
-            points={downArrowPoints}
-            class={style.arrow}
-            style={{ strokeWidth: 1 }}
-          />
-        </svg>
+    <div className="number-input">
+      <FlexRow align="center">
+        <label htmlFor={label}>{label}</label>
+        <FlexRow direction="column" align="center">
+          <svg
+            class="arrow"
+            height={height}
+            width={width}
+            onClick={handleIncrease}
+          >
+            <polygon
+              points={upArrowPoints}
+              class={style.arrow}
+              style={{ strokeWidth: 1 }}
+            />
+          </svg>
+          <input id={label} type="number" value={v} onChange={handleInput} />
+          <svg
+            class="arrow"
+            height={height}
+            width={width}
+            onClick={handleDecrease}
+          >
+            <polygon
+              points={downArrowPoints}
+              class={style.arrow}
+              style={{ strokeWidth: 1 }}
+            />
+          </svg>
+        </FlexRow>
       </FlexRow>
-    </FlexRow>
+    </div>
   );
 }

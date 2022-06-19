@@ -50,7 +50,7 @@ function Cartesian(props) {
     vis.setMultiplierX(r);
   };
 
-  const randomizeHandler = (value) => {
+  const randomizeHandler = () => {
     const y = Math.round(Math.random() * limit);
     setMultiplierYState(y);
     vis.setMultiplierY(y);
@@ -58,6 +58,14 @@ function Cartesian(props) {
     const x = Math.round(Math.random() * limit);
     setMultiplierXState(x);
     vis.setMultiplierX(x);
+
+    const spectrum = Math.round(Math.random() * limit);
+    setSpectrumState(spectrum);
+    vis.setSpectrum(spectrum);
+
+    const period = Math.round(Math.random() * limit);
+    setPeriodState(period);
+    vis.setPeriod(period);
   };
 
   const setPeriodHandler = (value) => {
@@ -85,29 +93,29 @@ function Cartesian(props) {
           <div className="control-box">
             <FlexRow direction="column" flex="space-between">
               <FlexRow direction="column" align="center">
-                <div>-XFREQUENCY-</div>
+                <h6>X-FREQUENCY</h6>
                 <NumberInput
                   value={multiplierX}
                   onChange={setMultiplierXHandler}
                 />
               </FlexRow>
               <FlexRow direction="column" align="center">
-                <div>-YFREQUENCY-</div>
+                <h6>Y-FREQUENCY</h6>
                 <NumberInput
                   value={multiplierY}
                   onChange={setMultiplierYHandler}
                 />
               </FlexRow>
               <FlexRow direction="column" align="center">
-                <div>-PERIOD-</div>
+                <h6>PERIOD</h6>
                 <NumberInput value={period} onChange={setPeriodHandler} />
               </FlexRow>
               <FlexRow direction="column" align="center">
-                <div>-COUNT-</div>
+                <h6>COUNT</h6>
                 <NumberInput value={count} onChange={setCountHandler} />
               </FlexRow>
               <FlexRow direction="column" align="center">
-                <div>-SPECTRUM-</div>
+                <h6>SPECTRUM</h6>
                 <NumberInput value={spectrum} onChange={setSpectrumHandler} />
               </FlexRow>
               <FlexRow direction="column" align="center">

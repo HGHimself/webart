@@ -134,7 +134,7 @@ class Circular {
       .attr("d", (d) => this.getDrawer(d))
       .attr("stroke", (d) =>
         !this.props.spectrum
-          ? "#ca7037"
+          ? "black"
           : getSpectrumPosition(
               this.props.spectrum + d / (this.props.count * 0.4)
             )

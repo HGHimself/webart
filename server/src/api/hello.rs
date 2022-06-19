@@ -6,18 +6,3 @@ macro_rules! hello {
             .or(hello_route::dir($dir, $dir_template).and_then(hello_handler::handle_dir))
     };
 }
-
-/*
-
-
-
-
-.or(hello_route::markdown(
-    String::from("articles"),
-    String::from("ABCDEFGHIJKLMNOP"),
-)
-.and_then(hello_handler::handle_markdown(
-    String::from("articles"),
-    String::from("ABCDEFGHIJKLMNOP"),
-)))
-*/

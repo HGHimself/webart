@@ -1,25 +1,66 @@
 export const prelude = `
 list
-(def [true] 1)
-(def [false] 0)
+(def [true]
+  1)
+
+(def [false]
+  0)
+
 (def [nil] ())
-(def [fun] (\\ [args body] [def (list (head args)) (\\ (tail args) body)]))
+
+(def [fun] 
+  (\\ [args body] 
+    [def (list (head args)) 
+      (\\ (tail args) body)]))
+
 (fun [cons x xs]
   [join
     (if (== x [])
       [x]
       [list x])
     xs])
-(fun [snoc x xs] [join xs (list x)])
-(fun [curry f xs] [eval (join (list f) xs)])
-(fun [uncurry f : xs] [f xs])
-(fun [empty l] [if (== l []) [true] [false]])
-(fun [len l] [if (empty l) [0] [+ 1 (len (tail l))]])
-(fun [reverse l] [if (== (len l) 1) [l] [snoc (head l) (reverse (tail l)) ]])
+
+(fun [snoc x xs]
+  [join xs (list x)])
+
+(fun [curry f xs] 
+  [eval 
+    (join (list f) xs)])
+
+(fun [uncurry f : xs] 
+  [f xs])
+
+(fun [empty l] 
+  [if (== l []) 
+    [true] 
+    [false]])
+
+
+(fun [len l] 
+  [if (empty l) 
+    [0] 
+    [+ 1 (len (tail l))]])
+
+(fun [reverse l] 
+  [if (== (len l) 1) 
+    [l] 
+    [snoc (head l) (reverse (tail l))]])
+
 (fun [dec n] [- n 1])
+
 (fun [add1 n] [+ n 1])
-(fun [add a b] [iter a b (\\ [n-1] [+ 1 n-1])])
-(fun [gauss n] [rec n 0 (\\ [n-1 gaussn-1] [+ (add1 n-1) (gaussn-1)])])
+
+(fun [add a b] 
+  [iter a 
+    b 
+    (\\ [n-1] 
+      [+ 1 n-1])])
+
+(fun [gauss n] 
+  [rec n 
+    0 
+    (\\ [n-1 gaussn-1] 
+      [+ (add1 n-1) (gaussn-1)])])
 
 (fun [nth n l]
   [head (rec n
@@ -54,7 +95,7 @@ list
     (\\ [n-1 primepn-1]
       [if (== 0 (% n n-1))
         [n-1]
-        [primepn-1])])
+        [primepn-1]])])
 
 (fun [gcd a b]
   [if (== b 0) [a] [gcd b (% a b)]])

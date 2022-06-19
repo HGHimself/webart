@@ -9,14 +9,14 @@
       content="A collection of web based artworks and other artistical studies
           on mathematical forms, patterns, and the like."
     />
-    <title><%= htmlWebpackPlugin.options.title %></title>
-    <link rel="stylesheet" href="/style.css"/ >
+    <title>{{error}}</title>
+    <link rel="stylesheet" href="/article.css" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="any" />
   </head>
-  <body>
-    <a href="/webart">back</a>
-    <main>
-      <div id="root"></div>
+  <body style="text-align: center;">
+    <main style="height: 50vh; display: flex; align-items: flex-end; justify-content: space-around;">
+      <h1>{{error}}</h1>
     </main>
+    <h4><a href="/">BACK</a></h4>
   </body>
 </html>
