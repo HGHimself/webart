@@ -12,25 +12,6 @@ import {
 } from "../utils/maths-tools.js";
 import { getSpectrumPosition } from "../utils/color-tools.js";
 
-// const getRgbSpectrumArray = (i) => {
-//   const amplitude = 127;
-//   const offset = 128;
-//   const odds = [2, 4, 6, 8, 10];
-
-//   const limiter = (x) => amplitude * x + 128;
-
-//   const r = limiter(Math.tan(2*Math.PI*i))
-//   const g = limiter(fourier(2, Math.PI / 2, i/100, odds, squareWaveSequenceCos))
-//   const b = limiter(fourier(2, Math.PI / 3, i/100, odds, squareWaveSequenceSin))
-
-//   return [r, g, b];
-// };
-
-// const getSpectrumPosition = (i) => {
-//   const [r, g, b] = getRgbSpectrumArray(i);
-//   return `rgb(${r}, ${g}, ${b})`;
-// };
-
 class colorPlot {
   constructor(containerEl, props) {
     this.containerEl = containerEl;
@@ -46,45 +27,55 @@ class colorPlot {
   }
 
   resize(width, height) {
-    // const { svg, props } = this;
-    // svg.attr("width", width).attr("height", height);
-    // props.width = width;
-    // props.height = height;
+    const { svg, props } = this;
+
+    if (width < 670) {
+      props.width = width * 0.6;
+      props.height = width * 0.6;
+    } else {
+      props.width = 500;
+      props.height = 500;
+    }
+
+    svg.attr("width", props.width).attr("height", props.height);
+
+    this.update();
   }
 
-  // rgb(96, 251, 160)
-
   getCircleDrawerX() {
-    const { xMultiplier, xAmplitude, frequency } = this.props;
-    return (d) =>
+    const { xMultiplier, xAmplitude, frequency, offset } = this.props;
+    return (d, i) =>
       simpleHarmonicMotionCos(
         0,
         xAmplitude,
         xMultiplier * (1 / frequency) * Math.PI,
-        d
+        i - offset / 10
       );
   }
 
   getCircleDrawerY() {
-    const { yMultiplier, yAmplitude, frequency } = this.props;
-    return (d) =>
+    const { yMultiplier, yAmplitude, frequency, offset } = this.props;
+    return (d, i) =>
       simpleHarmonicMotionSin(
         0,
         yAmplitude,
         yMultiplier * (1 / frequency) * Math.PI,
-        d
+        i - offset / 10
       );
   }
 
   getRadius() {
-    const { rMultiplier, rAmplitude, rOrigin } = this.props;
-    return (d) =>
-      simpleHarmonicMotionSin(rOrigin, rAmplitude, rMultiplier * Math.PI, d);
+    const { rMultiplier, rAmplitude, rOrigin, offset } = this.props;
+    return (d, i) =>
+      simpleHarmonicMotionSin(rOrigin, rAmplitude, rMultiplier * Math.PI, i);
   }
 
   getColor() {
     const { colorMultiplier, colorOffset } = this.props;
-    return (d) => getSpectrumPosition(colorOffset + d * colorMultiplier);
+
+    return !colorMultiplier
+      ? "black"
+      : (d, i) => getSpectrumPosition(colorOffset + i * colorMultiplier);
   }
 
   setOptions(props) {

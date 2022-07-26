@@ -14,22 +14,11 @@ class Circular {
     this.props = props;
     const { width, height, count } = props;
 
-    const data = Array.from({ length: count }, (_, i) => i);
-
-    // give us a canvas to draw on
     this.svg = select(containerEl)
       .append("svg")
       .attr("width", width)
       .attr("height", height);
-    // bring in a line
-    this.svg
-      .selectAll("path")
-      .data(data)
-      .enter()
-      .append("path")
-      .attr("fill", "none")
-      .attr("stroke-width", "1");
-    // draw with the line
+
     this.update();
   }
 
@@ -39,11 +28,9 @@ class Circular {
     if (width < 670) {
       props.width = width * 0.6;
       props.height = width * 0.6;
-      props.amplitude = width * 0.29;
     } else {
       props.width = 500;
       props.height = 500;
-      props.amplitude = 240;
     }
 
     svg.attr("width", props.width).attr("height", props.height);
@@ -51,57 +38,15 @@ class Circular {
     this.update();
   }
 
-  setMultiplierX(multiplierX) {
-    this.props.multiplierX = multiplierX;
-    this.update();
-  }
-
-  setMultiplierY(multiplierY) {
-    this.props.multiplierY = multiplierY;
-    this.update();
-  }
-
-  setCount(count) {
-    const { svg, props } = this;
-    this.props.count = count;
-
-    const data = Array.from({ length: count }, (_, i) => i);
-
-    svg
-      .selectAll("path")
-      .data(data)
-      .join((enter) =>
-        enter.append("path").attr("fill", "none").attr("stroke-width", "1")
-      );
-    this.update();
-  }
-
-  setOffset(offset) {
-    this.props.offset = offset;
-    this.update();
-  }
-
-  setFrequency(frequency) {
-    this.props.frequency = frequency;
-    this.update();
-  }
-
-  setColor(color) {
-    const { svg } = this;
-
-    svg.selectAll("path").attr("fill", color);
-  }
-
-  setSpectrum(spectrum) {
-    this.props.spectrum = spectrum;
+  setOptions(props) {
+    this.props = props;
     this.update();
   }
 
   getDrawer(batch) {
     const {
-      mode,
-      count,
-      amplitude,
+      amplitudeX,
+      amplitudeY,
       offset,
       frequency,
       multiplierX,
@@ -110,20 +55,17 @@ class Circular {
       height,
     } = this.props;
 
-    const originX = width / 2;
-    const originY = height / 2;
-
     const arc = Array.from({ length: 1 + 1 }, (_, i) => [
       simpleHarmonicMotionSin(
-        originX,
-        amplitude,
-        multiplierX * frequency,
+        0,
+        amplitudeX,
+        multiplierX * (1 / frequency),
         i + batch - offset
       ),
       simpleHarmonicMotionCos(
-        originY,
-        amplitude,
-        multiplierY * frequency,
+        0,
+        amplitudeY,
+        multiplierY * (1 / frequency),
         i + batch - offset
       ),
     ]);
@@ -131,19 +73,38 @@ class Circular {
     return line()(arc);
   }
 
-  update() {
-    const { svg } = this;
+  getColor(d) {
+    const {
+      props: { spectrum, count },
+    } = this;
 
-    svg
-      .selectAll("path")
+    return !spectrum
+      ? "black"
+      : getSpectrumPosition(spectrum + d / (count * 0.4));
+  }
+
+  update() {
+    const {
+      svg,
+      props: { count, width, height },
+    } = this;
+
+    const data = Array.from({ length: count }, (_, i) => i);
+    const lines = this.svg.selectAll("path").data(data);
+
+    lines.exit().remove();
+    lines
+      .enter()
+      .append("path")
+      .attr("fill", "none")
+      .attr("stroke-width", "1")
       .attr("d", (d) => this.getDrawer(d))
-      .attr("stroke", (d) =>
-        !this.props.spectrum
-          ? "black"
-          : getSpectrumPosition(
-              this.props.spectrum + d / (this.props.count * 0.4)
-            )
-      );
+      .attr("stroke", (d) => this.getColor(d))
+      .attr("transform", `translate(${width / 2},${height / 2})`);
+    lines
+      .attr("d", (d) => this.getDrawer(d))
+      .attr("stroke", (d) => this.getColor(d))
+      .attr("transform", `translate(${width / 2},${height / 2})`);
   }
 
   getSvg() {

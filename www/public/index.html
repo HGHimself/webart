@@ -17,7 +17,7 @@
     <header class="title-header">
       <span id="title-date">ABC</span>
       <a href="/"><img class="title-logo" src="/img/logo.png" alt="LOGO" /></a>
-      <span id="title-tag">Technical<br>Collective</span>
+      <span id="title-tag">Technical<br />Collective</span>
     </header>
     <main>
       <h2>Digitheque</h2>
@@ -26,79 +26,94 @@
         mathematical forms, patterns, and the like.
       </h4>
       <br />
-      <h5>Data Nutrition Project</h5>
-      <h6>
-        <a
-          href="https://datanutrition.org/"
-          rel="noopener noreferrer"
-          target="_blank"
-          >dnp website</a
-        >
-        <br />
-        <a
-          href="https://ars.electronica.art/prix/en/digitalhumanity/"
-          rel="noopener noreferrer"
-          target="_blank"
-          >ars eletronica prix</a
-        >
-      </h6>
+      <div class="flex around wrap">
+        <img src="/img/spectrum-west.png" alt="spectrum" class="quarter" />
+        <img src="/img/spectrum-east.png" alt="spectrum" class="quarter" />
+      </div>
       <br />
-      <h5>Ostrich Real Estate Tools</h5>
-      <h6>
-        <a
-          href="https://chrome.google.com/webstore/detail/ostrich/aicgkflmidjkbcenllnnlbnfnmicpmgo"
-          rel="noopener noreferrer"
-          target="_blank"
-          >real estate plugin</a
-        >
-      </h6>
-      <h6>
-        <a
-          href="https://ostrich-tools.webflow.io/"
-          rel="noopener noreferrer"
-          target="_blank"
-          >zillow listing notifier</a
-        >
-      </h6>
+      <div class="flex around wrap">
+        <div class="third">
+          <h5>Ostrich Real Estate Tools</h5>
+          <h6>
+            <a
+              href="https://chrome.google.com/webstore/detail/ostrich/aicgkflmidjkbcenllnnlbnfnmicpmgo"
+              rel="noopener noreferrer"
+              target="_blank"
+              >real estate plugin</a
+            >
+          </h6>
+          <h6>
+            <a
+              href="https://ostrich-tools.webflow.io/"
+              rel="noopener noreferrer"
+              target="_blank"
+              >zillow listing notifier</a
+            >
+          </h6>
+        </div>
+        <div class="third">
+          <h5>Personal Work</h5>
+          <h6>
+            <a
+              href="http://covid-data.nyc/"
+              rel="noopener noreferrer"
+              target="_blank"
+              >covid data dot nyc</a
+            >
+          </h6>
+          <h6><a href="/webart">web studies</a></h6>
+          <h6><a href="/articles">writing</a></h6>
+          <h6><a href="/recipes">recipes</a></h6>
+          <h6>
+            <a
+              href="https://opensea.io/collection/cartesian-bloom"
+              rel="noopener noreferrer"
+              target="_blank"
+              >cartesian bloom nft collection</a
+            >
+          </h6>
+        </div>
+      </div>
       <br />
-      <h5>Personal Work</h5>
-      <h6>
-        <a
-          href="http://covid-data.nyc/"
-          rel="noopener noreferrer"
-          target="_blank"
-          >covid data dot nyc</a
-        >
-      </h6>
-      <h6><a href="/webart">web studies</a></h6>
-      <h6><a href="/articles">writing</a></h6>
-      <h6><a href="/recipes">recipes</a></h6>
-      <h6>
-        <a
-          href="https://opensea.io/collection/cartesian-bloom"
-          rel="noopener noreferrer"
-          target="_blank"
-          >cartesian bloom nft collection</a
-        >
-      </h6>
-      <br />
-      <h5>Portfolio</h5>
-      <h6>
-        <a
-          href="https://github.com/hgm-king"
-          rel="noopener noreferrer"
-          target="_blank"
-          >github</a
-        >
-      </h6>
-      <h6><a href="/articles/Resume.md">resume</a></h6>
+      <div class="flex around wrap">
+        <div class="third">
+          <h5>Portfolio</h5>
+          <h6>
+            <a
+              href="https://github.com/hgm-king"
+              rel="noopener noreferrer"
+              target="_blank"
+              >github</a
+            >
+          </h6>
+          <h6><a href="/articles/Resume.md">resume</a></h6>
+        </div>
+        <div class="third">
+          <h5>Data Nutrition Project</h5>
+          <h6>
+            <a
+              href="https://datanutrition.org/"
+              rel="noopener noreferrer"
+              target="_blank"
+              >dnp website</a
+            >
+            <br />
+            <a
+              href="https://ars.electronica.art/prix/en/digitalhumanity/"
+              rel="noopener noreferrer"
+              target="_blank"
+              >ars eletronica prix</a
+            >
+          </h6>
+        </div>
+      </div>
     </main>
     <footer class="footer"></footer>
     <script>
       var title_date = document.getElementById("title-date");
       var today = new Date();
       var date = today.toDateString().split(" ");
-      title_date.innerHTML = `${date[0]} ${date[2]}<br>${date[1]} ${date[3]}`
+      title_date.innerHTML = `${date[0]} ${date[2]}<br>${date[1]} ${date[3]}`;
     </script>
   </body>
 </html>

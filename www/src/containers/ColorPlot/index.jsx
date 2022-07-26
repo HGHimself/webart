@@ -1,5 +1,5 @@
 import { h } from "preact";
-import { useState, useEffect, useRef } from "preact/hooks";
+import { useState } from "preact/hooks";
 import "./style.css";
 import entry from "../../build/entry.js";
 import colorPlot from "../../vectors/color-plot.js";
@@ -17,51 +17,50 @@ const setVis = (v) => {
 function ColorPlot(props) {
   const [options, setOptionsState] = useState({
     count: 100,
-    height: 300,
-    width: 300,
-    frequency: 1,
+    height: 500,
+    width: 500,
+    offset: 0,
+    frequency: 2,
     xAmplitude: 200,
     xMultiplier: 1,
-    yAmplitude: 40,
-    yMultiplier: 2,
-    rAmplitude: 10,
-    rMultiplier: 1,
-    rOrigin: 10,
-    colorMultiplier: 0.003,
-    colorOffset: 106,
+    yAmplitude: 200,
+    yMultiplier: 1,
+    rAmplitude: 17,
+    rMultiplier: 0.5,
+    rOrigin: 18,
+    colorMultiplier: 30188,
+    colorOffset: 120,
   });
 
-  const optionsBar = Object.keys(options).map((key) => {
-    const value = options[key];
-    const handleChange = (value) => {
-      const r = Math.abs(value);
-      const newOptions = JSON.parse(JSON.stringify(options));
-      newOptions[key] = r;
-      setOptionsState(newOptions);
-      vis.setOptions(newOptions);
-    };
+  const optionsToSkip = ["height", "width"];
 
-    return (
-      <FlexRow flex="center">
-        <FlexRow direction="column" align="center">
-          <h6>{key}</h6>
-          <NumberInput value={value} onChange={handleChange} />
-        </FlexRow>
-      </FlexRow>
-    );
-  });
+  const optionsBar = Object.keys(options)
+    .filter((d) => !optionsToSkip.includes(d))
+    .map((key) => {
+      const value = options[key];
+      const handleChange = (value) => {
+        const r = value;
+        const newOptions = JSON.parse(JSON.stringify(options));
+        newOptions[key] = r;
+        setOptionsState(newOptions);
+        vis.setOptions(newOptions);
+      };
+
+      return <NumberInput value={value} onChange={handleChange} label={key} />;
+    });
 
   return (
     <div className="page">
-      <div className="content">
-        <FlexRow direction="row" wrap="wrap">
-          {optionsBar}
-        </FlexRow>
-        <FlexRow flex="space-around">
-          <Animator drawer={colorPlot} setVis={setVis} options={options} />
-        </FlexRow>
-      </div>
-      <Title title="Digitheque" description="" />
+      <Title
+        title="DESCARTES"
+        description="Draw using ratios and simple harmonic motion. Experiment with the values!"
+      />
+      <FlexRow direction="row" wrap="wrap">
+        {optionsBar}
+      </FlexRow>
+      <FlexRow flex="space-around">
+        <Animator drawer={colorPlot} setVis={setVis} options={options} />
+      </FlexRow>
     </div>
   );
 }

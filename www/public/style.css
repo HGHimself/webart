@@ -114,6 +114,11 @@ pre {
   font-size: 0.8rem;
 }
 
+.number-input {
+  margin-bottom: 12px;
+  margin-right: 12px;
+}
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -151,6 +156,14 @@ input[type="number"] {
   border-bottom: 1px solid black;
 }
 
+.emptyButton {
+  margin: 0px;
+  padding: 0px;
+  border: none;
+  border-radius: 0px;
+  height: 16px;
+}
+
 .title-header {
   display: flex;
   align-items: flex-end;
@@ -170,6 +183,62 @@ input[type="number"] {
 
 .title-logo {
   width: 300px;
+}
+
+.flex {
+  display: flex;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.between {
+  justify-content: space-between;
+}
+
+.around {
+  justify-content: space-around;
+}
+
+.justifyEnd {
+  justify-content: flex-end;
+}
+
+.centered {
+  align-content: center;
+}
+
+.centeredItems {
+  align-items: center;
+}
+
+.wrap {
+  flex-wrap: "wrap";
+}
+
+.full {
+  width: 100%;
+}
+
+.half {
+  width: 50%;
+}
+
+.threeFourths {
+  width: 75%;
+}
+
+.quarter {
+  width: 25%;
+}
+
+.third {
+  width: 33%;
+}
+
+.border-bottom {
+  border-bottom: 1px solid black;
 }
 
 @media (max-width: 600px) {
