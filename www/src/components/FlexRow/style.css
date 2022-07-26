@@ -1,15 +1,6 @@
 .flex {
   display: flex;
-  /* display: flex;
-  justify-content: ${props.flex};
-  align-content: ${props.content};
-  align-items: ${props.align};
-  flex-direction: ${props.direction};
-  flex-wrap: ${props.wrap};
-  width: ${props.width};
-  height: ${props.height};
-  overflow-y: ${props.overflowY};
-  max-height: ${props.maxHeight}; */
+  max-height: inherit;
 }
 
 .justify-start {
@@ -28,6 +19,10 @@
   justify-content: space-around;
 }
 
+.justify-center {
+  justify-content: center;
+}
+
 .content-center {
   align-content: center;
 }
@@ -42,6 +37,10 @@
 
 .direction-column {
   flex-direction: column;
+}
+
+.direction-row-reverse {
+  flex-direction: row-reverse;
 }
 
 .direction-column-reverse {

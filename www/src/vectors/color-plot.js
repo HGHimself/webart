@@ -1,42 +1,35 @@
 import { select } from "d3-selection";
 import { line } from "d3-shape";
+import {
+  simpleHarmonicMotionCos,
+  simpleHarmonicMotionSin,
+} from "../utils/maths-tools.js";
 
-import theme from "../theme";
 import {
   fourier,
   squareWaveSequenceSin,
   squareWaveSequenceCos,
 } from "../utils/maths-tools.js";
-// import { getSpectrumPosition, getRgbSpectrumArray } from '../utils/color-tools.js'
+import { getSpectrumPosition } from "../utils/color-tools.js";
 
-const getRgbSpectrumArray = (i) => {
-  const amplitude = 127;
-  const offset = 128;
-  const odds = [1, 3, 5, 7, 9];
+// const getRgbSpectrumArray = (i) => {
+//   const amplitude = 127;
+//   const offset = 128;
+//   const odds = [2, 4, 6, 8, 10];
 
-  const limiter = (x) => amplitude * x + 128;
+//   const limiter = (x) => amplitude * x + 128;
 
-  const r = limiter(
-    fourier(2, Math.PI / 11, i / 100, odds, squareWaveSequenceCos)
-  );
-  const g = limiter(
-    fourier(2, Math.PI / 8, i / 100, odds, squareWaveSequenceSin)
-  );
-  const b = limiter(
-    fourier(2, Math.PI / 9, i / 100, odds, squareWaveSequenceCos)
-  );
+//   const r = limiter(Math.tan(2*Math.PI*i))
+//   const g = limiter(fourier(2, Math.PI / 2, i/100, odds, squareWaveSequenceCos))
+//   const b = limiter(fourier(2, Math.PI / 3, i/100, odds, squareWaveSequenceSin))
 
-  // const r = limiter(Math.tan(2*Math.PI*i))
-  // const g = limiter(fourier(2, Math.PI / 2, i/100, odds, squareWaveSequenceCos))
-  // const b = limiter(fourier(2, Math.PI / 3, i/100, odds, squareWaveSequenceSin))
+//   return [r, g, b];
+// };
 
-  return [r, g, b];
-};
-
-const getSpectrumPosition = (i) => {
-  const [r, g, b] = getRgbSpectrumArray(i);
-  return `rgb(${r}, ${g}, ${b})`;
-};
+// const getSpectrumPosition = (i) => {
+//   const [r, g, b] = getRgbSpectrumArray(i);
+//   return `rgb(${r}, ${g}, ${b})`;
+// };
 
 class colorPlot {
   constructor(containerEl, props) {
@@ -49,44 +42,63 @@ class colorPlot {
       .attr("width", width)
       .attr("height", height);
 
-    this.setValue(10);
+    this.update();
   }
 
   resize(width, height) {
-    const { svg, props } = this;
-
-    svg.attr("width", width).attr("height", height);
-
-    props.width = width;
-    props.height = height;
+    // const { svg, props } = this;
+    // svg.attr("width", width).attr("height", height);
+    // props.width = width;
+    // props.height = height;
   }
 
+  // rgb(96, 251, 160)
+
   getCircleDrawerX() {
-    const { xAxisValue } = this.props;
-    return (d) => -getRgbSpectrumArray(d)[xAxisValue];
+    const { xMultiplier, xAmplitude, frequency } = this.props;
+    return (d) =>
+      simpleHarmonicMotionCos(
+        0,
+        xAmplitude,
+        xMultiplier * (1 / frequency) * Math.PI,
+        d
+      );
   }
 
   getCircleDrawerY() {
-    const { yAxisValue } = this.props;
-    return (d) => 0.5 * getRgbSpectrumArray(d)[yAxisValue];
+    const { yMultiplier, yAmplitude, frequency } = this.props;
+    return (d) =>
+      simpleHarmonicMotionSin(
+        0,
+        yAmplitude,
+        yMultiplier * (1 / frequency) * Math.PI,
+        d
+      );
   }
 
   getRadius() {
-    const { radiusValue } = this.props;
-    return (d) => 0.3 * getRgbSpectrumArray(d)[radiusValue];
+    const { rMultiplier, rAmplitude, rOrigin } = this.props;
+    return (d) =>
+      simpleHarmonicMotionSin(rOrigin, rAmplitude, rMultiplier * Math.PI, d);
   }
 
   getColor() {
-    return (d) => getSpectrumPosition(d);
+    const { colorMultiplier, colorOffset } = this.props;
+    return (d) => getSpectrumPosition(colorOffset + d * colorMultiplier);
   }
 
-  setValue(value) {
+  setOptions(props) {
+    this.props = props;
+    this.update();
+  }
+
+  update() {
     const {
       svg,
-      props: { height, width },
+      props: { height, width, count },
     } = this;
 
-    const values = Array.from({ length: 300 }, (_, i) => [i + value]);
+    const values = Array.from({ length: count }, (_, i) => [i]);
 
     const circles = svg.selectAll("circle").data(values);
 
@@ -102,33 +114,10 @@ class colorPlot {
       .attr("stroke-width", "1")
       .attr("transform", `translate(${width / 2},${height / 2})`);
     circles
-      .transition()
-      .duration(0)
       .attr("cy", this.getCircleDrawerY())
       .attr("cx", this.getCircleDrawerX())
       .attr("r", this.getRadius())
-      .attr("stoke", this.getColor())
-      .attr("transform", `translate(${width / 2},${height / 2})`);
-  }
-
-  setValues({ xAxisValue, yAxisValue, radiusValue }) {
-    const {
-      svg,
-      props: { width, height },
-    } = this;
-
-    this.props.xAxisValue = xAxisValue;
-    this.props.yAxisValue = yAxisValue;
-    this.props.radiusValue = radiusValue;
-
-    svg
-      .selectAll("circle")
-      .transition()
-      .duration(0)
-      .attr("cy", this.getCircleDrawerY())
-      .attr("cx", this.getCircleDrawerX())
-      .attr("r", this.getRadius())
-      .attr("stoke", this.getColor())
+      .attr("stroke", this.getColor())
       .attr("transform", `translate(${width / 2},${height / 2})`);
   }
 }

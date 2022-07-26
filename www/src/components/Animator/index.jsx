@@ -7,7 +7,7 @@ export default function Animator(props) {
   const { drawer, options, setVis, intervalCallback, time, ...other } = props;
 
   // const [vis, setVisState] = useState(null)
-  const [width, setWidth] = useState(options.width || 600);
+  const [width, setWidth] = useState(window.innerWidth || 600);
   const [height, setHeight] = useState(options.height || 600);
 
   const refElement = useRef(null);
@@ -19,9 +19,9 @@ export default function Animator(props) {
   };
 
   const updateVisOnResize = () => {
-    const w = width - 96;
-    const h = options.height;
-    vis && vis.resize(w, h);
+    const w = width;
+    const h = height;
+    vis && vis.resize && vis.resize(w, h);
   };
 
   const handleResizeEvent = () => {

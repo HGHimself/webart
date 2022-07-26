@@ -1,8 +1,10 @@
 use crate::services::hello_service;
 use log::info;
-use std::{fs, path::Path, convert::Infallible};
+use std::{convert::Infallible, fs, path::Path};
 use warp;
-use warp::{reject,filters::body::BodyDeserializeError, Filter, Rejection, Reply, http::StatusCode};
+use warp::{
+    filters::body::BodyDeserializeError, http::StatusCode, reject, Filter, Rejection, Reply,
+};
 
 pub async fn hello(name: u64) -> Result<impl Reply, Rejection> {
     let reply = format!("Hello, {}!", name);

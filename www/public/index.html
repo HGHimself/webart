@@ -9,25 +9,59 @@
       content="A collection of web based artworks and other artistical studies
           on mathematical forms, patterns, and the like."
     />
-    <title>HG King</title>
+    <title>Digitheque</title>
     <link rel="stylesheet" href="/style.css" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="any" />
   </head>
   <body>
+    <header class="title-header">
+      <span id="title-date">ABC</span>
+      <a href="/"><img class="title-logo" src="/img/logo.png" alt="LOGO" /></a>
+      <span id="title-tag">Technical<br>Collective</span>
+    </header>
     <main>
-      <div id="header">
-        <h6>Hello, World!</h6>
-      </div>
+      <h2>Digitheque</h2>
+      <h4>
+        A collection of web-based artworks and other artistical studies on
+        mathematical forms, patterns, and the like.
+      </h4>
       <br />
-      <p>Projects and studies I have done.</p>
+      <h5>Data Nutrition Project</h5>
       <h6>
         <a
-          href="https://github.com/hgm-king"
+          href="https://datanutrition.org/"
           rel="noopener noreferrer"
           target="_blank"
-          >github</a
+          >dnp website</a
+        >
+        <br />
+        <a
+          href="https://ars.electronica.art/prix/en/digitalhumanity/"
+          rel="noopener noreferrer"
+          target="_blank"
+          >ars eletronica prix</a
         >
       </h6>
+      <br />
+      <h5>Ostrich Real Estate Tools</h5>
+      <h6>
+        <a
+          href="https://chrome.google.com/webstore/detail/ostrich/aicgkflmidjkbcenllnnlbnfnmicpmgo"
+          rel="noopener noreferrer"
+          target="_blank"
+          >real estate plugin</a
+        >
+      </h6>
+      <h6>
+        <a
+          href="https://ostrich-tools.webflow.io/"
+          rel="noopener noreferrer"
+          target="_blank"
+          >zillow listing notifier</a
+        >
+      </h6>
+      <br />
+      <h5>Personal Work</h5>
       <h6>
         <a
           href="http://covid-data.nyc/"
@@ -47,28 +81,24 @@
           >cartesian bloom nft collection</a
         >
       </h6>
-      <h6>
-        <a
-          href="https://chrome.google.com/webstore/detail/ostrich/aicgkflmidjkbcenllnnlbnfnmicpmgo"
-          rel="noopener noreferrer"
-          target="_blank"
-          >ostrich real estate plugin</a
-        >
-      </h6>
-      <h6>
-        <a
-          href="https://datanutrition.org/"
-          rel="noopener noreferrer"
-          target="_blank"
-          >data nutrition project</a
-        >
-      </h6>
       <br />
-      <p>
-        In the physical world, I reside in New York City. You will not be able
-        to find me there as my wife and I are currently traveling about.
-        Currently we are in Edinburgh
-      </p>
+      <h5>Portfolio</h5>
+      <h6>
+        <a
+          href="https://github.com/hgm-king"
+          rel="noopener noreferrer"
+          target="_blank"
+          >github</a
+        >
+      </h6>
+      <h6><a href="/articles/Resume.md">resume</a></h6>
     </main>
+    <footer class="footer"></footer>
+    <script>
+      var title_date = document.getElementById("title-date");
+      var today = new Date();
+      var date = today.toDateString().split(" ");
+      title_date.innerHTML = `${date[0]} ${date[2]}<br>${date[1]} ${date[3]}`
+    </script>
   </body>
 </html>

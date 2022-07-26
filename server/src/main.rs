@@ -69,10 +69,19 @@ async fn main() {
         String::from("./templates/recipes.html"),
         String::from("./templates/recipe-template.html")
     );
-    let end = articles
+
+    let fonts = warp::path("fonts").and(warp::fs::dir("./dist/fonts"));
+    let img = warp::path("img").and(warp::fs::dir("./dist/img"));
+
+    let static_assets = fonts.or(img).with(warp::filters::compression::gzip());
+
+    let end = static_assets
+        .or(articles)
         .or(recipes)
         .or(home)
-        .or(warp::get().and(warp::path::end()).and(warp::fs::file(format!("{}/index.html", public_folder))))
+        .or(warp::get()
+            .and(warp::path::end())
+            .and(warp::fs::file(format!("{}/index.html", public_folder))))
         .recover(hello_handler::handle_rejection)
         .with(warp::log("webart"));
 

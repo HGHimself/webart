@@ -14,9 +14,21 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="any" />
   </head>
   <body>
-    <a href="/webart">back</a>
+    <header class="title-header">
+      <span id="title-date">ABC</span>
+      <a href="/"><img class="title-logo" src="/img/logo.png" alt="LOGO" /></a>
+      <span id="title-tag">Technical<br>Collective</span>
+    </header>
     <main>
+      <a href="/webart">back</a>
+      <br />
       <div id="root"></div>
     </main>
+    <footer class="footer"></footer>
+    <script>
+      var title_date = document.getElementById("title-date");
+      var today = new Date();
+      title_date.innerHTML = today.toDateString();
+    </script>
   </body>
 </html>

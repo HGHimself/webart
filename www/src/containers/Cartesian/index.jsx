@@ -65,7 +65,7 @@ function Cartesian(props) {
 
     const period = Math.round(Math.random() * limit);
     setPeriodState(period);
-    vis.setPeriod(period);
+    vis.setFrequency(1 / period);
   };
 
   const setPeriodHandler = (value) => {
@@ -89,9 +89,10 @@ function Cartesian(props) {
   return (
     <div className="page">
       <div className="content">
-        <FlexRow flex="space-around">
-          <div className="control-box">
-            <FlexRow direction="column" flex="space-between">
+        <FlexRow direction="row-reverse" flex="space-around">
+          <Animator drawer={circular} setVis={setVis} options={options} />
+          <div className="control-bar">
+            <FlexRow wrap="wrap" flex="center">
               <FlexRow direction="column" align="center">
                 <h6>X-FREQUENCY</h6>
                 <NumberInput
@@ -125,7 +126,6 @@ function Cartesian(props) {
               </FlexRow>
             </FlexRow>
           </div>
-          <Animator drawer={circular} setVis={setVis} options={options} />
         </FlexRow>
       </div>
       <Title

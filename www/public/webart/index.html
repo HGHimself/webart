@@ -14,7 +14,13 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="any" />
   </head>
   <body>
+    <header class="title-header">
+      <span id="title-date">ABC</span>
+      <a href="/"><img class="title-logo" src="/img/logo.png" alt="LOGO" /></a>
+      <span id="title-tag">Technical<br>Collective</span>
+    </header>
     <main>
+      <h2>Web Studies</h2>
       <a href="/">home</a>
       <br />
       <a href="/webart/cartesian.html">Radial Cartesian</a>
@@ -25,28 +31,36 @@
       <br />
       <a href="/webart/oolisp.html">Oolisp</a>
       <br />
+      <a href="/webart/circular.html">Circular</a>
+      <br />
       <p>
         A web study is small internet-based application that demonstrates only a
         small artistic or technical concept.
       </p>
       <p>
-        The ones you find here are developed with various tools, but the common purpose 
-        is to get a feel for building with minimalism.
+        The ones you find here are developed with various tools, but the common
+        purpose is to get a feel for building with minimalism.
       </p>
       <p>
         For the framework, preact is used to manage state and render a self made
         library of reusable components. Webpack is used to compile this code
-        into the browser-preferred javascript. The end result is a very small bundle size
-        which makes for pleasant render times and a responsize UI
+        into the browser-preferred javascript. The end result is a very small
+        bundle size which makes for pleasant render times and a responsize UI
       </p>
       <p>
         To implement the studies' core concepts, either d3.js or a custom
-        web-assembly module is used. React is used to manage the state and 
-        updating of the page, d3 is used for any interesting drawing and rendering
-        of shapes, and web-assembly is used for any interesting computation
-        that would require more complex logic than I'm comfortable using js
-        with.
+        web-assembly module is used. React is used to manage the state and
+        updating of the page, d3 is used for any interesting drawing and
+        rendering of shapes, and web-assembly is used for any interesting
+        computation that would require more complex logic than I'm comfortable
+        using js with.
       </p>
     </main>
+    <footer class="footer"></footer>
+    <script>
+      var title_date = document.getElementById("title-date");
+      var today = new Date();
+      title_date.innerHTML = today.toDateString();
+    </script>
   </body>
 </html>

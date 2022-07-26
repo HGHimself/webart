@@ -14,10 +14,21 @@
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="any">
     </head>
     <body>
+      <header class="title-header">
+        <span id="title-date">ABC</span>
+        <a href="/"><img class="title-logo" src="/img/logo.png" alt="LOGO" /></a>
+        <span id="title-tag">Technical<br>Collective</span>
+      </header>
       <main>
         <a href="/recipes">back</a>
         <br>
         {{body}}
       </main>
+      <footer class="footer"></footer>
+      <script>
+        var title_date = document.getElementById("title-date")
+        var today = new Date()
+        title_date.innerHTML = today.toDateString()
+      </script>
     </body>
 </html>

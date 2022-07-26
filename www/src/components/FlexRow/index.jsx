@@ -14,6 +14,8 @@ export default function FlexRow(props) {
         ? "justify-end"
         : props.flex == "space-start"
         ? "justify-start"
+        : props.flex == "center"
+        ? "justify-center"
         : "";
 
     styles.push(flex);
@@ -39,6 +41,8 @@ export default function FlexRow(props) {
         ? "direction-column-reverse"
         : props.direction == "row"
         ? "direction-row"
+        : props.direction == "row-reverse"
+        ? "direction-row-reverse"
         : "";
 
     styles.push(direction);

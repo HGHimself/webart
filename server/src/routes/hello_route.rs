@@ -1,4 +1,4 @@
-use crate::{is_markdown, is_file_there, is_dir_there, with_directory, with_template};
+use crate::{is_dir_there, is_file_there, is_markdown, with_directory, with_template};
 use warp::{filters::BoxedFilter, reject, Filter, Rejection};
 // 1. "hello"
 fn path_prefix() -> BoxedFilter<()> {

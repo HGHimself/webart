@@ -1,19 +1,18 @@
 import { h } from "preact";
 import { useState, useEffect, useRef } from "preact/hooks";
-
+import entry from "../build/entry.js";
 import spectralCircle from "../vectors/spectral-circle.js";
-import theme from "../theme";
 
-import Animator from "../components/Animator/";
-import Title from "../components/Title/";
-import Switch from "../components/Switch/";
+import Animator from "../components/Animator/index.jsx";
+import Title from "../components/Title/index.jsx";
+import Switch from "../components/Switch/index.jsx";
 
 let vis = null;
 const setVis = (v) => {
   vis = v;
 };
 
-export default function SpectralCircle(props) {
+function SpectralCircle(props) {
   const time = 10;
   const step = 5;
 
@@ -53,7 +52,7 @@ export default function SpectralCircle(props) {
   };
 
   return (
-    <>
+    <div>
       <a href="/webart">back</a>
       <Title title="SPECTRAL CIRCLE" />
       <Switch type={"warning"} state={running} onClick={toggleRunning} />
@@ -64,6 +63,8 @@ export default function SpectralCircle(props) {
         intervalCallback={intervalHandler}
         time={10}
       />
-    </>
+    </div>
   );
 }
+
+entry(<SpectralCircle />);

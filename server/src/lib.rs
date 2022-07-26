@@ -3,8 +3,8 @@ pub mod handlers;
 pub mod routes;
 pub mod services;
 
-use warp::{Filter};
 use std::path::Path;
+use warp::Filter;
 
 pub fn with_directory(dir: String) -> warp::filters::BoxedFilter<(String,)> {
     warp::any().map(move || dir.clone()).boxed()

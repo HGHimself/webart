@@ -34,16 +34,21 @@ class Circular {
   }
 
   resize(width, height) {
-    // const { svg, props } = this
-    //
-    // props.width = width
-    // props.height = width * 0.4 > 300 ? 600 : 300
-    // props.amplitude = width * 0.4 > 300 ? 300 : width * 0.4
-    //
-    // svg.attr('width', props.width)
-    //   .attr('height', props.height)
-    //
-    // this.update()
+    const { svg, props } = this;
+
+    if (width < 670) {
+      props.width = width * 0.6;
+      props.height = width * 0.6;
+      props.amplitude = width * 0.29;
+    } else {
+      props.width = 500;
+      props.height = 500;
+      props.amplitude = 240;
+    }
+
+    svg.attr("width", props.width).attr("height", props.height);
+
+    this.update();
   }
 
   setMultiplierX(multiplierX) {

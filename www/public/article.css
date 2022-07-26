@@ -71,20 +71,38 @@ h6 {
 }
 
 pre code {
-    color: #fbfbf8;
-    background-color: #161032;
-    border: 1px solid #999;
-    display: block;
-    padding: 20px;
-    overflow-x: scroll;
-    font-family: "Menlo";
+  color: #fbfbf8;
+  background-color: #161032;
+  border: 1px solid #999;
+  display: block;
+  padding: 20px;
+  overflow-x: scroll;
+  font-family: "Menlo";
 }
-  
+
 pre {
-    white-space: pre-wrap;
-    font-family: "Menlo";
+  white-space: pre-wrap;
+  font-family: "Menlo";
 }
 
 li {
   margin-bottom: 8px;
+}
+
+.title-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  border-bottom: 1px solid black;
+  margin-bottom: 2rem;
+}
+
+.title-logo {
+  width: 300px;
+}
+
+@media (max-width: 600px) {
+  .title-logo {
+    width: 200px;
+  }
 }
