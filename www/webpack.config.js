@@ -22,6 +22,7 @@ module.exports = {
       "ColorPlot",
       "index.jsx"
     ),
+    descartes: path.resolve(__dirname, "src", "containers", "Descartes.jsx"),
   },
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -68,6 +69,12 @@ module.exports = {
       title: "Circular",
       chunks: ["circular"],
       filename: "webart/circular.html",
+      template: path.resolve(__dirname, "src", "build", "template.html"),
+    }),
+    new HtmlWebpackPlugin({
+      title: "Descartes",
+      chunks: ["descartes"],
+      filename: "webart/descartes.html",
       template: path.resolve(__dirname, "src", "build", "template.html"),
     }),
   ],

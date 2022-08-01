@@ -17,6 +17,7 @@ class colorPlot {
     this.containerEl = containerEl;
     this.props = props;
     const { width, height } = props;
+    this.props.amplitudeMultiplier = 1;
 
     this.svg = select(containerEl)
       .append("svg")
@@ -32,9 +33,11 @@ class colorPlot {
     if (width < 670) {
       props.width = width * 0.6;
       props.height = width * 0.6;
+      props.amplitudeMultiplier = 0.4;
     } else {
       props.width = 500;
       props.height = 500;
+      props.amplitudeMultiplier = 1;
     }
 
     svg.attr("width", props.width).attr("height", props.height);
@@ -43,22 +46,24 @@ class colorPlot {
   }
 
   getCircleDrawerX() {
-    const { xMultiplier, xAmplitude, frequency, offset } = this.props;
+    const { xMultiplier, xAmplitude, frequency, offset, amplitudeMultiplier } =
+      this.props;
     return (d, i) =>
       simpleHarmonicMotionCos(
         0,
-        xAmplitude,
+        xAmplitude * amplitudeMultiplier,
         xMultiplier * (1 / frequency) * Math.PI,
         i - offset / 10
       );
   }
 
   getCircleDrawerY() {
-    const { yMultiplier, yAmplitude, frequency, offset } = this.props;
+    const { yMultiplier, yAmplitude, frequency, offset, amplitudeMultiplier } =
+      this.props;
     return (d, i) =>
       simpleHarmonicMotionSin(
         0,
-        yAmplitude,
+        yAmplitude * amplitudeMultiplier,
         yMultiplier * (1 / frequency) * Math.PI,
         i - offset / 10
       );

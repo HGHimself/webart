@@ -13,6 +13,7 @@ class Circular {
     this.containerEl = containerEl;
     this.props = props;
     const { width, height, count } = props;
+    this.props.amplitudeMultiplier = 1;
 
     this.svg = select(containerEl)
       .append("svg")
@@ -28,9 +29,11 @@ class Circular {
     if (width < 670) {
       props.width = width * 0.6;
       props.height = width * 0.6;
+      props.amplitudeMultiplier = 0.4;
     } else {
       props.width = 500;
       props.height = 500;
+      props.amplitudeMultiplier = 1;
     }
 
     svg.attr("width", props.width).attr("height", props.height);
@@ -53,18 +56,19 @@ class Circular {
       multiplierY,
       width,
       height,
+      amplitudeMultiplier,
     } = this.props;
 
     const arc = Array.from({ length: 1 + 1 }, (_, i) => [
       simpleHarmonicMotionSin(
         0,
-        amplitudeX,
+        amplitudeX * amplitudeMultiplier,
         multiplierX * (1 / frequency),
         i + batch - offset
       ),
       simpleHarmonicMotionCos(
         0,
-        amplitudeY,
+        amplitudeY * amplitudeMultiplier,
         multiplierY * (1 / frequency),
         i + batch - offset
       ),
