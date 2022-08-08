@@ -166,21 +166,24 @@ class HarmonicMotion {
       );
     svg.selectAll("path.circles").attr("d", getSinwaveDrawer);
     svg.selectAll("path.lines").attr("d", Sinwave);
-    !this.props.hideProps && svg
-      .selectAll("text.details")
-      .data(Object.keys(this.props).map((key) => `${key}: ${this.props[key]}`))
-      .join(
-        (enter) =>
-          enter
-            .append("text")
-            .attr("class", "details")
-            .attr("x", 10)
-            .attr("y", (_, i) => 10 * (i + 1))
-            .attr("font-size", 12)
-            .text((d) => d),
-        (update) => update.text((d) => d),
-        (exit) => exit
-      );
+    !this.props.hideProps &&
+      svg
+        .selectAll("text.details")
+        .data(
+          Object.keys(this.props).map((key) => `${key}: ${this.props[key]}`)
+        )
+        .join(
+          (enter) =>
+            enter
+              .append("text")
+              .attr("class", "details")
+              .attr("x", 10)
+              .attr("y", (_, i) => 10 * (i + 1))
+              .attr("font-size", 12)
+              .text((d) => d),
+          (update) => update.text((d) => d),
+          (exit) => exit
+        );
   }
 
   setOptions(props) {

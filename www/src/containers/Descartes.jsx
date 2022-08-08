@@ -55,7 +55,7 @@ function Descartes(props) {
         should be, you fill in all the variables in the equation above and
         evaluate it.
       </p>
-      <HarmonicMotion numbers={[1]} />
+      <HarmonicMotion numbers={[1]} hideProps />
       <h6>Fig. 1 - Simple Harmonic Motion</h6>
       <p>
         This small demonstration shows you how each variable affects the wave
@@ -100,7 +100,7 @@ function Descartes(props) {
         dissonance between our two loops.
       </p>
       <p>Play around with the numbers and see what you can make!</p>
-      <Cartesian />
+      <Cartesian hideProps />
       <h6>Fig. 2 - Radial Cartesian</h6>
       <p>
         You may notice that after altering the frequency parameter, we start to
@@ -132,7 +132,7 @@ function Descartes(props) {
         We also provide controls to the colors so that you can make some really
         funky sketches (yet another loop).
       </p>
-      <Circular />
+      <Circular hideProps />
       <h6>Fig. 3 - Circular Cartesian</h6>
       <br />
       <h4>Conclusion</h4>

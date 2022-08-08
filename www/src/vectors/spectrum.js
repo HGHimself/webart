@@ -1,8 +1,6 @@
 // save in vectors/vector.js
 import { select } from "d3-selection";
-import {
-  distance,
-} from "../utils/maths-tools.js";
+import { distance } from "../utils/maths-tools.js";
 import { getSpectrumPosition } from "../utils/color-tools.js";
 
 class Vector {
@@ -33,7 +31,7 @@ class Vector {
     }
 
     svg.attr("width", props.width).attr("height", props.height);
-    this.update()
+    this.update();
   }
 
   setOptions(options) {
@@ -42,29 +40,39 @@ class Vector {
   }
 
   getX() {
-    const { props: { width, size }} = this
-    return (_, i) => size * (i % Math.ceil(width / size))
+    const {
+      props: { width, size },
+    } = this;
+    return (_, i) => size * (i % Math.ceil(width / size));
   }
 
   getWidth() {
-    const { props: { width, count, size }} = this
-    return (_, i) => size
+    const {
+      props: { width, count, size },
+    } = this;
+    return (_, i) => size;
   }
 
   getY() {
-    const { props: { width, size }} = this
-    return (_, i) => Math.floor(i / (width / size)) * (size)
+    const {
+      props: { width, size },
+    } = this;
+    return (_, i) => Math.floor(i / (width / size)) * size;
   }
 
   getHeight() {
-    const { props: { size }} = this
-    return (_, i) => size
+    const {
+      props: { size },
+    } = this;
+    return (_, i) => size;
   }
 
   getColor() {
-    const { props: { spectrum }} = this
+    const {
+      props: { spectrum },
+    } = this;
 
-    return (_, i) => getSpectrumPosition(i * spectrum)
+    return (_, i) => getSpectrumPosition(i * spectrum);
   }
 
   update() {
@@ -75,35 +83,38 @@ class Vector {
 
     svg
       .selectAll("rect")
-      .data(Array.from({ length: (count) }, (_, i) => i))
+      .data(Array.from({ length: count }, (_, i) => i))
       .join(
-        (enter) =>
-          enter
-            .append("rect"),
-        (update) => update.attr("x", this.getX())
-        .attr("y", this.getY())
-        .attr("width", this.getWidth())
-        .attr("height", this.getHeight())
-        .attr('stroke', 'none')
-        .attr('fill', this.getColor()),
+        (enter) => enter.append("rect"),
+        (update) =>
+          update
+            .attr("x", this.getX())
+            .attr("y", this.getY())
+            .attr("width", this.getWidth())
+            .attr("height", this.getHeight())
+            .attr("stroke", "none")
+            .attr("fill", this.getColor())
         // (exit) => exit
       );
 
-    !this.props.hideProps && svg
-      .selectAll("text.details")
-      .data(Object.keys(this.props).map((key) => `${key}: ${this.props[key]}`))
-      .join(
-        (enter) =>
-          enter
-            .append("text")
-            .attr("class", "details")
-            .attr("x", 10)
-            .attr("y", (_, i) => 10 * (i + 1))
-            .attr("font-size", 12)
-            .text((d) => d),
-        (update) => update.text((d) => d),
-        (exit) => exit
-      );
+    !this.props.hideProps &&
+      svg
+        .selectAll("text.details")
+        .data(
+          Object.keys(this.props).map((key) => `${key}: ${this.props[key]}`)
+        )
+        .join(
+          (enter) =>
+            enter
+              .append("text")
+              .attr("class", "details")
+              .attr("x", 10)
+              .attr("y", (_, i) => 10 * (i + 1))
+              .attr("font-size", 12)
+              .text((d) => d),
+          (update) => update.text((d) => d),
+          (exit) => exit
+        );
   }
 
   getSvg() {

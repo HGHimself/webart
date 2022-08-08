@@ -176,6 +176,7 @@ input[type="number"] {
   justify-content: space-between;
   border-bottom: 1px solid black;
   margin-bottom: 2rem;
+  margin-top: 1rem;
   padding-left: 1rem;
   padding-right: 1rem;
 }
@@ -184,7 +185,6 @@ input[type="number"] {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  border-top: 1px solid black;
   margin-top: 2rem;
   padding-bottom: 2rem;
 }

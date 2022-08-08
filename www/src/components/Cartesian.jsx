@@ -23,7 +23,7 @@ export default function Cartesian(props) {
     multiplierY: 2,
     multiplierX: 2,
     spectrum: 0,
-    hideProps: props.hideProps ? props.hideProps : false
+    hideProps: props.hideProps ? props.hideProps : false,
   });
 
   const optionsToSkip = ["height", "width", "amplitudeMultiplier", "hideProps"];
