@@ -10,7 +10,7 @@ function ColorPlot(props) {
     <div className="page">
       <Circular />
       <Title
-        title="DESCARTES"
+        title="CIRCULAR CARTESIAN"
         description="Draw using ratios and simple harmonic motion. Experiment with the values!"
       />
     </div>

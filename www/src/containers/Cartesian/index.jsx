@@ -15,7 +15,7 @@ function Cartesian(props) {
     <div className="page">
       <Vector />
       <Title
-        title="DESCARTES"
+        title="RADIAL CARTESIAN"
         description="Draw using ratios and simple harmonic motion. Experiment with the values!"
       />
     </div>

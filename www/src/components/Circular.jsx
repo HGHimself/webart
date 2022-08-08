@@ -29,7 +29,7 @@ export default function Circular(props) {
     colorOffset: 120,
   });
 
-  const optionsToSkip = ["height", "width"];
+  const optionsToSkip = ["height", "width", "amplitudeMultiplier"];
 
   const optionsBar = Object.keys(options)
     .filter((d) => !optionsToSkip.includes(d))
@@ -38,7 +38,7 @@ export default function Circular(props) {
       const handleChange = (value) => {
         const r = value;
         const newOptions = JSON.parse(JSON.stringify(options));
-        newOptions[key] = r;
+        newOptions[key] = parseFloat(r);
         setOptionsState(newOptions);
         vis.setOptions(newOptions);
       };

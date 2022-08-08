@@ -23,6 +23,7 @@ module.exports = {
       "index.jsx"
     ),
     descartes: path.resolve(__dirname, "src", "containers", "Descartes.jsx"),
+    spectrum: path.resolve(__dirname, "src", "containers", "Spectrum.jsx"),
   },
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -75,6 +76,12 @@ module.exports = {
       title: "Descartes",
       chunks: ["descartes"],
       filename: "webart/descartes.html",
+      template: path.resolve(__dirname, "src", "build", "template.html"),
+    }),
+    new HtmlWebpackPlugin({
+      title: "Spectrum",
+      chunks: ["spectrum"],
+      filename: "webart/spectrum.html",
       template: path.resolve(__dirname, "src", "build", "template.html"),
     }),
   ],

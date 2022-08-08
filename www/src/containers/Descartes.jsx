@@ -2,7 +2,7 @@ import { h } from "preact";
 import entry from "../build/entry.js";
 import Cartesian from "../components/Cartesian.jsx";
 import Circular from "../components/Circular.jsx";
-import Fourier from "../components/Fourier.jsx";
+import HarmonicMotion from "../components/HarmonicMotion.jsx";
 
 function Descartes(props) {
   return (
@@ -51,10 +51,11 @@ function Descartes(props) {
         amplitude of the wave, <code>t</code> is the time or offset,
         <code>f</code> is the frequency, and <code>pi</code> is everyone's
         favorite number. It means that a position on a graph (here the y axis)
-        can be determined at any given time. To find out what the position should
-        be, you fill in all the variables in the equation above and evaluate it.
+        can be determined at any given time. To find out what the position
+        should be, you fill in all the variables in the equation above and
+        evaluate it.
       </p>
-      <Fourier numbers={[1]} />
+      <HarmonicMotion numbers={[1]} />
       <h6>Fig. 1 - Simple Harmonic Motion</h6>
       <p>
         This small demonstration shows you how each variable affects the wave

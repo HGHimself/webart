@@ -1,6 +1,6 @@
 import { h } from "preact";
 import { useState } from "preact/hooks";
-import circular from "../vectors/circular.js";
+import spectrum from "../vectors/spectrum.js";
 
 import Animator from "./Animator/index.jsx";
 import FlexRow from "./FlexRow/index.jsx";
@@ -11,21 +11,16 @@ const setVis = (v) => {
   vis = v;
 };
 
-export default function Cartesian(props) {
+export default function Spectrum(props) {
   const [options, setOptionsState] = useState({
     count: 1000,
     height: 500,
     width: 500,
-    offset: 0,
-    amplitudeX: 240,
-    amplitudeY: 240,
-    frequency: 1,
-    multiplierY: 2,
-    multiplierX: 2,
+    size: 20,
     spectrum: 0,
   });
 
-  const optionsToSkip = ["height", "width", "amplitudeMultiplier"];
+  const optionsToSkip = ["height", "width"];
 
   const optionsBar = Object.keys(options)
     .filter((d) => !optionsToSkip.includes(d))
@@ -48,7 +43,7 @@ export default function Cartesian(props) {
         {optionsBar}
       </FlexRow>
       <FlexRow flex="space-around">
-        <Animator drawer={circular} setVis={setVis} options={options} />
+        <Animator drawer={spectrum} setVis={setVis} options={options} />
       </FlexRow>
     </div>
   );
