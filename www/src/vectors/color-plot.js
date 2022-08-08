@@ -115,7 +115,7 @@ class colorPlot {
       .attr("r", this.getRadius())
       .attr("stroke", this.getColor())
       .attr("transform", `translate(${width / 2},${height / 2})`);
-    svg
+    !this.props.hideProps && svg
       .selectAll("text.details")
       .data(Object.keys(this.props).map((key) => `${key}: ${this.props[key]}`))
       .join(

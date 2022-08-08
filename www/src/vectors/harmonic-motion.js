@@ -166,7 +166,7 @@ class HarmonicMotion {
       );
     svg.selectAll("path.circles").attr("d", getSinwaveDrawer);
     svg.selectAll("path.lines").attr("d", Sinwave);
-    svg
+    !this.props.hideProps && svg
       .selectAll("text.details")
       .data(Object.keys(this.props).map((key) => `${key}: ${this.props[key]}`))
       .join(

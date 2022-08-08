@@ -27,9 +27,10 @@ export default function Circular(props) {
     rOrigin: 18,
     colorMultiplier: 30188,
     colorOffset: 120,
+    hideProps: props.hideProps ? props.hideProps : false
   });
 
-  const optionsToSkip = ["height", "width", "amplitudeMultiplier"];
+  const optionsToSkip = ["height", "width", "amplitudeMultiplier", "hideProps"];
 
   const optionsBar = Object.keys(options)
     .filter((d) => !optionsToSkip.includes(d))

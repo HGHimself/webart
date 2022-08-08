@@ -24,6 +24,7 @@ export default function HarmonicMotion(props) {
     frequency: 350,
     offset: 0,
     amplitude: 100,
+    hideProps: props.hideProps ? props.hideProps : false
   });
 
   const intervalHandler = () => {
@@ -47,6 +48,7 @@ export default function HarmonicMotion(props) {
     "originYLine",
     "period",
     "amplitudeMultiplier",
+    "hideProps"
   ];
 
   const optionsBar = Object.keys(options)

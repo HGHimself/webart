@@ -18,9 +18,10 @@ export default function Spectrum(props) {
     width: 500,
     size: 20,
     spectrum: 0,
+    hideProps: props.hideProps ? props.hideProps : false
   });
 
-  const optionsToSkip = ["height", "width"];
+  const optionsToSkip = ["height", "width", "hideProps"];
 
   const optionsBar = Object.keys(options)
     .filter((d) => !optionsToSkip.includes(d))

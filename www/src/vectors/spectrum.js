@@ -89,7 +89,7 @@ class Vector {
         // (exit) => exit
       );
 
-    svg
+    !this.props.hideProps && svg
       .selectAll("text.details")
       .data(Object.keys(this.props).map((key) => `${key}: ${this.props[key]}`))
       .join(
