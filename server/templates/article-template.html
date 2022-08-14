@@ -24,11 +24,13 @@
         <br>
         {{body}}
       </main>
+      <img alt="line-break" src="/img/curly-break-2.svg" width="100%" />
       <footer class="footer"></footer>
       <script>
-        var title_date = document.getElementById("title-date")
-        var today = new Date()
-        title_date.innerHTML = today.toDateString()
+        var title_date = document.getElementById("title-date");
+        var today = new Date();
+        var date = today.toDateString().split(" ");
+        title_date.innerHTML = `${date[0]} ${date[2]},<br>${date[1]} ${date[3]}`;
       </script>
     </body>
 </html>

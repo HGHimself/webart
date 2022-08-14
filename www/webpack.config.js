@@ -12,7 +12,7 @@ module.exports = {
       "Cartesian",
       "index.jsx"
     ),
-    vector: path.resolve(__dirname, "src", "containers", "Vector", "index.jsx"),
+    nouveau: path.resolve(__dirname, "src", "containers", "NouveauDoors.jsx"),
     dada: path.resolve(__dirname, "src", "containers", "Dada", "index.jsx"),
     oolisp: path.resolve(__dirname, "src", "containers", "Oolisp", "index.jsx"),
     circular: path.resolve(
@@ -24,6 +24,7 @@ module.exports = {
     ),
     descartes: path.resolve(__dirname, "src", "containers", "Descartes.jsx"),
     spectrum: path.resolve(__dirname, "src", "containers", "Spectrum.jsx"),
+    zinc: path.resolve(__dirname, "src", "containers", "Zinc.jsx"),
   },
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -50,7 +51,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       title: "Barcelona Doors",
-      chunks: ["vector"],
+      chunks: ["nouveau"],
       filename: "webart/barcelona-doors.html",
       template: path.resolve(__dirname, "src", "build", "template.html"),
     }),
@@ -82,6 +83,12 @@ module.exports = {
       title: "Spectrum",
       chunks: ["spectrum"],
       filename: "webart/spectrum.html",
+      template: path.resolve(__dirname, "src", "build", "template.html"),
+    }),
+    new HtmlWebpackPlugin({
+      title: "Zinc",
+      chunks: ["zinc"],
+      filename: "webart/zinc.html",
       template: path.resolve(__dirname, "src", "build", "template.html"),
     }),
   ],

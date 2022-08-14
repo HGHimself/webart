@@ -16,7 +16,9 @@
   <body>
     <header class="title-header">
       <span id="title-date">ABC</span>
-      <a href="/"><object type="image/svg+xml" data="/img/logo.svg" alt="LOGO" ></object></a>
+      <a href="/"
+        ><object type="image/svg+xml" data="/img/logo.svg" alt="LOGO"></object
+      ></a>
       <span id="title-tag">Technical<br />Collective</span>
     </header>
     <main>
@@ -66,7 +68,8 @@
     <script>
       var title_date = document.getElementById("title-date");
       var today = new Date();
-      title_date.innerHTML = today.toDateString();
+      var date = today.toDateString().split(" ");
+      title_date.innerHTML = `${date[0]} ${date[2]},<br>${date[1]} ${date[3]}`;
     </script>
   </body>
 </html>

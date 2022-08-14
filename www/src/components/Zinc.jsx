@@ -1,32 +1,31 @@
 import { h } from "preact";
 import { useState } from "preact/hooks";
-import colorPlot from "../vectors/color-plot.js";
+import zinc from "../vectors/zinc.js";
 
-import Animator from "./Animator/index.jsx";
-import FlexRow from "./FlexRow/index.jsx";
-import NumberInput from "./NumberInput/index.jsx";
+import Animator from "../components/Animator/index.jsx";
+import FlexRow from "../components/FlexRow/index.jsx";
+import NumberInput from "../components/NumberInput/index.jsx";
 
-let vis;
+let vis = null;
 const setVis = (v) => {
   vis = v;
 };
 
-export default function Circular(props) {
+export default function Zinc(props) {
+
   const [options, setOptionsState] = useState({
-    count: 100,
+    numbers: [1, 3, 5, 7, 9, 11, 13, 15, 17],
+    count: 6,
     height: 500,
-    width: 500,
-    offset: 0,
-    frequency: 2,
-    xAmplitude: 200,
-    xMultiplier: 1,
-    yAmplitude: 200,
-    yMultiplier: 1,
-    rAmplitude: 17,
-    rMultiplier: 0.5,
-    rOrigin: 18,
-    colorMultiplier: 30188,
-    colorOffset: 120,
+    width: 250,
+    amplitudeX: 250,
+    amplitudeY: 500,
+    period: 20,
+    omega: 2 * Math.PI * (1 / 20),
+    offset: 40,
+    spectrum: 0,
+    multiplierX: 5,
+    multiplierY: 16,
     hideProps: props.hideProps ? props.hideProps : false,
   });
 
@@ -49,12 +48,12 @@ export default function Circular(props) {
 
   return (
     <div>
-      <FlexRow direction="row" wrap="wrap">
-        {optionsBar}
-      </FlexRow>
-      <FlexRow flex="space-around">
-        <Animator drawer={colorPlot} setVis={setVis} options={options} />
-      </FlexRow>
-    </div>
+    <FlexRow direction="row" wrap="wrap">
+      {optionsBar}
+    </FlexRow>
+    <FlexRow flex="space-around">
+      <Animator drawer={zinc} setVis={setVis} options={options} />
+    </FlexRow>
+  </div>
   );
 }

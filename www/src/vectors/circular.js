@@ -109,21 +109,24 @@ class Circular {
       .attr("d", (d) => this.getDrawer(d))
       .attr("stroke", (d) => this.getColor(d))
       .attr("transform", `translate(${width / 2},${height / 2})`);
-    !this.props.hideProps && svg
-      .selectAll("text.details")
-      .data(Object.keys(this.props).map((key) => `${key}: ${this.props[key]}`))
-      .join(
-        (enter) =>
-          enter
-            .append("text")
-            .attr("class", "details")
-            .attr("x", 10)
-            .attr("y", (_, i) => 10 * (i + 1))
-            .attr("font-size", 12)
-            .text((d) => d),
-        (update) => update.text((d) => d),
-        (exit) => exit
-      );
+    !this.props.hideProps &&
+      svg
+        .selectAll("text.details")
+        .data(
+          Object.keys(this.props).map((key) => `${key}: ${this.props[key]}`)
+        )
+        .join(
+          (enter) =>
+            enter
+              .append("text")
+              .attr("class", "details")
+              .attr("x", 10)
+              .attr("y", (_, i) => 10 * (i + 1))
+              .attr("font-size", 12)
+              .text((d) => d),
+          (update) => update.text((d) => d),
+          (exit) => exit
+        );
   }
 
   getSvg() {
