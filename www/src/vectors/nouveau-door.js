@@ -121,7 +121,18 @@ class Vector {
         .attr("d", line().curve(curveMonotoneX)(box))
         .attr("stroke-width", "4")
         .attr("fill", getSpectrumPosition(this.props.spectrum))
+        // .attr("stroke", theme.colors.black)
         .attr("filter", "url(#splotch)");
+      // svg.selectAll('ellipse')
+      //   .data([0])
+      //   .enter()
+      //     .append("ellipse")
+      //     .attr("rx", 100)
+      //     .attr("ry", 200)
+      //     .attr("cx", width / 2)
+      //     .attr("cy", height / 2)
+      //     .attr("fill", "#8b9b8a")
+      // .attr("stroke-width", "3")
       this.svg
         .select(`g.${c}`)
         .append("g")
@@ -178,8 +189,34 @@ class Vector {
 
   setOptions(options) {
     this.props = options;
-    this.props.omega = 2 * Math.PI * (1 / options.period)
+    this.update();
+  }
 
+  setOffset(offset) {
+    this.props.offset = offset;
+    this.update();
+  }
+
+  setFrequency(frequency) {
+    this.props.omega = frequency;
+    this.update();
+  }
+
+  setCount(count) {
+    const { svg, props } = this;
+    this.props.count = count;
+
+    const data = Array.from({ length: count }, (_, i) => i);
+
+    this.classes.forEach((c) => {
+      this.svg
+        .select(`g.${c}`)
+        .selectAll("path.door")
+        .data(data)
+        .join((enter) =>
+          enter.append("path").attr("fill", "none").attr("stroke-width", "1")
+        );
+    });
     this.update();
   }
 
@@ -217,11 +254,11 @@ class Vector {
     const { classes } = this;
     const drawer = this.getDrawer();
 
-    classes.forEach((c) => {
+    this.classes.forEach((c) => {
       this.svg
         .select(`g.${c}`)
         .selectAll("path.door")
-        .attr("d", (d) => drawer)
+        .attr("d", (d) => this.getDrawer(d))
         .attr("stroke", theme.colors.black)
         .attr("fill", (d) =>
           !this.props.spectrum
@@ -241,25 +278,6 @@ class Vector {
             : "none"
         );
     });
-
-    !this.props.hideProps &&
-      this.svg
-        .selectAll("text.details")
-        .data(
-          Object.keys(this.props).map((key) => `${key}: ${this.props[key]}`)
-        )
-        .join(
-          (enter) =>
-            enter
-              .append("text")
-              .attr("class", "details")
-              .attr("x", 10)
-              .attr("y", (_, i) => 10 * (i + 1))
-              .attr("font-size", 12)
-              .text((d) => d),
-          (update) => update.text((d) => d),
-          (exit) => exit
-        );
   }
 
   getSvg() {
