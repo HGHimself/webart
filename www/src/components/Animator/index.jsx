@@ -2,11 +2,11 @@ import { h } from "preact";
 import { useEffect, useRef, useState } from "preact/hooks";
 
 let vis = null;
+const resizeDelay = 300;
 
 export default function Animator(props) {
   const { drawer, options, setVis, intervalCallback, time, ...other } = props;
 
-  // const [vis, setVisState] = useState(null)
   const [width, setWidth] = useState(window.innerWidth || 600);
   const [height, setHeight] = useState(options.height || 600);
 
@@ -31,7 +31,7 @@ export default function Animator(props) {
       resizeTimer = setTimeout(function () {
         setWidth(window.innerWidth);
         setHeight(window.innerHeight);
-      }, 300);
+      }, resizeDelay);
     };
     window.addEventListener("resize", handleResize);
 

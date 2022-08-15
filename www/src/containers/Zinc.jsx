@@ -8,7 +8,10 @@ function ZincContainer(props) {
   return (
     <Fragment>
       <Zinc />
-      <Title title="ZINC" description="Just an exploration for now!" />
+      <Title
+        title="ZINC"
+        description="Overriding backgrounds with generated ethereal svgs!"
+      />
     </Fragment>
   );
 }

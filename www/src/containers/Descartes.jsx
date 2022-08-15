@@ -3,6 +3,8 @@ import entry from "../build/entry.js";
 import Cartesian from "../components/Cartesian.jsx";
 import Circular from "../components/Circular.jsx";
 import HarmonicMotion from "../components/HarmonicMotion.jsx";
+import Zinc from "../components/Zinc.jsx";
+import { random } from "../utils/maths-tools.js";
 
 function Descartes(props) {
   return (
@@ -141,6 +143,13 @@ function Descartes(props) {
         to draw sketches with the intention of producing patterns through
         feedback loops.
       </p>
+      <Zinc
+        count={random(6, 10)}
+        offset={random(1, 100)}
+        multiplierX={random(1, 20)}
+        multiplierY={random(1, 20)}
+        omega={1}
+      />
     </div>
   );
 }

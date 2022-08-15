@@ -1,23 +1,25 @@
 // save in vectors/vector.js
 import { select } from "d3-selection";
 import { line, curveBasisClosed } from "d3-shape";
-import {
-  fourier,
-  squareWaveSequenceSin,
-} from "../utils/maths-tools.js";
-import { getSpectrumPosition } from "../utils/color-tools.js";
+import { fourier, squareWaveSequenceSin } from "../utils/maths-tools.js";
 
-class Vector {
+class Zinc {
   constructor(containerEl, props) {
     this.containerEl = containerEl;
     this.props = props;
     const { width, height } = props;
 
-    this.svg = select(containerEl)
-      .append("svg")
+    this.svg = select("body")
+      .insert("svg", ":first-child")
       .attr("width", width)
       .attr("height", height)
-      .style("background-image", "radial-gradient(at 40% 20%, hsla(28,100%,74%,1) 0, transparent 50%), radial-gradient(at 80% 0%, hsla(189,100%,56%,1) 0, transparent 50%), radial-gradient(at 0% 50%, hsla(355,85%,93%,1) 0, transparent 50%), radial-gradient(at 80% 50%, hsla(340,100%,76%,1) 0, transparent 50%), radial-gradient(at 0% 100%, hsla(22,100%,77%,1) 0, transparent 50%), radial-gradient(at 80% 100%, hsla(242,100%,70%,1) 0, transparent 50%), radial-gradient(at 0% 0%, hsla(343,100%,76%,1) 0, transparent 50%)")
+      .style("position", "absolute")
+      .style("z-index", "-1")
+      .style("background-color", "yellow")
+      .style(
+        "background-image",
+        "radial-gradient(at 69% 86%, hsla(21,100%,76%,1) 0px, transparent 50%),radial-gradient(at 17% 29%, hsla(177,100%,61%,1) 0px, transparent 50%),radial-gradient(at 66% 11%, hsla(356,100%,79%,1) 0px, transparent 50%),radial-gradient(at 90% 14%, hsla(50,100%,74%,1) 0px, transparent 50%),radial-gradient(at 42% 66%, hsla(266,100%,68%,1) 0px, transparent 50%),radial-gradient(at 93% 82%, hsla(161,100%,73%,1) 0px, transparent 50%),radial-gradient(at 77% 48%, hsla(158,100%,70%,1) 0px, transparent 50%)"
+      );
 
     this.svg.append("defs");
 
@@ -25,26 +27,27 @@ class Vector {
       .append("rect")
       .attr("width", width)
       .attr("height", height)
-      .attr("filter", "url(#noiseFilter)")
-  
-    
-    this.update();
+      .attr("filter", "url(#noiseFilter)");
 
+    this.update();
   }
 
   resize(width, height) {
     const { svg, props } = this;
 
-    if (width < 720) {
-      props.width = width;
-      props.amplitudeMultiplier = 0.4;
-    } else {
-      props.width = 720;
-      props.amplitudeMultiplier = 1;
-    }
+    // if (width < 720) {
+    //   props.width = width;
+    //   props.amplitudeMultiplier = 0.4;
+    // } else {
+    //   props.width = 720;
+    props.amplitudeMultiplier = 1;
+    // }
 
-    svg.attr("width", props.width);
+    props.width = width;
+    props.height = height;
 
+    svg.attr("height", props.height).attr("width", props.width);
+    this.svg.select("rect").attr("width", width).attr("height", height);
     this.update();
   }
 
@@ -156,4 +159,4 @@ class Vector {
   }
 }
 
-export default Vector;
+export default Zinc;
