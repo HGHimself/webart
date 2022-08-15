@@ -1,4 +1,4 @@
-import { h } from "preact";
+import { h, Fragment } from "preact";
 import { useState } from "preact/hooks";
 import zinc from "../vectors/zinc.js";
 
@@ -12,20 +12,23 @@ const setVis = (v) => {
 };
 
 export default function Zinc(props) {
-
   const [options, setOptionsState] = useState({
     numbers: [1, 3, 5, 7, 9, 11, 13, 15, 17],
     count: 6,
     height: 500,
-    width: 250,
-    amplitudeX: 250,
-    amplitudeY: 500,
+    width: 750,
+    amplitudeX: 900,
+    amplitudeY: 400,
     period: 20,
-    omega: 2 * Math.PI * (1 / 20),
+    omega: Math.PI / 10,
     offset: 40,
     spectrum: 0,
     multiplierX: 5,
     multiplierY: 16,
+    thickness: 80,
+    noiseFreqOne: 2.78,
+    // noiseFreqTwo: 0.4,
+    numOctaves: 6,
     hideProps: props.hideProps ? props.hideProps : false,
   });
 
@@ -47,13 +50,11 @@ export default function Zinc(props) {
     });
 
   return (
-    <div>
-    <FlexRow direction="row" wrap="wrap">
-      {optionsBar}
-    </FlexRow>
-    <FlexRow flex="space-around">
+    <Fragment>
+      <FlexRow direction="row" wrap="wrap">
+        {optionsBar}
+      </FlexRow>
       <Animator drawer={zinc} setVis={setVis} options={options} />
-    </FlexRow>
-  </div>
+    </Fragment>
   );
 }

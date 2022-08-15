@@ -22,6 +22,10 @@ body {
   max-width: 720px;
 }
 
+.animator {
+	mix-blend-mode: color;
+}
+
 main {
   padding-left: 1rem;
   padding-right: 1rem;
