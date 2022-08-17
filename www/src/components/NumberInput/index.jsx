@@ -1,4 +1,4 @@
-import { h } from "preact";
+import { h, Fragment } from "preact";
 import { useEffect, useState } from "preact/hooks";
 
 import theme from "../../theme";
@@ -21,7 +21,7 @@ export default function NumberInput(props) {
   }, [value]);
 
   const handleInput = (e) => {
-    setValueState(e.target.value);
+    setValueState(parseFloat(e.target.value));
     onChange(e.target.value);
   };
 
@@ -36,23 +36,21 @@ export default function NumberInput(props) {
   };
 
   return (
-    <div className="number-input">
-      <FlexRow align="center">
-        <FlexRow direction="column" align="center">
-          <label htmlFor={label}>{label}</label>
-          <button onClick={handleIncrease} className="emptyButton">
-            <svg class="arrow" height={height} width={width}>
-              <polygon points={upArrowPoints} style={{ strokeWidth: 1 }} />
-            </svg>
-          </button>
-          <input id={label} type="number" value={v} onChange={handleInput} />
-          <button onClick={handleDecrease} className="emptyButton">
-            <svg class="arrow" height={height} width={width}>
-              <polygon points={downArrowPoints} style={{ strokeWidth: 1 }} />
-            </svg>
-          </button>
-        </FlexRow>
+    <Fragment>
+      <FlexRow direction="column" align="center">
+        <label htmlFor={label}>{label}</label>
+        <button onClick={handleIncrease} className="emptyButton">
+          <svg class="arrow" height={height} width={width}>
+            <polygon points={upArrowPoints} style={{ strokeWidth: 1 }} />
+          </svg>
+        </button>
+        <input id={label} type="number" value={v} onChange={handleInput} />
+        <button onClick={handleDecrease} className="emptyButton">
+          <svg class="arrow" height={height} width={width}>
+            <polygon points={downArrowPoints} style={{ strokeWidth: 1 }} />
+          </svg>
+        </button>
       </FlexRow>
-    </div>
+    </Fragment>
   );
 }

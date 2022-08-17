@@ -3,6 +3,7 @@ export const percent = (value, decimals = 0) => {
   return Math.floor(value * multiplier) / (multiplier / 100);
 };
 
+// range of [a, a + b-1]
 export const random = (a, b) => a + Math.floor(Math.random() * b);
 export const coinFlip = () => random(0, 2);
 

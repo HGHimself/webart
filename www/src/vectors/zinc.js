@@ -1,7 +1,11 @@
 // save in vectors/vector.js
 import { select } from "d3-selection";
 import { line, curveBasisClosed } from "d3-shape";
-import { fourier, squareWaveSequenceSin } from "../utils/maths-tools.js";
+import {
+  fourier,
+  squareWaveSequenceSin,
+  squareWaveSequenceCos,
+} from "../utils/maths-tools.js";
 
 class Zinc {
   constructor(containerEl, props) {
@@ -15,10 +19,11 @@ class Zinc {
       .attr("height", height)
       .style("position", "absolute")
       .style("z-index", "-1")
-      .style("background-color", "yellow")
+      .style("background-color", "#9eff99")
       .style(
         "background-image",
-        "radial-gradient(at 69% 86%, hsla(21,100%,76%,1) 0px, transparent 50%),radial-gradient(at 17% 29%, hsla(177,100%,61%,1) 0px, transparent 50%),radial-gradient(at 66% 11%, hsla(356,100%,79%,1) 0px, transparent 50%),radial-gradient(at 90% 14%, hsla(50,100%,74%,1) 0px, transparent 50%),radial-gradient(at 42% 66%, hsla(266,100%,68%,1) 0px, transparent 50%),radial-gradient(at 93% 82%, hsla(161,100%,73%,1) 0px, transparent 50%),radial-gradient(at 77% 48%, hsla(158,100%,70%,1) 0px, transparent 50%)"
+        /* Generated using Mesher: https://csshero.org/mesher/ */
+        "radial-gradient(at 73% 76%, hsla(204,69%,63%,1) 0px, transparent 50%),radial-gradient(at 14% 16%, hsla(288,79%,77%,1) 0px, transparent 50%),radial-gradient(at 18% 64%, hsla(256,83%,78%,1) 0px, transparent 50%),radial-gradient(at 17% 56%, hsla(314,70%,78%,1) 0px, transparent 50%),radial-gradient(at 3% 43%, hsla(201,96%,60%,1) 0px, transparent 50%),radial-gradient(at 72% 84%, hsla(351,81%,65%,1) 0px, transparent 50%)"
       );
 
     this.svg.append("defs");
@@ -88,7 +93,7 @@ class Zinc {
         omega,
         time,
         numbers,
-        squareWaveSequenceSin
+        squareWaveSequenceCos
       );
 
     const arc = Array.from({ length: count }, (_, i) => [
@@ -151,6 +156,25 @@ class Zinc {
             .attr("numOctaves", this.props.numOctaves),
         (exit) => exit
       );
+
+    !this.props.hideProps &&
+      this.svg
+        .selectAll("text.details")
+        .data(
+          Object.keys(this.props).map((key) => `${key}: ${this.props[key]}`)
+        )
+        .join(
+          (enter) =>
+            enter
+              .append("text")
+              .attr("class", "details")
+              .attr("x", 10)
+              .attr("y", (_, i) => 10 * (i + 1))
+              .attr("font-size", 12)
+              .text((d) => d),
+          (update) => update.text((d) => d),
+          (exit) => exit
+        );
   }
 
   getSvg() {

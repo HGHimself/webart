@@ -1,14 +1,13 @@
-import { h } from "preact";
+import { h, Fragment } from "preact";
 import entry from "../build/entry.js";
 import Cartesian from "../components/Cartesian.jsx";
 import Circular from "../components/Circular.jsx";
 import HarmonicMotion from "../components/HarmonicMotion.jsx";
 import Zinc from "../components/Zinc.jsx";
-import { random } from "../utils/maths-tools.js";
 
 function Descartes(props) {
   return (
-    <div>
+    <Fragment>
       <h2>Descartes</h2>
       <h5>A study into producing feedback loops in a simple system.</h5>
       <p>
@@ -143,14 +142,8 @@ function Descartes(props) {
         to draw sketches with the intention of producing patterns through
         feedback loops.
       </p>
-      <Zinc
-        count={random(6, 10)}
-        offset={random(1, 100)}
-        multiplierX={random(1, 20)}
-        multiplierY={random(1, 20)}
-        omega={1}
-      />
-    </div>
+      <Zinc random hideProps hideControls />
+    </Fragment>
   );
 }
 

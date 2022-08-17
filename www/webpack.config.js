@@ -13,6 +13,7 @@ module.exports = {
       "index.jsx"
     ),
     nouveau: path.resolve(__dirname, "src", "containers", "NouveauDoors.jsx"),
+    aesthetic: path.resolve(__dirname, "src", "containers", "Aesthetic.jsx"),
     dada: path.resolve(__dirname, "src", "containers", "Dada", "index.jsx"),
     oolisp: path.resolve(__dirname, "src", "containers", "Oolisp", "index.jsx"),
     circular: path.resolve(
@@ -71,6 +72,12 @@ module.exports = {
       title: "Circular",
       chunks: ["circular"],
       filename: "webart/circular.html",
+      template: path.resolve(__dirname, "src", "build", "template.html"),
+    }),
+    new HtmlWebpackPlugin({
+      title: "Aesthetic",
+      chunks: ["aesthetic"],
+      filename: "webart/aesthetic.html",
       template: path.resolve(__dirname, "src", "build", "template.html"),
     }),
     new HtmlWebpackPlugin({
