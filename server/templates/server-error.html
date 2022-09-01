@@ -14,17 +14,19 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="any" />
   </head>
   <body style="text-align: center;">
-    <header class="title-header">
-      <span id="title-date">ABC</span>
-      <a href="/"><object type="image/svg+xml" data="/img/logo.svg" alt="LOGO" ></object></a>
-      <span id="title-tag">Technical<br>Collective</span>
-    </header>
-    <main style="display: flex; align-items: flex-end; justify-content: space-around;">
-      <h1>{{error}}</h1>
-    </main>
-    <h4><a href="/">BACK</a></h4>
-    <img alt="line-break" src="/img/curly-break-2.svg" width="100%" />
-    <footer class="footer"></footer>
+    <div class="content">
+      <header class="title-header">
+        <span id="title-date">ABC</span>
+        <h2>DIGITHEQUE</h2>
+        <span id="title-tag">Technical<br>Collective</span>
+      </header>
+      <main style="display: flex; align-items: flex-end; justify-content: space-around;">
+        <h1>{{error}}</h1>
+      </main>
+      <h4><a href="/">BACK</a></h4>
+      <img alt="line-break" src="/img/curly-break-2.svg" width="100%" />
+      <footer class="footer"></footer>
+    </div>
     <script>
       var title_date = document.getElementById("title-date");
       var today = new Date();

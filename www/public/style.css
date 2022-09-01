@@ -60,16 +60,14 @@ h5,
 h6 {
   margin-top: 0rem;
   margin-bottom: 0rem;
+  font-weight: normal;
 }
 
 h1 {
-  letter-spacing: -1.5px;
   font-size: 96px;
-  font-weight: light;
 }
 
 h2 {
-  letter-spacing: -0.5px;
   font-size: 60px;
 }
 
@@ -78,25 +76,22 @@ h3 {
 }
 
 h4 {
-  letter-spacing: 0.25px;
   font-size: 34px;
   font-family: "Reader";
 }
 
 h5 {
-  letter-spacing: 0px;
   font-size: 24px;
+  font-family: "Reader";
 }
 
 h6 {
   font-size: 20px;
-  font-family: "Reader";
 }
 
 p,
 blockquote {
   font-size: 1rem;
-  letter-spacing: 0.5px;
   font-family: Reader;
 }
 
@@ -108,7 +103,6 @@ blockquote {
 button {
   font-family: "Reader";
   font-size: 0.875rem;
-  letter-spacing: 1.25px;
   border-radius: 0.5em;
   color: inherit;
   background-color: inherit;
@@ -192,10 +186,10 @@ input[type="number"] {
 
 .title-header {
   display: flex;
-  align-items: flex-end;
   justify-content: space-between;
   border-bottom: 1px solid black;
   margin-bottom: 2rem;
+  margin-top: 1rem;
 }
 
 .footer {

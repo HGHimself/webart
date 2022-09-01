@@ -10,22 +10,24 @@
           on mathematical forms, patterns, and the like."
         />
         <title>{{title}}</title>
-        <link rel="stylesheet" href="/style.css"/ >
+        <link rel="stylesheet" href="/style.css" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="any">
     </head>
     <body>
-      <header class="title-header">
-        <span id="title-date">ABC</span>
-        <a href="/"><object type="image/svg+xml" data="/img/logo.svg" alt="LOGO" ></object></a>
-        <span id="title-tag">Technical<br>Collective</span>
-      </header>
-      <main>
-        <a href="/">home</a>
-        <br>
-        {{body}}
-      </main>
-      <img alt="line-break" src="/img/curly-break-2.svg" width="100%" />
-      <footer class="footer"></footer>
+      <div class="content">
+        <header class="title-header">
+          <span id="title-date">ABC</span>
+          <h2>DIGITHEQUE</h2>
+          <span id="title-tag">Technical<br>Collective</span>
+        </header>
+        <main>
+          <a href="/">home</a>
+          <br>
+          {{body}}
+        </main>
+        <img alt="line-break" src="/img/curly-break-2.svg" width="100%" />
+        <footer class="footer"></footer>
+      </div>
       <script>
         var title_date = document.getElementById("title-date");
         var today = new Date();

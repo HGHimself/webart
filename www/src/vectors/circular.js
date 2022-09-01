@@ -1,7 +1,6 @@
 import { select } from "d3-selection";
-import { line } from "d3-shape";
+import { line, curveBasis } from "d3-shape";
 
-import theme from "../theme";
 import {
   simpleHarmonicMotionCos,
   simpleHarmonicMotionSin,

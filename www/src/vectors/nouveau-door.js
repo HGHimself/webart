@@ -1,6 +1,11 @@
 // save in vectors/vector.js
 import { select } from "d3-selection";
-import { line, curveMonotoneX, curveBasisClosed } from "d3-shape";
+import {
+  line,
+  curveMonotoneX,
+  curveBasisClosed,
+  curveCardinal,
+} from "d3-shape";
 import {
   degreesToRadians,
   polarToCartesian,
@@ -16,163 +21,71 @@ class Vector {
   constructor(containerEl, props) {
     this.containerEl = containerEl;
     this.props = props;
-    const { width, height, count, background } = props;
-
-    const data = Array.from({ length: count }, (_, i) => i);
+    const { width, height, } = props;
+    this.props.period = this.props.frequency;
+    this.props.omega = 2 * Math.PI * (1 / this.props.frequency);
 
     this.svg = select(containerEl)
       .append("svg")
-      .attr("width", width * 2)
-      .attr("height", height);
-    this.svg
-      .append("defs")
-      .append("filter")
-      .attr("id", "tint")
-      .append("feColorMatrix")
-      .attr("values", "1.1 0 0 0 0  0 1.1 0 0 0  0 0 0.9 0 0  0 0 0 1 0");
-    this.svg
-      .select("defs")
-      .append("filter")
-      .attr("id", "splotch")
-      .append("feTurbulence")
-      .attr("type", "fractalNoise")
-      .attr("baseFrequency", "0.01")
-      .attr("numOctaves", "4");
-    this.svg
-      .select("defs")
-      .select("filter#splotch")
-      .append("feColorMatrix")
-      .attr("values", "0 0 0 0 0, 0 0 0 0 0, 0 0 0 0 0, 0 0 0 -0.9 1.2")
-      .attr("result", "texture");
-    this.svg
-      .select("defs")
-      .select("filter#splotch")
-      .append("feComposite")
-      .attr("in", "SourceGraphic")
-      .attr("in2", "texture")
-      .attr("operator", "in");
-    this.svg
-      .select("defs")
-      .select("filter#splotch")
-      .append("feGaussianBlur")
-      .attr("stdDeviation", "0.7");
-    this.svg
-      .select("defs")
-      .append("filter")
-      .attr("id", "pencil")
-      .append("feTurbulence")
-      .attr("type", "fractalNoise")
-      .attr("baseFrequency", ".01")
-      .attr("numOctaves", "4");
-    this.svg
-      .select("defs")
-      .select("filter#pencil")
-      .append("feTurbulence")
-      .attr("baseFrequency", "0.03")
-      .attr("type", "fractalNoise")
-      .attr("numOctaves", "2");
-    this.svg
-      .select("defs")
-      .select("filter#pencil")
-      .append("feDisplacementMap")
-      .attr("in", "SourceGraphic")
-      .attr("scale", "1")
-      .attr("xChannelSelector", "R")
-      .attr("yChannelSelector", "G");
-    this.svg
-      .select("defs")
-      .select("filter#pencil")
-      .append("feGaussianBlur")
-      .attr("stdDeviation", "0.6");
+      .attr("width", width * 3)
+      .attr("height", height * 1.1);
     this.svg
       .append("g")
       .attr("width", width)
       .attr("height", height)
-      .attr("class", "left");
+      .attr("class", "left")
+      .attr("transform", `translate(${width * 0.5},100) scale(1,1)`);
     this.svg
       .append("g")
       .attr("width", width)
       .attr("height", height)
       .attr("class", "right")
-      .attr("transform", `translate(${width * 2},0) scale(-1,1)`);
+      .attr("transform", `translate(${width * 2.5},100) scale(-1,1)`);
 
     this.classes = ["left", "right"];
 
-    const pad = 6;
+    const h = (height )
+
+    const pad = 0;
     const box = [
       [pad, 0],
       [width - 0, pad],
-      [width - pad, height - 0],
-      [0, height - pad],
+      [width - pad, h - 0],
+      [0, h - pad],
       [pad, 0],
       [0, pad],
       [width - pad, 0],
-      [width - 0, height - pad],
-      [pad, height - 0],
+      [width - 0, h - pad],
+      [pad, h - 0],
       [0, pad],
     ];
 
     this.classes.forEach((c) => {
-      this.svg
-        .select(`g.${c}`)
-        .append("g")
-        .append("path")
-        .attr("class", "outline")
-        .attr("d", line().curve(curveMonotoneX)(box))
-        .attr("stroke-width", "4")
-        .attr("fill", getSpectrumPosition(this.props.spectrum))
-        // .attr("stroke", theme.colors.black)
-        .attr("filter", "url(#splotch)");
-      // svg.selectAll('ellipse')
-      //   .data([0])
-      //   .enter()
-      //     .append("ellipse")
-      //     .attr("rx", 100)
-      //     .attr("ry", 200)
-      //     .attr("cx", width / 2)
-      //     .attr("cy", height / 2)
-      //     .attr("fill", "#8b9b8a")
-      // .attr("stroke-width", "3")
-      this.svg
-        .select(`g.${c}`)
-        .append("g")
-        .attr("class", "mesh")
-        .attr("filter", "url(#pencil)")
-        .selectAll("path.door") // you can draw other paths if you use classes
-        .data(data)
-        .enter()
-        .append("path")
-        .attr("class", "door") // classes help you be specific and add more drawings
-        .attr("fill", "none")
-        .attr("stroke-width", "4")
-        .attr("filter", "url(#splotch)");
+      // the background box
+
+      // this.svg
+      //   .select(`g.${c}`)
+      //   .append("g")
+      //   .append("path")
+      //   .attr("class", "outline")
+      //   .attr("d", line().curve(curveMonotoneX)(box))
+      //   .attr("stroke-width", "4")
+      //   .attr("transform", `translate(0,-45)`)
+      //   .attr("fill", getSpectrumPosition(this.props.spectrum))
+
+      // the outline
       this.svg
         .select(`g.${c}`)
         .append("g")
         .append("path")
         .attr("class", "outline1")
         .attr("d", line().curve(curveMonotoneX)(box))
-        .attr("stroke-width", "4")
+        .attr("stroke-width", "2")
         .attr("fill", "none")
-        .attr("stroke", theme.colors.black)
-        .attr("filter", "url(#splotch)");
+        .attr("transform", `translate(0,-45)`)
+        .attr("stroke", theme.colors.black);
     });
 
-    this.update();
-  }
-
-  setMultiplierX(multiplierX) {
-    this.props.multiplierX = multiplierX;
-    this.update();
-  }
-
-  setMultiplierY(multiplierY) {
-    this.props.multiplierY = multiplierY;
-    this.update();
-  }
-
-  setSpectrum(spectrum) {
-    this.props.spectrum = spectrum;
     this.update();
   }
 
@@ -189,38 +102,12 @@ class Vector {
 
   setOptions(options) {
     this.props = options;
+    this.props.period = this.props.frequency;
+    this.props.omega = 2 * Math.PI * (1 / this.props.frequency);
     this.update();
   }
 
-  setOffset(offset) {
-    this.props.offset = offset;
-    this.update();
-  }
-
-  setFrequency(frequency) {
-    this.props.omega = frequency;
-    this.update();
-  }
-
-  setCount(count) {
-    const { svg, props } = this;
-    this.props.count = count;
-
-    const data = Array.from({ length: count }, (_, i) => i);
-
-    this.classes.forEach((c) => {
-      this.svg
-        .select(`g.${c}`)
-        .selectAll("path.door")
-        .data(data)
-        .join((enter) =>
-          enter.append("path").attr("fill", "none").attr("stroke-width", "1")
-        );
-    });
-    this.update();
-  }
-
-  getDrawer(batch) {
+  getDrawerBottomPart(batch) {
     const {
       count,
       numbers,
@@ -230,54 +117,127 @@ class Vector {
       offset,
       multiplierX,
       multiplierY,
-      width,
-      height,
     } = this.props;
-
-    const originX = width / 2;
-    const originY = height / 2;
 
     const squarewaveTransformX = (time) =>
       fourier(amplitudeX, omega, time, numbers, squareWaveSequenceSin);
     const squarewaveTransformY = (time) =>
-      fourier(amplitudeY, omega, time, numbers, squareWaveSequenceSin);
+      fourier(2 * amplitudeY, omega, time, numbers, squareWaveSequenceSin);
 
     const arc = Array.from({ length: count }, (_, i) => [
-      originX + squarewaveTransformX(multiplierX * (i + batch - offset)),
-      originY + squarewaveTransformY(multiplierY * (i + batch + offset)),
+      squarewaveTransformX(multiplierX * (i + batch - offset)),
+      squarewaveTransformY(multiplierY * (i + batch + offset)),
     ]);
 
-    return line().curve(curveBasisClosed)(arc);
+    return !this.props.curve ? line().curve(curveBasisClosed)(arc) : line()(arc);
+  }
+
+  getDrawerTopPart(batch) {
+    const {
+      count,
+      numbers,
+      amplitudeX,
+      amplitudeY,
+      omega,
+      offset,
+      multiplierX,
+      multiplierY,
+    } = this.props;
+
+    const squarewaveTransformX = (time) =>
+      fourier(amplitudeX, 1 - omega, time, numbers, squareWaveSequenceSin);
+    const squarewaveTransformY = (time) =>
+      fourier(amplitudeY, 1 - omega, time, numbers, squareWaveSequenceSin);
+
+    const arc = Array.from({ length: count }, (_, i) => [
+      squarewaveTransformX(multiplierY * (i + batch - offset)),
+      squarewaveTransformY(multiplierX * (i + batch + offset)),
+    ]);
+
+    return !this.props.curve ? line().curve(curveBasisClosed)(arc) : line()(arc);
   }
 
   update() {
-    const { classes } = this;
-    const drawer = this.getDrawer();
+    const {
+      props: { count, width, height },
+    } = this;
+
+    const data = Array.from({ length: count }, (_, i) => i);
 
     this.classes.forEach((c) => {
       this.svg
         .select(`g.${c}`)
         .selectAll("path.door")
-        .attr("d", (d) => this.getDrawer(d))
-        .attr("stroke", theme.colors.black)
-        .attr("fill", (d) =>
-          !this.props.spectrum
-            ? "none"
-            : getSpectrumPosition(
-                this.props.spectrum + d / (this.props.count * 2.4),
-                0.3
+        .data(data)
+        .join(
+          (enter) =>
+            enter
+              .append("path")
+              .attr("class", "door")
+              .attr("fill", "none")
+              .attr("stroke-width", "2")
+              .attr("d", (d) => this.getDrawerBottomPart(d))
+              .attr("transform", `translate(${width/2},${height/1.7})`)
+              .attr("stroke", theme.colors.black),
+          (update) =>
+            update
+              .attr("d", (d) => this.getDrawerBottomPart(d))
+              .attr("fill", (d) =>
+                !this.props.spectrum
+                  ? "none"
+                  : getSpectrumPosition(
+                      this.props.spectrum + d / (this.props.count * 2.4),
+                      0.3
+                    )
               )
         );
-      this.svg
+
+        this.svg
         .select(`g.${c}`)
-        .selectAll("path.outline")
-        .attr(
-          "fill",
-          this.props.spectrum
-            ? getSpectrumPosition(this.props.spectrum - 0.5, 0.3)
-            : "none"
+        .selectAll("path.door-top")
+        .data(data)
+        .join(
+          (enter) =>
+            enter
+              .append("path")
+              .attr("class", "door-top")
+              .attr("fill", "none")
+              .attr("stroke-width", "2")
+              .attr("d", (d) => this.getDrawerTopPart(d))
+              .attr("transform", `translate(${width/2},${height/8}) scale(1,-1)`)
+              .attr("stroke", theme.colors.black),
+          (update) =>
+            update
+              .attr("d", (d) => this.getDrawerTopPart(d))
+              .attr("fill", (d) =>
+                !this.props.spectrum
+                  ? "none"
+                  : getSpectrumPosition(
+                      this.props.spectrum + d / (this.props.count * 2.4),
+                      0.3
+                    )
+              )
         );
     });
+
+    !this.props.hideProps &&
+      this.svg
+        .selectAll("text.details")
+        .data(
+          Object.keys(this.props).map((key) => `${key}: ${this.props[key]}`)
+        )
+        .join(
+          (enter) =>
+            enter
+              .append("text")
+              .attr("class", "details")
+              .attr("x", 10)
+              .attr("y", (_, i) => 10 * (i + 1))
+              .attr("font-size", 12)
+              .text((d) => d),
+          (update) => update.text((d) => d),
+          (exit) => exit
+        );
   }
 
   getSvg() {
