@@ -1,7 +1,6 @@
 import { h, Fragment } from "preact";
 import { useState } from "preact/hooks";
-
-import harmonicMotion from "../vectors/harmonic-motion.js";
+import clock from "../vectors/clock.js";
 
 import Animator from "./Animator.jsx";
 import NumberInput from "./NumberInput/index.jsx";
@@ -11,24 +10,29 @@ const setVis = (v) => {
   vis = v;
 };
 
-export default function HarmonicMotion(props) {
-  const time = 10;
-  const frequency = 300;
+export default function Clock(props) {
+  const time = 1000;
   const step = 1;
 
   const [options, setOptionsState] = useState({
-    count: frequency,
     height: 500,
     width: 500,
-    frequency: 2000,
-    offset: 0,
-    amplitude: 200,
+    hourNumbersSize: 48,
+    speckCircleSize: 5,
+    handTail: 0.07,
+    logo: "DIGITHEQUE",
+    colorPrimary: "#f5fbef",
+    colorSecondary: "#7CA2B8",
+    tag: "Quartz - 60hz",
     hideProps: props.hideProps ? props.hideProps : false,
   });
 
   const intervalHandler = () => {
     setOptionsState((currentOptions) => {
-      currentOptions.offset += step;
+      const date = new Date();
+      currentOptions.seconds = date.getSeconds();
+      currentOptions.minutes = date.getMinutes();
+      currentOptions.hours = date.getHours();
       vis.setOptions(currentOptions);
       return currentOptions;
     });
@@ -37,17 +41,20 @@ export default function HarmonicMotion(props) {
   const optionsToSkip = [
     "height",
     "width",
-    "numbers",
-    "offset",
-    "omega",
-    "count",
-    "originXCircles",
-    "originYCircles",
-    "originXLine",
-    "originYLine",
-    "period",
     "amplitudeMultiplier",
+    "originX",
+    "originY",
+    "radius",
     "hideProps",
+    "seconds",
+    "minutes",
+    "hours",
+    "logo",
+    "ticks",
+    "hourNumbers",
+    "colorPrimary",
+    "colorSecondary",
+    "tag",
   ];
 
   const optionsBar = Object.keys(options)
@@ -73,7 +80,7 @@ export default function HarmonicMotion(props) {
     <Fragment>
       <div className="flex row wrap">{optionsBar}</div>
       <Animator
-        drawer={harmonicMotion}
+        drawer={clock}
         setVis={setVis}
         options={options}
         time={time}

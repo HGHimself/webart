@@ -1,4 +1,4 @@
-import { h } from "preact";
+import { h, Fragment } from "preact";
 import { useState } from "preact/hooks";
 import entry from "../../build/entry.js";
 
@@ -7,13 +7,13 @@ import Title from "../../components/Title/index.jsx";
 
 function ColorPlot(props) {
   return (
-    <div className="page">
+    <Fragment>
       <Circular />
       <Title
         title="CIRCULAR CARTESIAN"
         description="Draw using ratios and simple harmonic motion. Experiment with the values!"
       />
-    </div>
+    </Fragment>
   );
 }
 

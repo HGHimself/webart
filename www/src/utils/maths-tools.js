@@ -11,10 +11,14 @@ export const gcd = (a, b) => (b === 0 ? a : gcd(b, a % b));
 
 export const degreesToRadians = (degrees) => degrees * (Math.PI / 180);
 
-export const polarToCartesian = (radius, theta) => [
+export const polarToCartesian = (theta, radius) => [
   radius * Math.cos(theta),
   radius * Math.sin(theta),
 ];
+
+export const polarToCartesianX = (theta, radius) => radius * Math.sin(theta);
+
+export const polarToCartesianY = (theta, radius) => radius * Math.cos(theta);
 
 export const cartesianToPolar = (x, y) => [distance(x, y), Math.atan(x / y)];
 

@@ -2,23 +2,18 @@ import { select } from "d3-selection";
 import { line } from "d3-shape";
 
 import theme from "../theme";
-import { drawArc } from "../utils/svg-tools.js";
 import {
-  degreesToRadians,
-  polarToCartesian,
   fourier,
   squareWaveCos,
-  squareWaveSin,
   squareWaveSequenceSin,
   squareWaveSequenceCos,
-  distance,
 } from "../utils/maths-tools.js";
 
 class Fourier {
   constructor(containerEl, props) {
     this.containerEl = containerEl;
     this.props = props;
-    const { width, height, period, amplitude, numbers } = props;
+    const { width, height, numbers } = props;
     this.props.amplitudeMultiplier = 1;
 
     this.svg = select(containerEl)

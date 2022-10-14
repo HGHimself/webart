@@ -1,10 +1,9 @@
-import { h } from "preact";
+import { h, Fragment } from "preact";
 import { useState } from "preact/hooks";
 
 import fourier from "../vectors/fourier.js";
 
-import Animator from "./Animator/index.jsx";
-import FlexRow from "./FlexRow/index.jsx";
+import Animator from "./Animator.jsx";
 import NumberInput from "./NumberInput/index.jsx";
 
 let vis;
@@ -63,14 +62,16 @@ export default function Fourier(props) {
         vis.setOptions(newOptions);
       };
 
-      return <NumberInput value={value} onChange={handleChange} label={key} />;
+      return (
+        <div className="personal-space-right">
+          <NumberInput value={value} onChange={handleChange} label={key} />
+        </div>
+      );
     });
 
   return (
-    <div>
-      <FlexRow direction="row" wrap="wrap">
-        {optionsBar}
-      </FlexRow>
+    <Fragment>
+      <div className="flex row wrap">{optionsBar}</div>
       <Animator
         drawer={fourier}
         setVis={setVis}
@@ -78,6 +79,6 @@ export default function Fourier(props) {
         time={time}
         intervalCallback={intervalHandler}
       />
-    </div>
+    </Fragment>
   );
 }

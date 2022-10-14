@@ -2,8 +2,7 @@ import { h, Fragment } from "preact";
 import { useState } from "preact/hooks";
 import zinc from "../vectors/zinc.js";
 
-import Animator from "../components/Animator/index.jsx";
-import FlexRow from "../components/FlexRow/index.jsx";
+import Animator from "./Animator.jsx";
 import NumberInput from "../components/NumberInput/index.jsx";
 import { random } from "../utils/maths-tools.js";
 
@@ -51,13 +50,15 @@ export default function Zinc(props) {
         vis.setOptions(newOptions);
       };
 
-      return <NumberInput value={value} onChange={handleChange} label={key} />;
+      return (
+        <div className="personal-space-right">
+          <NumberInput value={value} onChange={handleChange} label={key} />
+        </div>
+      );
     });
 
   const controls = !props.hideControls && (
-    <FlexRow direction="row" wrap="wrap">
-      {optionsBar}
-    </FlexRow>
+    <div className="flex row wrap">{optionsBar}</div>
   );
 
   return (

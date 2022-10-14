@@ -1,9 +1,8 @@
-import { h } from "preact";
+import { h, Fragment } from "preact";
 import { useState } from "preact/hooks";
 import colorPlot from "../vectors/color-plot.js";
 
-import Animator from "./Animator/index.jsx";
-import FlexRow from "./FlexRow/index.jsx";
+import Animator from "./Animator.jsx";
 import NumberInput from "./NumberInput/index.jsx";
 
 let vis;
@@ -44,17 +43,17 @@ export default function Circular(props) {
         vis.setOptions(newOptions);
       };
 
-      return <NumberInput value={value} onChange={handleChange} label={key} />;
+      return (
+        <div className="personal-space-right">
+          <NumberInput value={value} onChange={handleChange} label={key} />
+        </div>
+      );
     });
 
   return (
-    <div>
-      <FlexRow direction="row" wrap="wrap">
-        {optionsBar}
-      </FlexRow>
-      <FlexRow flex="space-around">
-        <Animator drawer={colorPlot} setVis={setVis} options={options} />
-      </FlexRow>
-    </div>
+    <Fragment>
+      <div className="flex row wrap">{optionsBar}</div>
+      <Animator drawer={colorPlot} setVis={setVis} options={options} />
+    </Fragment>
   );
 }

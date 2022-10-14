@@ -14,32 +14,22 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="any" />
   </head>
   <body>
-    <div class="content">
-      <header class="title-header">
-        <span id="title-date">ABC</span>
-        <h2>DIGITHEQUE</h2>
-        <span id="title-tag">Technical<br />Collective</span>
-      </header>
-      <main>
-        <a href="/webart">back</a>
-        <br />
-        <div id="root"></div>
-      </main>
-      <div class="full text-center">
-        <img
-          class="three-fourths"
-          alt="line-break"
-          src="/img/curly-break-2.svg"
-          width="100%"
-        />
-      </div>
-      <footer class="footer"></footer>
+    <header>
+      <h2>¬DIGITHEQUE</h2>
+    </header>
+    <main>
+      <a href="/studies">back</a>
+      <br />
+      <div id="root"></div>
+    </main>
+    <div class="full text-center">
+      <img
+        class="three-fourths"
+        alt="line-break"
+        src="/img/curly-break-2.svg"
+        width="100%"
+      />
     </div>
-    <script>
-      var title_date = document.getElementById("title-date");
-      var today = new Date();
-      var date = today.toDateString().split(" ");
-      title_date.innerHTML = `${date[0]} ${date[2]},<br>${date[1]} ${date[3]}`;
-    </script>
+    <footer class="footer"></footer>
   </body>
 </html>

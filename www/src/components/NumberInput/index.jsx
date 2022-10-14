@@ -38,7 +38,7 @@ export default function NumberInput(props) {
   return (
     <Fragment>
       <FlexRow direction="column" align="center">
-        <label htmlFor={label}>{label}</label>
+        <label>{label}</label>
         <button onClick={handleIncrease} className="emptyButton">
           <svg class="arrow" height={height} width={width}>
             <polygon points={upArrowPoints} style={{ strokeWidth: 1 }} />

@@ -1,4 +1,4 @@
-import { h } from "preact";
+import { h, Fragment } from "preact";
 import { useState } from "preact/hooks";
 import "./style.css";
 import entry from "../../build/entry.js";
@@ -27,22 +27,20 @@ function Dada(props) {
   };
 
   return (
-    <div className="page">
-      <div className="content">
-        <FlexRow flex="flex">
-          <div className="dada-input">
-            <textarea onInput={handleInput} value={input} />
-          </div>
-          <div className="dada-display">
-            <pre>{dada.dada(input)}</pre>
-          </div>
-        </FlexRow>
-      </div>
+    <Fragment>
+      <FlexRow flex="flex">
+        <div className="dada-input">
+          <textarea onInput={handleInput} value={input} />
+        </div>
+        <div className="dada-display">
+          <pre>{dada.dada(input)}</pre>
+        </div>
+      </FlexRow>
       <Title
         title="DADA"
         description="Express your own irrationality! Enter words into the box on the left; see the output on the right."
       />
-    </div>
+    </Fragment>
   );
 }
 

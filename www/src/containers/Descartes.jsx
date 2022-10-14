@@ -3,13 +3,12 @@ import entry from "../build/entry.js";
 import Cartesian from "../components/Cartesian.jsx";
 import Circular from "../components/Circular.jsx";
 import HarmonicMotion from "../components/HarmonicMotion.jsx";
-import Zinc from "../components/Zinc.jsx";
 
 function Descartes(props) {
   return (
     <Fragment>
-      <h2>Descartes</h2>
-      <h5>A study into producing feedback loops in a simple system.</h5>
+      <h1>Descartes Study</h1>
+      <h5>A study into feedback loops in simple systems.</h5>
       <p>
         We do this with a handful of small interactive web-studies that will let
         you alter parameters that feed into a very basic set of equations and
@@ -17,10 +16,7 @@ function Descartes(props) {
         how we can get these equations to overlap in either harmony or
         dissonance.
       </p>
-      <h6>
-        Hint: Use the small 'up' and 'down' arrows to alter the parameters!
-      </h6>
-      <br />
+      <p>Hint: Use the small 'up' and 'down' arrows to alter the parameters!</p>
       <h3>Simple Harmonic Motion</h3>
       <p>Formal definition:</p>
       <blockquote>
@@ -135,7 +131,6 @@ function Descartes(props) {
       </p>
       <Circular hideProps />
       <h6>Fig. 3 - Circular Cartesian</h6>
-      <br />
       <h3>Conclusion</h3>
       <p>
         This was a study into using a basic system like simple harmonic motion

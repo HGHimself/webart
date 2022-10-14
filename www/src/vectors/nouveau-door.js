@@ -1,19 +1,7 @@
 // save in vectors/vector.js
 import { select } from "d3-selection";
-import {
-  line,
-  curveMonotoneX,
-  curveBasisClosed,
-  curveCardinal,
-} from "d3-shape";
-import {
-  degreesToRadians,
-  polarToCartesian,
-  fourier,
-  squareWaveSequenceSin,
-  squareWaveSequenceCos,
-  distance,
-} from "../utils/maths-tools.js";
+import { line, curveMonotoneX, curveBasisClosed } from "d3-shape";
+import { fourier, squareWaveSequenceSin } from "../utils/maths-tools.js";
 import theme from "../theme";
 import { getSpectrumPosition } from "../utils/color-tools.js";
 
@@ -21,7 +9,7 @@ class Vector {
   constructor(containerEl, props) {
     this.containerEl = containerEl;
     this.props = props;
-    const { width, height, } = props;
+    const { width, height } = props;
     this.props.period = this.props.frequency;
     this.props.omega = 2 * Math.PI * (1 / this.props.frequency);
 
@@ -44,7 +32,7 @@ class Vector {
 
     this.classes = ["left", "right"];
 
-    const h = (height )
+    const h = height;
 
     const pad = 0;
     const box = [
@@ -129,7 +117,9 @@ class Vector {
       squarewaveTransformY(multiplierY * (i + batch + offset)),
     ]);
 
-    return !this.props.curve ? line().curve(curveBasisClosed)(arc) : line()(arc);
+    return !this.props.curve
+      ? line().curve(curveBasisClosed)(arc)
+      : line()(arc);
   }
 
   getDrawerTopPart(batch) {
@@ -154,7 +144,9 @@ class Vector {
       squarewaveTransformY(multiplierX * (i + batch + offset)),
     ]);
 
-    return !this.props.curve ? line().curve(curveBasisClosed)(arc) : line()(arc);
+    return !this.props.curve
+      ? line().curve(curveBasisClosed)(arc)
+      : line()(arc);
   }
 
   update() {
@@ -177,7 +169,7 @@ class Vector {
               .attr("fill", "none")
               .attr("stroke-width", "2")
               .attr("d", (d) => this.getDrawerBottomPart(d))
-              .attr("transform", `translate(${width/2},${height/1.7})`)
+              .attr("transform", `translate(${width / 2},${height / 1.7})`)
               .attr("stroke", theme.colors.black),
           (update) =>
             update
@@ -192,7 +184,7 @@ class Vector {
               )
         );
 
-        this.svg
+      this.svg
         .select(`g.${c}`)
         .selectAll("path.door-top")
         .data(data)
@@ -204,7 +196,10 @@ class Vector {
               .attr("fill", "none")
               .attr("stroke-width", "2")
               .attr("d", (d) => this.getDrawerTopPart(d))
-              .attr("transform", `translate(${width/2},${height/8}) scale(1,-1)`)
+              .attr(
+                "transform",
+                `translate(${width / 2},${height / 8}) scale(1,-1)`
+              )
               .attr("stroke", theme.colors.black),
           (update) =>
             update

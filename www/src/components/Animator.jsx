@@ -19,9 +19,7 @@ export default function Animator(props) {
   };
 
   const updateVisOnResize = () => {
-    const w = width;
-    const h = height;
-    vis && vis.resize && vis.resize(w, h);
+    vis && vis.resize && vis.resize(width, height);
   };
 
   const handleResizeEvent = () => {
@@ -29,15 +27,15 @@ export default function Animator(props) {
     const handleResize = () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(function () {
-        setWidth(window.innerWidth);
-        setHeight(window.innerHeight);
+        const w = window.innerWidth;
+        const h = window.innerHeight;
+        setWidth(w);
+        setHeight(h);
       }, resizeDelay);
     };
     window.addEventListener("resize", handleResize);
 
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+    return () => window.removeEventListener("resize", handleResize);
   };
 
   const setupTimer = () => {

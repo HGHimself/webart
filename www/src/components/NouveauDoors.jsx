@@ -1,12 +1,8 @@
 import { h, Fragment } from "preact";
 import { useState } from "preact/hooks";
-import entry from "../build/entry.js";
 import vector from "../vectors/nouveau-door.js";
 
-import Animator from "../components/Animator/index.jsx";
-import Button from "../components/Button/index.jsx";
-import FlexRow from "../components/FlexRow/index.jsx";
-import Title from "../components/Title/index.jsx";
+import Animator from "./Animator.jsx";
 import NumberInput from "../components/NumberInput/index.jsx";
 
 let vis = null;
@@ -53,13 +49,15 @@ export default function Vector(props) {
         vis.setOptions(newOptions);
       };
 
-      return <NumberInput value={value} onChange={handleChange} label={key} />;
+      return (
+        <div className="personal-space-right">
+          <NumberInput value={value} onChange={handleChange} label={key} />
+        </div>
+      );
     });
 
   const controls = !props.hideControls && (
-    <FlexRow direction="row" wrap="wrap">
-      {optionsBar}
-    </FlexRow>
+    <div className="flex row wrap">{optionsBar}</div>
   );
 
   return (

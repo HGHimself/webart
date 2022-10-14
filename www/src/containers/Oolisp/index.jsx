@@ -80,8 +80,8 @@ function Oolisp(props) {
   };
 
   return (
-    <div className="page">
-      <div className="content">
+    <Fragment>
+      <div className="shell">
         <div className="shell-buffer">
           <FlexRow direction="column-reverse">{shellBuffer}</FlexRow>
         </div>
@@ -100,7 +100,7 @@ function Oolisp(props) {
         title="OOLISP"
         description="Web-based LISP interpreter. >1k lines of Rust, compiled to WASM. Enter 'help' into the prompt for instructions."
       />
-    </div>
+    </Fragment>
   );
 }
 
