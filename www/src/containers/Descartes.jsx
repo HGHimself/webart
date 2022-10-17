@@ -4,7 +4,7 @@ import Cartesian from "../components/Cartesian.jsx";
 import Circular from "../components/Circular.jsx";
 import HarmonicMotion from "../components/HarmonicMotion.jsx";
 
-function Descartes(props) {
+function Descartes() {
   return (
     <Fragment>
       <h1>Descartes Study</h1>

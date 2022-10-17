@@ -5,7 +5,7 @@ import entry from "../../build/entry.js";
 import * as dada from "dada-poem-generator";
 
 import FlexRow from "../../components/FlexRow/index.jsx";
-import Title from "../../components/Title/index.jsx";
+import Title from "../../components/Title.jsx";
 
 const defaultMessage = `TO MAKE A DADAIST POEM
 Take a newspaper.

@@ -2,7 +2,7 @@ import { h } from "preact";
 import entry from "../build/entry.js";
 
 import { default as Vector } from "../components/Spectrum.jsx";
-import Title from "../components/Title/index.jsx";
+import Title from "../components/Title.jsx";
 
 let vis = null;
 const setVis = (v) => {

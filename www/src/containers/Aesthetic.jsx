@@ -1,11 +1,10 @@
 import { h, Fragment } from "preact";
 import entry from "../build/entry.js";
 
-import Break from "../components/Break.jsx";
-import Button from "../components/Button/index.jsx";
-import Link from "../components/Link/index.jsx";
+import Button from "../components/Button.jsx";
+import Link from "../components/Link.jsx";
 import Loader from "../components/Loader.jsx";
-import NumberInput from "../components/NumberInput/index.jsx";
+import NumberInput from "../components/NumberInput.jsx";
 import Swatch from "../components/Swatch.jsx";
 
 function Aesthetic(props) {
@@ -13,26 +12,26 @@ function Aesthetic(props) {
     <Fragment>
       <h1>Aesthetic</h1>
       <h5>
-        Formally named Badmon Design System; a study into the visual motifs used
+        A study into the visual motifs used
         throughout the site.
       </h5>
       <p>
-        The inspiration is to combine emotions from impressionism and romance
+        Formally named the Badmon Design System; the inspiration is to combine emotions from impressionism and romance
         with visual elements from the scientific revolution. A sort of “Walt
         Witman Meets Monet at the Academy of Sciences”.
       </p>
       <h4>Typography</h4>
-      <h1>H1 - DIGITHEQUE</h1>
-      <h2>H2 - Design &amp; Technology</h2>
-      <h3>H3 - Bar Cafe Bistro</h3>
-      <h4>H4 - Gnossiennes No. 1</h4>
-      <h5>H5 - Ceci n&rsquo;est pas un pipe.</h5>
-      <h6>H6 - A liquid that was almost, but not quite, entirely unlike tea</h6>
+      <h1>H1: digitheque</h1>
+      <h2>H2: Design &amp; Technology</h2>
+      <h3>H3: Bar-Cafeteria-Bistrot</h3>
+      <h4>H4: Gnossiennes No. 1</h4>
+      <h5>H5: Ceci n&rsquo;est pas un pipe.</h5>
+      <h6>H6: Almost, but not quite, entirely unlike tea</h6>
       <p>Symbols: §¶&amp;™®©…— </p>
       <p>
         Albrecht Dürer, François Truffaut, Plácido Domingo, Ein vergrößertes
       </p>
-      <p>1st 2nd 304th</p>
+      <p>1st 2nd 304th</p>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at sem
         porttitor, ullamcorper arcu vel, varius ex. Quisque bibendum gravida
@@ -84,7 +83,7 @@ function Aesthetic(props) {
         lacus lectus ac felis. Praesent efficitur finibus mi, dapibus congue mi.
         Cras ut libero eget metus vulputate cursus non a diam.
       </p>
-      <p>
+      <blockquote>
         Proin tincidunt varius mi vitae facilisis. Curabitur lobortis, nisi eget
         semper egestas, libero metus facilisis nulla, a blandit diam justo in
         tellus. Sed in ex eu nulla facilisis elementum. Ut vehicula sem justo,
@@ -93,7 +92,7 @@ function Aesthetic(props) {
         eleifend odio eu nisl blandit, eget scelerisque nunc molestie. Vivamus
         risus felis, dapibus dictum mi vitae, rutrum sollicitudin dolor. Ut
         aliquet volutpat tempor.
-      </p>
+      </blockquote>
       <h4>Components</h4>
       <div className="flex around wrap">
         <div className="text-center">

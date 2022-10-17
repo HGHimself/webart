@@ -1,16 +1,21 @@
 import { h, Fragment } from "preact";
-import { useState, useRef } from "preact/hooks";
+import { useState, useEffect, useRef } from "preact/hooks";
 
 export default function Button(props) {
-  const { type, ...other } = props;
+  const { onClick } = props;
 
   const [turbulence, setTurbulence] = useState(0);
-  const [locked, setLocked] = useState(false);
+  const [uniqueId, setUniqueId] = useState(0);
+
+  // so our effect is local to one button and not all
+  useEffect(() => setUniqueId(Math.random()));
+  const filterName = `noise-${uniqueId}`
+
 
   const turbulenceRef = useRef();
   turbulenceRef.current = turbulence;
 
-  const staticAnimation = (to, step, frames, end) => {
+  const staticAnimation = (to, step, frames) => {
     const totalTime =
       Math.abs((to - turbulenceRef.current) / Math.abs(step)) * frames;
 
@@ -28,18 +33,16 @@ export default function Button(props) {
   };
 
   const animate = () => {
-    // if (!locked) {
-    // setLocked(true);
-    staticAnimation(20, 3, 10).then(() =>
-      staticAnimation(0, -3, 10).then(() => setLocked(false))
-    );
-    // }
+    if (onClick && typeof onClick == "function") onClick();
+
+    // increase turbulence, then decrease turbulence
+    staticAnimation(20, 3, 10).then(() => staticAnimation(0, -3, 10));
   };
 
   return (
     <Fragment>
       <svg style="height: 0px; width: 0px;">
-        <filter id="noise">
+        <filter id={filterName}>
           <feTurbulence
             type="fractalNoise"
             baseFrequency={`0 ${turbulence / 100}`}
@@ -55,7 +58,7 @@ export default function Button(props) {
           ></feDisplacementMap>
         </filter>
       </svg>
-      <button className="button" onClick={animate}>
+      <button style={`filter: url(#${filterName});`} onClick={animate}>
         {props.children}
       </button>
     </Fragment>

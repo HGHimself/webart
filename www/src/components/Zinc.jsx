@@ -3,7 +3,7 @@ import { useState } from "preact/hooks";
 import zinc from "../vectors/zinc.js";
 
 import Animator from "./Animator.jsx";
-import NumberInput from "../components/NumberInput/index.jsx";
+import NumberInput from "../components/NumberInput.jsx";
 import { random } from "../utils/maths-tools.js";
 
 let vis = null;

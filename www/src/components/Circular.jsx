@@ -3,7 +3,7 @@ import { useState } from "preact/hooks";
 import colorPlot from "../vectors/color-plot.js";
 
 import Animator from "./Animator.jsx";
-import NumberInput from "./NumberInput/index.jsx";
+import NumberInput from "./NumberInput.jsx";
 
 let vis;
 const setVis = (v) => {

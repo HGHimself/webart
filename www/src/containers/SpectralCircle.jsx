@@ -1,10 +1,10 @@
 import { h } from "preact";
-import { useState, useEffect, useRef } from "preact/hooks";
+import { useState, useRef } from "preact/hooks";
 import entry from "../build/entry.js";
 import spectralCircle from "../vectors/spectral-circle.js";
 
-import Animator from "../components/Animator/index.jsx";
-import Title from "../components/Title/index.jsx";
+import Animator from "../components/Animator.jsx";
+import Title from "../components/Title.jsx";
 import Switch from "../components/Switch/index.jsx";
 
 let vis = null;

@@ -3,7 +3,7 @@ import { useState } from "preact/hooks";
 import vector from "../vectors/nouveau-door.js";
 
 import Animator from "./Animator.jsx";
-import NumberInput from "../components/NumberInput/index.jsx";
+import NumberInput from "../components/NumberInput.jsx";
 
 let vis = null;
 const setVector = (v) => {

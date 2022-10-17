@@ -1,9 +1,7 @@
 import { h, Fragment } from "preact";
 import { useEffect, useState } from "preact/hooks";
 
-import theme from "../../theme";
-
-import FlexRow from "../FlexRow/index.jsx";
+import FlexRow from "./FlexRow/index.jsx";
 
 const height = 16;
 const width = 32;
@@ -41,13 +39,13 @@ export default function NumberInput(props) {
         <label>{label}</label>
         <button onClick={handleIncrease} className="emptyButton">
           <svg class="arrow" height={height} width={width}>
-            <polygon points={upArrowPoints} style={{ strokeWidth: 1 }} />
+            <polygon points={upArrowPoints} style={{ strokeWidth: 1, stroke: "currentcolor" }} />
           </svg>
         </button>
         <input id={label} type="number" value={v} onChange={handleInput} />
         <button onClick={handleDecrease} className="emptyButton">
           <svg class="arrow" height={height} width={width}>
-            <polygon points={downArrowPoints} style={{ strokeWidth: 1 }} />
+            <polygon points={downArrowPoints} style={{ strokeWidth: 1, stroke: "currentcolor" }} />
           </svg>
         </button>
       </FlexRow>

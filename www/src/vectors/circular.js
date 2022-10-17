@@ -119,9 +119,10 @@ class Circular {
             enter
               .append("text")
               .attr("class", "details")
-              .attr("x", 10)
+              .attr("x", width - 8)
               .attr("y", (_, i) => 10 * (i + 1))
               .attr("font-size", 12)
+              .attr("text-anchor", "end")
               .text((d) => d),
           (update) => update.text((d) => d),
           (exit) => exit

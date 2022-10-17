@@ -3,7 +3,7 @@ import { useState } from "preact/hooks";
 import clock from "../vectors/clock.js";
 
 import Animator from "./Animator.jsx";
-import NumberInput from "./NumberInput/index.jsx";
+import NumberInput from "./NumberInput.jsx";
 
 let vis;
 const setVis = (v) => {

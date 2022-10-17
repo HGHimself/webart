@@ -2,9 +2,9 @@ import { Fragment, h } from "preact";
 import entry from "../build/entry.js";
 
 import { default as Vector } from "../components/Clock.jsx";
-import Title from "../components/Title/index.jsx";
+import Title from "../components/Title.jsx";
 
-function Clock(props) {
+function Clock() {
   return (
     <Fragment>
       <Vector hideProps />

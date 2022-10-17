@@ -3,7 +3,7 @@ import { useState } from "preact/hooks";
 import circular from "../vectors/circular.js";
 
 import Animator from "./Animator.jsx";
-import NumberInput from "./NumberInput/index.jsx";
+import NumberInput from "./NumberInput.jsx";
 
 let vis = null;
 const setVis = (v) => {

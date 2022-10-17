@@ -2,7 +2,7 @@ import { h, Fragment } from "preact";
 import entry from "../build/entry.js";
 
 import Zinc from "../components/Zinc.jsx";
-import Title from "../components/Title/index.jsx";
+import Title from "../components/Title.jsx";
 
 function ZincContainer(props) {
   return (

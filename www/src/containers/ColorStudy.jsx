@@ -1,17 +1,15 @@
 import { h } from "preact";
-import { useState, useEffect, useRef } from "preact/hooks";
 
 import relativity from "../vectors/relativity.js";
-import theme from "../theme";
 
-import Animator from "../components/Animator/";
+import Animator from "../components/Animator.jsx";
 
 let vis;
 const setVis = (v) => {
   vis = v;
 };
 
-export default function ColorStudy(props) {
+export default function ColorStudy() {
   const height = 600;
   const width = 1000;
 

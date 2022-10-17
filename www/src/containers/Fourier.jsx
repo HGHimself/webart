@@ -2,12 +2,11 @@ import { h } from "preact";
 import { useState } from "preact/hooks";
 
 import fourier from "../vectors/fourier.js";
-import theme from "../theme";
 
-import Animator from "../components/Animator/";
-import FlexRow from "../components/FlexRow/";
-import NumberInput from "../components/NumberInput/";
-import Title from "../components/Title/";
+import Animator from "../components/Animator.jsx";
+import FlexRow from "../components/FlexRow/index.jsx";
+import NumberInput from "../components/NumberInput.jsx";
+import Title from "../components/Title.jsx";
 
 let vis;
 const setVis = (v) => {

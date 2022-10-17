@@ -4,7 +4,7 @@ import { useState } from "preact/hooks";
 import harmonicMotion from "../vectors/harmonic-motion.js";
 
 import Animator from "./Animator.jsx";
-import NumberInput from "./NumberInput/index.jsx";
+import NumberInput from "./NumberInput.jsx";
 
 let vis;
 const setVis = (v) => {

@@ -1,11 +1,11 @@
 import { h, Fragment } from "preact";
 import { useState } from "preact/hooks";
-import entry from "../../build/entry.js";
+import entry from "../build/entry.js";
 
-import Circular from "../../components/Circular.jsx";
-import Title from "../../components/Title/index.jsx";
+import Circular from "../components/Circular.jsx";
+import Title from "../components/Title.jsx";
 
-function ColorPlot(props) {
+function ColorPlot() {
   return (
     <Fragment>
       <Circular />

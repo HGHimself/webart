@@ -1,17 +1,15 @@
-// containers/vector.jsx
 import { h } from "preact";
-import { useState, useRef } from "preact/hooks";
 import escher from "../vectors/escher.js";
 
 import Animator from "../components/Animator/";
-import Title from "../components/Title/";
+import Title from "../components/Title.jsx";
 
 let vis = null;
 const setVector = (v) => {
   vis = v;
 };
 
-export default function Escher(props) {
+export default function Escher() {
   const options = {
     height: 600,
     width: 1500,
