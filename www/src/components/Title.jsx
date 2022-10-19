@@ -4,8 +4,8 @@ export default function Title(props) {
   const { title, description } = props;
 
   return (
-    <div class="title">
-      <h3>{title}</h3>
+    <div>
+      <h2 class="title">{title}</h2>
       <p>{description}</p>
     </div>
   );

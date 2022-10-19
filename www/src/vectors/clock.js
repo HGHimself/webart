@@ -152,6 +152,7 @@ class Clock {
             .attr("class", "numbers")
             .attr("text-anchor", "middle")
             .attr("fill", colorPrimary)
+            .attr("font-family", "BentonModernDispUltra")
             .text((d) => d),
         (update) =>
           update
@@ -173,6 +174,8 @@ class Clock {
             .attr("font-size", 20)
             .attr("text-anchor", "middle")
             .attr("fill", colorPrimary)
+            .attr("letter-spacing", "0.3em")
+            .attr("font-weight", "bold")
             .text((d) => d)
             .attr("transform", `translate(${originX},${originY})`),
         (update) =>
@@ -192,6 +195,7 @@ class Clock {
             .attr("y", -85)
             .attr("font-size", 15)
             .attr("text-anchor", "middle")
+            .attr("letter-spacing", "0.2em")
             .attr("fill", colorPrimary)
             .text((d) => d)
             .attr("transform", `translate(${originX},${originY})`),

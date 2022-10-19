@@ -39,13 +39,19 @@ export default function NumberInput(props) {
         <label>{label}</label>
         <button onClick={handleIncrease} className="emptyButton">
           <svg class="arrow" height={height} width={width}>
-            <polygon points={upArrowPoints} style={{ strokeWidth: 1, stroke: "currentcolor" }} />
+            <polygon
+              points={upArrowPoints}
+              style={{ strokeWidth: 1, stroke: "currentcolor" }}
+            />
           </svg>
         </button>
         <input id={label} type="number" value={v} onChange={handleInput} />
         <button onClick={handleDecrease} className="emptyButton">
           <svg class="arrow" height={height} width={width}>
-            <polygon points={downArrowPoints} style={{ strokeWidth: 1, stroke: "currentcolor" }} />
+            <polygon
+              points={downArrowPoints}
+              style={{ strokeWidth: 1, stroke: "currentcolor" }}
+            />
           </svg>
         </button>
       </FlexRow>

@@ -20,7 +20,7 @@ export default function Clock(props) {
     hourNumbersSize: 48,
     speckCircleSize: 5,
     handTail: 0.07,
-    logo: "DIGITHEQUE",
+    logo: "Digitheque.io",
     colorPrimary: "#f5fbef",
     colorSecondary: "#7CA2B8",
     tag: "Quartz - 60hz",

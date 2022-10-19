@@ -6,19 +6,18 @@ import Link from "../components/Link.jsx";
 import Loader from "../components/Loader.jsx";
 import NumberInput from "../components/NumberInput.jsx";
 import Swatch from "../components/Swatch.jsx";
+import Switch from "../components/Switch.jsx";
 
 function Aesthetic(props) {
   return (
     <Fragment>
       <h1>Aesthetic</h1>
-      <h5>
-        A study into the visual motifs used
-        throughout the site.
-      </h5>
+      <h5>A study into the visual motifs used throughout the site.</h5>
       <p>
-        Formally named the Badmon Design System; the inspiration is to combine emotions from impressionism and romance
-        with visual elements from the scientific revolution. A sort of “Walt
-        Witman Meets Monet at the Academy of Sciences”.
+        Formally named the Badmon Design System; the inspiration is to combine
+        emotions from impressionism and romance with visual elements from the
+        scientific revolution. A sort of “Walt Witman Meets Monet at the Academy
+        of Sciences”.
       </p>
       <h4>Typography</h4>
       <h1>H1: digitheque</h1>
@@ -95,23 +94,27 @@ function Aesthetic(props) {
       </blockquote>
       <h4>Components</h4>
       <div className="flex around wrap">
-        <div className="text-center">
+        <div>
           <h5>Button</h5>
           <Button>Click Me</Button>
         </div>
-        <div className="text-center">
+        <div>
           <h5>Number Input</h5>
           <NumberInput value={1} onChange={() => {}} />
         </div>
-        <div className="text-center">
+        <div>
           <h5>Link</h5>
           <p>
             <Link href="/">Home</Link>
           </p>
         </div>
-        <div className="text-center">
+        <div>
           <h5>Loader</h5>
           <Loader />
+        </div>
+        <div>
+          <h5>Switch</h5>
+          <Switch />
         </div>
       </div>
       <h4>Colors</h4>

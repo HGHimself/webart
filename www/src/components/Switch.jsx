@@ -1,8 +1,7 @@
 import { h, Fragment } from "preact";
 import { useEffect, useState } from "preact/hooks";
-import "./style.css";
 
-import FlexRow from "../FlexRow/index.jsx";
+import FlexRow from "./FlexRow/index.jsx";
 
 export default function Switch(props) {
   const { state, type, onClick, hideLabel, ...other } = props;
@@ -16,20 +15,26 @@ export default function Switch(props) {
 
   const clickHandler = (e) => {
     const newState = !onOff;
-    onClick && onClick(e, newState);
+    if (onClick && typeof onClick == "function") onClick(e, newState);
     flipOnOff(newState);
   };
 
-  const flag = onOff ? <Fragment>ON&nbsp;</Fragment> : "OFF";
+  const flag = onOff ? "ON" : "OFF";
 
   return (
-    <FlexRow align="center">
+    <div className="flex centered pointer">
       <div
-        className={`button ${onOff ? "on" : "off"}`}
+        style={{
+          width: 20,
+          height: 20,
+          backgroundColor: onOff ? "currentcolor" : "white",
+          border: `solid 1px currentcolor`,
+          marginRight: 5,
+        }}
         onClick={clickHandler}
         {...other}
       ></div>
       {!hideLabel && <span onClick={clickHandler}>{flag}</span>}
-    </FlexRow>
+    </div>
   );
 }

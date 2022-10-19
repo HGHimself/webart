@@ -7,10 +7,9 @@ export default function Button(props) {
   const [turbulence, setTurbulence] = useState(0);
   const [uniqueId, setUniqueId] = useState(0);
 
-  // so our effect is local to one button and not all
-  useEffect(() => setUniqueId(Math.random()));
-  const filterName = `noise-${uniqueId}`
-
+  // so our effect is local to one button and not all buttons
+  useEffect(() => setUniqueId(Math.random()), []);
+  const filterName = `noise-${uniqueId}`;
 
   const turbulenceRef = useRef();
   turbulenceRef.current = turbulence;
@@ -33,10 +32,14 @@ export default function Button(props) {
   };
 
   const animate = () => {
-    if (onClick && typeof onClick == "function") onClick();
-
     // increase turbulence, then decrease turbulence
     staticAnimation(20, 3, 10).then(() => staticAnimation(0, -3, 10));
+  };
+
+  const handleClick = () => {
+    console.log(typeof onClick);
+    if (onClick && typeof onClick == "function") onClick();
+    animate();
   };
 
   return (
@@ -58,7 +61,7 @@ export default function Button(props) {
           ></feDisplacementMap>
         </filter>
       </svg>
-      <button style={`filter: url(#${filterName});`} onClick={animate}>
+      <button style={`filter: url(#${filterName});`} onClick={handleClick}>
         {props.children}
       </button>
     </Fragment>

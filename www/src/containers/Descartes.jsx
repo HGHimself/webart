@@ -3,6 +3,7 @@ import entry from "../build/entry.js";
 import Cartesian from "../components/Cartesian.jsx";
 import Circular from "../components/Circular.jsx";
 import HarmonicMotion from "../components/HarmonicMotion.jsx";
+import Link from "../components/Link.jsx";
 
 function Descartes() {
   return (
@@ -26,9 +27,9 @@ function Descartes() {
         object's displacement and acts towards the object's equilibrium
         position. It results in an oscillation which continues indefinitely, if
         uninhibited by friction or any other dissipation of energy. -{" "}
-        <a href="https://en.wikipedia.org/wiki/Simple_harmonic_motion">
+        <Link href="https://en.wikipedia.org/wiki/Simple_harmonic_motion">
           Wikipedia
-        </a>
+        </Link>
       </blockquote>
       <p>
         We are using simple harmonic motion here in our web-studies as the

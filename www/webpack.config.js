@@ -15,6 +15,7 @@ module.exports = {
     spectrum: path.resolve(__dirname, "src", "containers", "Spectrum.jsx"),
     zinc: path.resolve(__dirname, "src", "containers", "Zinc.jsx"),
     clock: path.resolve(__dirname, "src", "containers", "Clock.jsx"),
+    colophon: path.resolve(__dirname, "src", "containers", "Colophon.jsx"),
   },
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -91,6 +92,12 @@ module.exports = {
       title: "Clock",
       chunks: ["clock"],
       filename: "studies/clock.html",
+      template: path.resolve(__dirname, "src", "build", "template.html"),
+    }),
+    new HtmlWebpackPlugin({
+      title: "Colophon",
+      chunks: ["colophon"],
+      filename: "studies/colophon.html",
       template: path.resolve(__dirname, "src", "build", "template.html"),
     }),
   ],

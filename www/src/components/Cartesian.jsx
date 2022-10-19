@@ -4,6 +4,7 @@ import circular from "../vectors/circular.js";
 
 import Animator from "./Animator.jsx";
 import NumberInput from "./NumberInput.jsx";
+import Button from "../components/Button.jsx";
 
 let vis = null;
 const setVis = (v) => {
@@ -11,6 +12,7 @@ const setVis = (v) => {
 };
 
 export default function Cartesian(props) {
+  const [hideOptionsBar, setHideOptionsBar] = useState(false);
   const [options, setOptionsState] = useState({
     count: 1000,
     height: 500,
@@ -40,15 +42,19 @@ export default function Cartesian(props) {
       };
 
       return (
-        <div className="personal-space-right">
+        <div>
           <NumberInput value={value} onChange={handleChange} label={key} />
         </div>
       );
     });
 
+  const optionsBarElement = (
+    <div className="flex wrap">{!hideOptionsBar && optionsBar}</div>
+  );
+
   return (
     <Fragment>
-      <div className="flex row wrap">{optionsBar}</div>
+      {optionsBarElement}
       <Animator drawer={circular} setVis={setVis} options={options} />
     </Fragment>
   );
