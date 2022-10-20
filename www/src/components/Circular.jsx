@@ -29,7 +29,13 @@ export default function Circular(props) {
     hideProps: props.hideProps ? props.hideProps : false,
   });
 
-  const optionsToSkip = ["height", "width", "amplitudeMultiplier", "hideProps"];
+  const optionsToSkip = [
+    "height",
+    "width",
+    "amplitudeMultiplier",
+    "hideProps",
+    "originalHeight",
+  ];
 
   const optionsBar = Object.keys(options)
     .filter((d) => !optionsToSkip.includes(d))

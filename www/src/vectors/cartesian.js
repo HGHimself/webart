@@ -7,11 +7,13 @@ import {
 } from "../utils/maths-tools.js";
 import { getSpectrumPosition } from "../utils/color-tools.js";
 
-class Circular {
+class Cartesian {
   constructor(containerEl, props) {
     this.containerEl = containerEl;
     this.props = props;
-    const { width, height, count } = props;
+    const { width, height } = props;
+
+    this.props.originalHeight = height;
     this.props.amplitudeMultiplier = 1;
 
     this.svg = select(containerEl)
@@ -22,16 +24,17 @@ class Circular {
     this.update();
   }
 
-  resize(width, height) {
+  resize(width, _height) {
+    console.log(width);
     const { svg, props } = this;
 
-    if (width < 670) {
-      props.width = width * 0.6;
-      props.height = width * 0.6;
+    if (width < 600) {
+      props.width = Math.floor(width * 0.6);
+      props.height = Math.floor(width * 0.6);
       props.amplitudeMultiplier = 0.4;
     } else {
-      props.width = 500;
-      props.height = 500;
+      props.width = width;
+      props.height = this.props.originalHeight;
       props.amplitudeMultiplier = 1;
     }
 
@@ -53,8 +56,6 @@ class Circular {
       frequency,
       multiplierX,
       multiplierY,
-      width,
-      height,
       amplitudeMultiplier,
     } = this.props;
 
@@ -115,16 +116,14 @@ class Circular {
           Object.keys(this.props).map((key) => `${key}: ${this.props[key]}`)
         )
         .join(
-          (enter) =>
-            enter
-              .append("text")
-              .attr("class", "details")
+          (enter) => enter.append("text").attr("class", "details"),
+          (update) =>
+            update
               .attr("x", width - 8)
-              .attr("y", (_, i) => 10 * (i + 1))
-              .attr("font-size", 12)
+              .attr("y", (_, i) => (width > 400 ? 10 : 6) * (i + 1))
+              .attr("font-size", width > 400 ? 12 : 8)
               .attr("text-anchor", "end")
               .text((d) => d),
-          (update) => update.text((d) => d),
           (exit) => exit
         );
   }
@@ -135,4 +134,4 @@ class Circular {
   }
 }
 
-export default Circular;
+export default Cartesian;

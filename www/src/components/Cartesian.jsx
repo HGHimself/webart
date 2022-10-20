@@ -1,6 +1,6 @@
 import { h, Fragment } from "preact";
 import { useState } from "preact/hooks";
-import circular from "../vectors/circular.js";
+import cartesian from "../vectors/cartesian.js";
 
 import Animator from "./Animator.jsx";
 import NumberInput from "./NumberInput.jsx";
@@ -27,7 +27,13 @@ export default function Cartesian(props) {
     hideProps: props.hideProps ? props.hideProps : false,
   });
 
-  const optionsToSkip = ["height", "width", "amplitudeMultiplier", "hideProps"];
+  const optionsToSkip = [
+    "height",
+    "width",
+    "amplitudeMultiplier",
+    "hideProps",
+    "originalHeight",
+  ];
 
   const optionsBar = Object.keys(options)
     .filter((d) => !optionsToSkip.includes(d))
@@ -42,20 +48,20 @@ export default function Cartesian(props) {
       };
 
       return (
-        <div>
+        <div className="personal-space-right">
           <NumberInput value={value} onChange={handleChange} label={key} />
         </div>
       );
     });
 
   const optionsBarElement = (
-    <div className="flex wrap">{!hideOptionsBar && optionsBar}</div>
+    <div className="flex wrap options-bar">{!hideOptionsBar && optionsBar}</div>
   );
 
   return (
     <Fragment>
       {optionsBarElement}
-      <Animator drawer={circular} setVis={setVis} options={options} />
+      <Animator drawer={cartesian} setVis={setVis} options={options} />
     </Fragment>
   );
 }

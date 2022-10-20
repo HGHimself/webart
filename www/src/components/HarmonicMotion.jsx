@@ -13,11 +13,9 @@ const setVis = (v) => {
 
 export default function HarmonicMotion(props) {
   const time = 10;
-  const frequency = 300;
   const step = 1;
 
   const [options, setOptionsState] = useState({
-    count: frequency,
     height: 500,
     width: 500,
     frequency: 2000,
@@ -48,6 +46,7 @@ export default function HarmonicMotion(props) {
     "period",
     "amplitudeMultiplier",
     "hideProps",
+    "originalHeight",
   ];
 
   const optionsBar = Object.keys(options)

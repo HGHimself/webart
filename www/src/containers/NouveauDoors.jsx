@@ -14,7 +14,7 @@ function Cartesian() {
     <div className="page">
       <Vector />
       <Title
-        title="NOUVEAU DOORS"
+        title="ART NOUVEAU DOORS"
         description="Gaudí inspired, procedurally generated, art nouveau doors. Experiment with the values!"
       />
     </div>

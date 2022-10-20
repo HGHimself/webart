@@ -1,14 +1,8 @@
 import { select } from "d3-selection";
-import { line } from "d3-shape";
+
 import {
   simpleHarmonicMotionCos,
   simpleHarmonicMotionSin,
-} from "../utils/maths-tools.js";
-
-import {
-  fourier,
-  squareWaveSequenceSin,
-  squareWaveSequenceCos,
 } from "../utils/maths-tools.js";
 import { getSpectrumPosition } from "../utils/color-tools.js";
 
@@ -17,6 +11,8 @@ class colorPlot {
     this.containerEl = containerEl;
     this.props = props;
     const { width, height } = props;
+
+    this.props.originalHeight = height;
     this.props.amplitudeMultiplier = 1;
 
     this.svg = select(containerEl)
@@ -27,16 +23,17 @@ class colorPlot {
     this.update();
   }
 
-  resize(width, height) {
+  resize(width, _height) {
     const { svg, props } = this;
+    console.log(width);
 
-    if (width < 670) {
-      props.width = width * 0.6;
-      props.height = width * 0.6;
+    if (width < 600) {
+      props.width = Math.floor(width * 0.6);
+      props.height = Math.floor(width * 0.6);
       props.amplitudeMultiplier = 0.4;
     } else {
       props.width = 500;
-      props.height = 500;
+      props.height = this.props.originalHeight;
       props.amplitudeMultiplier = 1;
     }
 
@@ -70,8 +67,8 @@ class colorPlot {
   }
 
   getRadius() {
-    const { rMultiplier, rAmplitude, rOrigin, offset } = this.props;
-    return (d, i) =>
+    const { rMultiplier, rAmplitude, rOrigin } = this.props;
+    return (_, i) =>
       simpleHarmonicMotionSin(rOrigin, rAmplitude, rMultiplier * Math.PI, i);
   }
 
@@ -80,7 +77,7 @@ class colorPlot {
 
     return !colorMultiplier
       ? "black"
-      : (d, i) => getSpectrumPosition(colorOffset + i * colorMultiplier);
+      : (_, i) => getSpectrumPosition(colorOffset + i * colorMultiplier);
   }
 
   setOptions(props) {
@@ -122,15 +119,14 @@ class colorPlot {
           Object.keys(this.props).map((key) => `${key}: ${this.props[key]}`)
         )
         .join(
-          (enter) =>
-            enter
-              .append("text")
-              .attr("class", "details")
-              .attr("x", 10)
-              .attr("y", (_, i) => 10 * (i + 1))
-              .attr("font-size", 12)
+          (enter) => enter.append("text").attr("class", "details"),
+          (update) =>
+            update
+              .attr("x", width - 8)
+              .attr("y", (_, i) => (width > 400 ? 10 : 6) * (i + 1))
+              .attr("font-size", width > 400 ? 12 : 8)
+              .attr("text-anchor", "end")
               .text((d) => d),
-          (update) => update.text((d) => d),
           (exit) => exit
         );
   }

@@ -75,7 +75,7 @@ class Vector {
       );
     const squarewaveTransformY = (time) =>
       fourier(
-        2 * amplitudeY * amplitudeMultiplier,
+        amplitudeY * amplitudeMultiplier,
         omega,
         time,
         numbers,
@@ -92,56 +92,9 @@ class Vector {
       : line()(arc);
   }
 
-  getDrawerTopPart(batch) {
-    const {
-      count,
-      numbers,
-      amplitudeX,
-      amplitudeY,
-      amplitudeMultiplier,
-      omega,
-      offset,
-      multiplierX,
-      multiplierY,
-    } = this.props;
-
-    const squarewaveTransformX = (time) =>
-      fourier(
-        amplitudeX * amplitudeMultiplier,
-        omega,
-        time,
-        numbers,
-        squareWaveSequenceSin
-      );
-    const squarewaveTransformY = (time) =>
-      fourier(
-        amplitudeY * amplitudeMultiplier,
-        omega,
-        time,
-        numbers,
-        squareWaveSequenceCos
-      );
-
-    const arc = Array.from({ length: count }, (_, i) => [
-      squarewaveTransformX(multiplierY * (i + batch + offset)),
-      squarewaveTransformY(multiplierX * (i + batch + offset)),
-    ]);
-
-    return !this.props.curve
-      ? line().curve(curveBasisClosed)(arc)
-      : line()(arc);
-  }
-
   update() {
     const {
-      props: {
-        count,
-        width,
-        height,
-        widthMultiplier,
-        heightOffsetTop,
-        heightOffsetBottom,
-      },
+      props: { count, width, height, widthMultiplier },
     } = this;
 
     this.props.period = this.props.frequency;
@@ -269,9 +222,7 @@ class Vector {
             .attr("d", (d) => this.getDrawerBottomPart(d))
             .attr(
               "transform",
-              `translate(${width * widthMultiplier * 0.25},${
-                height * heightOffsetBottom
-              })`
+              `translate(${width * widthMultiplier * 0.25},${height / 2})`
             )
             .attr("fill", (d) =>
               !this.props.spectrum
@@ -300,9 +251,7 @@ class Vector {
             .attr("d", (d) => this.getDrawerBottomPart(d))
             .attr(
               "transform",
-              `translate(${width * widthMultiplier * 0.25},${
-                height * heightOffsetBottom
-              })`
+              `translate(${width * widthMultiplier * 0.25},${height / 2})`
             )
             .attr("fill", (d) =>
               !this.props.spectrum
@@ -311,68 +260,6 @@ class Vector {
                     this.props.spectrum + d / (this.props.count * 2.4),
                     0.3
                   )
-            )
-      );
-
-    this.svg
-      .select(`g.left`)
-      .selectAll("path.door-top")
-      .data(data)
-      .join(
-        (enter) =>
-          enter
-            .append("path")
-            .attr("class", "door-top")
-            .attr("fill", "none")
-            .attr("stroke-width", "2")
-            .attr("stroke", "currentColor"),
-        (update) =>
-          update
-            .attr("d", (d) => this.getDrawerTopPart(d))
-            .attr("fill", (d) =>
-              !this.props.spectrum
-                ? "none"
-                : getSpectrumPosition(
-                    this.props.spectrum + d / (this.props.count * 2.4),
-                    0.3
-                  )
-            )
-            .attr(
-              "transform",
-              `translate(${width * widthMultiplier * 0.25},${
-                height * heightOffsetTop
-              }) scale(1,-1)`
-            )
-      );
-
-    this.svg
-      .select(`g.right`)
-      .selectAll("path.door-top")
-      .data(data)
-      .join(
-        (enter) =>
-          enter
-            .append("path")
-            .attr("class", "door-top")
-            .attr("fill", "none")
-            .attr("stroke-width", "2")
-            .attr("stroke", "currentColor"),
-        (update) =>
-          update
-            .attr("d", (d) => this.getDrawerTopPart(d))
-            .attr("fill", (d) =>
-              !this.props.spectrum
-                ? "none"
-                : getSpectrumPosition(
-                    this.props.spectrum + d / (this.props.count * 2.4),
-                    0.3
-                  )
-            )
-            .attr(
-              "transform",
-              `translate(${width * widthMultiplier * 0.25},${
-                height * heightOffsetTop
-              }) scale(1,-1)`
             )
       );
 

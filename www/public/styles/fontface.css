@@ -1,0 +1,227 @@
+@font-face {
+  font-family: "BentonModernRoman";
+  font-weight: normal;
+  font-style: normal;
+  font-display: auto;
+
+  src: url("/fonts/Benton_Modern-Roman.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "BentonModernRoman";
+  font-weight: bold;
+  font-style: normal;
+  font-display: auto;
+
+  src: url("/fonts/Benton_Modern-Bold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "BentonModernRoman";
+  font-weight: normal;
+  font-style: italic;
+  font-display: auto;
+
+  src: url("/fonts/Benton_Modern-Italic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "BentonModernRoman";
+  font-weight: bold;
+  font-style: italic;
+  font-display: auto;
+
+  src: url("/fonts/Benton_Modern-Bold_Italic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "BentonModernDispBlack";
+  font-weight: normal;
+  font-style: normal;
+  font-display: auto;
+
+  src: url("/fonts/Benton_Modern-Display_Black.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "BentonModernDispBlack";
+  font-weight: normal;
+  font-style: italic;
+  font-display: auto;
+
+  src: url("/fonts/Benton_Modern-Display_Black_Italic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "BentonModernDispUltra";
+  font-weight: normal;
+  font-style: normal;
+  font-display: auto;
+
+  src: url("/fonts/Benton_Modern-Display_Ultra.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "BentonModernDisp";
+  font-weight: bold;
+  font-style: italic;
+  font-display: auto;
+
+  src: url("/fonts/Benton_Modern-Display_Bold_Italic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "BentonModernDisp";
+  font-weight: bold;
+  font-style: normal;
+  font-display: auto;
+
+  src: url("/fonts/Benton_Modern-Display_Bold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "BentonModernDisp";
+  font-weight: normal;
+  font-style: normal;
+  font-display: auto;
+
+  src: url("/fonts/Benton_Modern-Display.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "BentonModernDisp";
+  font-weight: normal;
+  font-style: italic;
+  font-display: auto;
+
+  src: url("/fonts/Benton_Modern-Display_Italic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Benton Modern";
+  font-weight: bold;
+  font-style: italic;
+  font-display: auto;
+
+  src: url("/fonts/Benton_Modern-Bold_Italic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Benton Modern";
+  font-weight: bold;
+  font-style: normal;
+  font-display: auto;
+
+  src: url("/fonts/Benton_Modern-Bold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Benton Modern";
+  font-weight: normal;
+  font-style: italic;
+  font-display: auto;
+
+  src: url("/fonts/Benton_Modern-Italic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Benton Modern";
+  font-weight: normal;
+  font-style: normal;
+  font-display: auto;
+
+  src: url("/fonts/Benton_Modern_Roman.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Benton Modern RE";
+  font-weight: bold;
+  font-style: normal;
+  font-display: auto;
+  src: url("/fonts/Benton_Modern-RE-Bold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Benton Modern RE";
+  font-weight: normal;
+  font-style: normal;
+  font-display: auto;
+  src: url("/fonts/Benton_Modern-RE-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Benton Modern RE";
+  font-weight: normal;
+  font-style: italic;
+  font-display: auto;
+  src: url("/fonts/Benton_Modern-RE-Italic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "BentonModernDispExtraCond";
+  font-weight: normal;
+  font-style: normal;
+  font-display: auto;
+  src: url("/fonts/Benton_Modern-Display_Extra_Condensed.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "BentonModernDispExtraCond";
+  font-weight: normal;
+  font-style: italic;
+  font-display: auto;
+  src: url("/fonts/Benton_Modern-Display_Extra_Condensed_Italic.woff2")
+    format("woff2");
+}
+
+@font-face {
+  font-family: "BentonModernDispExtraCond";
+  font-weight: bold;
+  font-style: normal;
+  font-display: auto;
+  src: url("/fonts/Benton_Modern-Display_Extra_Condensed_Bold.woff2")
+    format("woff2");
+}
+
+@font-face {
+  font-family: "BentonModernDispExtraCond";
+  font-weight: bold;
+  font-style: italic;
+  font-display: auto;
+  src: url("/fonts/Benton_Modern-Display_Extra_Condensed_Bold_Italic.woff2")
+    format("woff2");
+}
+
+@font-face {
+  font-family: "BentonModernDispExtraCondLight";
+  font-weight: normal;
+  font-style: normal;
+  font-display: auto;
+  src: url("/fonts/Benton_Modern-Display_Extra_Condensed_Light.woff2")
+    format("woff2");
+}
+
+@font-face {
+  font-family: "BentonModernDispExtraCondLight";
+  font-weight: normal;
+  font-style: italic;
+  font-display: auto;
+  src: url("/fonts/Benton_Modern-Display_Extra_Condensed_Light_Italic.woff2")
+    format("woff2");
+}
+
+@font-face {
+  font-family: "BentonModernDispLight";
+  font-weight: normal;
+  font-style: normal;
+  font-display: auto;
+  src: url("/fonts/Benton_Modern-Display_Light.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "BentonModernDispLight";
+  font-weight: normal;
+  font-style: italic;
+  font-display: auto;
+  src: url("/fonts/Benton_Modern-Display_Light_Italic.woff2") format("woff2");
+}

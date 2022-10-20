@@ -16,6 +16,12 @@ module.exports = {
     zinc: path.resolve(__dirname, "src", "containers", "Zinc.jsx"),
     clock: path.resolve(__dirname, "src", "containers", "Clock.jsx"),
     colophon: path.resolve(__dirname, "src", "containers", "Colophon.jsx"),
+    "harmonic-motion": path.resolve(
+      __dirname,
+      "src",
+      "containers",
+      "HarmonicMotion.jsx"
+    ),
   },
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -98,6 +104,12 @@ module.exports = {
       title: "Colophon",
       chunks: ["colophon"],
       filename: "studies/colophon.html",
+      template: path.resolve(__dirname, "src", "build", "template.html"),
+    }),
+    new HtmlWebpackPlugin({
+      title: "Harmonic Motion",
+      chunks: ["harmonic-motion"],
+      filename: "studies/harmonic-motion.html",
       template: path.resolve(__dirname, "src", "build", "template.html"),
     }),
   ],

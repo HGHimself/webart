@@ -9,7 +9,7 @@ function Descartes() {
   return (
     <Fragment>
       <h1>Descartes Study</h1>
-      <h5>A study into feedback loops in simple systems.</h5>
+      <h5>A study of feedback loops in simple systems.</h5>
       <p>
         We do this with a handful of small interactive web-studies that will let
         you alter parameters that feed into a very basic set of equations and

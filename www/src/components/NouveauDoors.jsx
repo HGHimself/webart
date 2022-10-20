@@ -1,6 +1,6 @@
 import { h, Fragment } from "preact";
 import { useState } from "preact/hooks";
-import vector from "../vectors/nouveau-door.js";
+import vector from "../vectors/nouveau-door-v2.js";
 
 import Animator from "./Animator.jsx";
 import NumberInput from "../components/NumberInput.jsx";
@@ -13,15 +13,18 @@ const setVector = (v) => {
 export default function Vector(props) {
   const [options, setOptionsState] = useState({
     numbers: [1, 3, 5, 7, 9, 11, 13, 15, 17],
-    count: 9,
-    height: 750,
-    width: 250,
-    amplitudeX: 250,
-    amplitudeY: 250,
-    frequency: 13,
-    offset: 0,
+    count: 7,
+    height: 500,
+    width: 500,
+    amplitudeX: 240,
+    amplitudeY: 240,
+    frequency: 14,
+    widthMultiplier: 0.6,
+    // heightOffsetBottom: 0.65,
+    // heightOffsetTop: 0.16,
+    offset: 2,
     spectrum: 0,
-    multiplierX: 5,
+    multiplierX: 15,
     multiplierY: 16,
     curve: 0,
     hideProps: props.hideProps ? props.hideProps : false,
@@ -35,6 +38,9 @@ export default function Vector(props) {
     "period",
     "amplitudeMultiplier",
     "hideProps",
+    "widthMultiplier",
+    "originalHeight",
+    "curve",
   ];
 
   const optionsBar = Object.keys(options)

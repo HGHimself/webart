@@ -1,8 +1,6 @@
 import { select } from "d3-selection";
 import { line } from "d3-shape";
 
-import theme from "../theme";
-import { drawArc } from "../utils/svg-tools.js";
 import {
   simpleHarmonicMotionSin,
   simpleHarmonicMotionCos,
@@ -13,6 +11,8 @@ class HarmonicMotion {
     this.containerEl = containerEl;
     this.props = props;
     const { width, height } = props;
+
+    this.props.originalHeight = height;
     this.props.amplitudeMultiplier = 1;
 
     this.svg = select(containerEl)
@@ -20,61 +20,26 @@ class HarmonicMotion {
       .attr("width", width)
       .attr("height", height);
 
-    this.svg
-      .selectAll("circle")
-      .data([0])
-      .enter()
-      .append("circle")
-      .attr("fill", "none")
-      .attr("stroke", theme.colors.black)
-      .attr("stroke-width", "0.5");
-    this.svg
-      .selectAll("path.circles")
-      .data([0])
-      .enter()
-      .append("path")
-      .attr("class", "circles")
-      .attr("fill", "none")
-      .attr("stroke", theme.colors.black)
-      .attr("stroke-width", "0.5");
-    this.svg
-      .selectAll("path.lines")
-      .data([0])
-      .enter()
-      .append("path")
-      .attr("class", "lines")
-      .attr("fill", "none")
-      .attr("stroke", theme.colors.black)
-      .attr("stroke-width", "0.5");
-
     this.update();
   }
 
-  resize(width, height) {
+  resize(width, _height) {
     const { svg, props } = this;
+    console.log(width);
 
-    if (width < 670) {
-      props.width = width * 0.6;
-      props.height = width * 0.6;
-      props.amplitudeMultiplier = 0.6;
-    } else if (width >= 720) {
-      props.width = 720;
-      props.height = 500;
-      props.amplitudeMultiplier = 1;
+    if (width < 600) {
+      props.width = Math.floor(width * 0.6);
+      props.height = Math.floor(width * 0.6);
+      props.amplitudeMultiplier = 0.4;
     } else {
       props.width = width;
-      props.height = 500;
+      props.height = this.props.originalHeight;
+      props.amplitudeMultiplier = 1;
     }
 
     svg.attr("width", props.width).attr("height", props.height);
 
-    const originY = props.height / 2;
-
-    props.originXCircles = props.amplitude;
-    props.originYCircles = originY;
-
-    props.originXLine = props.amplitude * 2.5;
-    props.originYLine = originY;
+    this.update();
   }
 
   getSinwave() {
@@ -94,7 +59,7 @@ class HarmonicMotion {
         originYLine,
         amplitudeMultiplier * amplitude,
         omega,
-        i + offset
+        (i - offset) * -1
       ),
     ]);
 
@@ -146,26 +111,77 @@ class HarmonicMotion {
   update() {
     const {
       svg,
-      props: { amplitude, originYCircles, originXCircles, amplitudeMultiplier },
+      props: {
+        amplitude,
+        originYCircles,
+        originXCircles,
+        amplitudeMultiplier,
+        frequency,
+        height,
+        width,
+      },
     } = this;
 
-    const Sinwave = this.getSinwave();
-    const getSinwaveDrawer = this.getSinwaveDrawer();
+    const originY = height / 2;
+
+    this.props.period = frequency;
+
+    // never more than 150 :)
+    this.props.count = 150 * (1 - 1 / frequency);
+    this.props.omega = 2 * Math.PI * (1 / frequency);
+
+    this.props.originXCircles = amplitudeMultiplier * amplitude;
+    this.props.originYCircles = originY;
+
+    this.props.originXLine = amplitude * amplitudeMultiplier * 2;
+    this.props.originYLine = originY;
+
     const getRadius = () => amplitudeMultiplier * amplitude;
 
     svg
       .selectAll("circle")
       .data([0])
       .join(
-        (enter) => enter,
+        (enter) =>
+          enter
+            .append("circle")
+            .attr("fill", "none")
+            .attr("stroke", "currentColor")
+            .attr("stroke-width", "0.5"),
         (update) =>
           update
             .attr("cy", originYCircles)
             .attr("cx", originXCircles)
             .attr("r", getRadius)
       );
-    svg.selectAll("path.circles").attr("d", getSinwaveDrawer);
-    svg.selectAll("path.lines").attr("d", Sinwave);
+
+    this.svg
+      .selectAll("path.circles")
+      .data([0])
+      .join(
+        (enter) =>
+          enter
+            .append("path")
+            .attr("class", "circles")
+            .attr("fill", "none")
+            .attr("stroke", "currentColor")
+            .attr("stroke-width", "0.5"),
+        (update) => update.attr("d", this.getSinwaveDrawer())
+      );
+
+    this.svg
+      .selectAll("path.lines")
+      .data([0])
+      .join(
+        (enter) =>
+          enter
+            .append("path")
+            .attr("class", "lines")
+            .attr("fill", "none")
+            .attr("stroke", "currentColor")
+            .attr("stroke-width", "0.5"),
+        (update) => update.attr("d", this.getSinwave())
+      );
     !this.props.hideProps &&
       svg
         .selectAll("text.details")
@@ -173,25 +189,20 @@ class HarmonicMotion {
           Object.keys(this.props).map((key) => `${key}: ${this.props[key]}`)
         )
         .join(
-          (enter) =>
-            enter
-              .append("text")
-              .attr("class", "details")
-              .attr("x", 10)
-              .attr("y", (_, i) => 10 * (i + 1))
-              .attr("font-size", 12)
+          (enter) => enter.append("text").attr("class", "details"),
+          (update) =>
+            update
+              .attr("x", width - 8)
+              .attr("y", (_, i) => (width > 400 ? 10 : 6) * (i + 1))
+              .attr("font-size", width > 400 ? 12 : 8)
+              .attr("text-anchor", "end")
               .text((d) => d),
-          (update) => update.text((d) => d),
           (exit) => exit
         );
   }
 
   setOptions(props) {
     this.props = props;
-    this.props.period = props.frequency;
-    this.props.omega = 2 * Math.PI * (1 / props.frequency);
-    this.props.originXLine = this.props.amplitude * 2.5;
-    this.props.originXCircles = this.props.amplitude;
     this.update();
   }
 }
