@@ -25,7 +25,6 @@ class colorPlot {
 
   resize(width, _height) {
     const { svg, props } = this;
-    console.log(width);
 
     if (width < 600) {
       props.width = Math.floor(width * 0.6);

@@ -8,7 +8,7 @@ export default function Animator(props) {
   const { drawer, options, setVis, intervalCallback, time, ...other } = props;
 
   const [width, setWidth] = useState(options.width || 600);
-  const [height, setHeight] = useState(options.height || 600);
+  const [height, setHeight] = useState(options.height || 500);
 
   const refElement = useRef(null);
 
@@ -58,7 +58,12 @@ export default function Animator(props) {
 
   return (
     <Fragment>
-      <div className="animator" ref={refElement} {...other} />
+      <div
+        className="animator"
+        ref={refElement}
+        {...other}
+        height={options.height}
+      />
     </Fragment>
   );
 }

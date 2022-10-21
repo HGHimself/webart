@@ -25,7 +25,6 @@ class HarmonicMotion {
 
   resize(width, _height) {
     const { svg, props } = this;
-    console.log(width);
 
     if (width < 600) {
       props.width = Math.floor(width * 0.6);
@@ -119,6 +118,7 @@ class HarmonicMotion {
         frequency,
         height,
         width,
+        strokeWidth,
       },
     } = this;
 
@@ -146,13 +146,13 @@ class HarmonicMotion {
           enter
             .append("circle")
             .attr("fill", "none")
-            .attr("stroke", "currentColor")
-            .attr("stroke-width", "0.5"),
+            .attr("stroke", "currentColor"),
         (update) =>
           update
             .attr("cy", originYCircles)
             .attr("cx", originXCircles)
             .attr("r", getRadius)
+            .attr("stroke-width", strokeWidth)
       );
 
     this.svg
@@ -164,9 +164,11 @@ class HarmonicMotion {
             .append("path")
             .attr("class", "circles")
             .attr("fill", "none")
-            .attr("stroke", "currentColor")
-            .attr("stroke-width", "0.5"),
-        (update) => update.attr("d", this.getSinwaveDrawer())
+            .attr("stroke", "currentColor"),
+        (update) =>
+          update
+            .attr("d", this.getSinwaveDrawer())
+            .attr("stroke-width", strokeWidth)
       );
 
     this.svg
@@ -178,9 +180,9 @@ class HarmonicMotion {
             .append("path")
             .attr("class", "lines")
             .attr("fill", "none")
-            .attr("stroke", "currentColor")
-            .attr("stroke-width", "0.5"),
-        (update) => update.attr("d", this.getSinwave())
+            .attr("stroke", "currentColor"),
+        (update) =>
+          update.attr("d", this.getSinwave()).attr("stroke-width", strokeWidth)
       );
     !this.props.hideProps &&
       svg

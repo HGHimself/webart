@@ -15,8 +15,8 @@ export default function Cartesian(props) {
   const [hideOptionsBar, setHideOptionsBar] = useState(false);
   const [options, setOptionsState] = useState({
     count: 1000,
-    height: 500,
-    width: 500,
+    height: 0,
+    width: 0,
     offset: 0,
     amplitudeX: 240,
     amplitudeY: 240,
@@ -24,6 +24,7 @@ export default function Cartesian(props) {
     multiplierY: 2,
     multiplierX: 2,
     spectrum: 0,
+    strokeWidth: 1,
     hideProps: props.hideProps ? props.hideProps : false,
   });
 

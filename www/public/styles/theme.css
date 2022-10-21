@@ -33,9 +33,8 @@ header {
 .title-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
   flex-wrap: wrap-reverse;
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 
 main {
@@ -51,7 +50,7 @@ footer {
 }
 
 h1 {
-  font-size: 6em;
+  font-size: 5em;
   line-height: 1.1;
   margin-bottom: 34px;
   margin-top: 34px;
@@ -112,7 +111,9 @@ blockquote {
 
 blockquote {
   border-left: 1px solid currentColor;
+  margin-left: 1em;
   padding-left: 16px;
+  padding-right: 4em;
 }
 
 button {
@@ -138,8 +139,8 @@ button {
 }
 
 .title-image {
-  margin-bottom: -25px;
-  width: 340px;
+  margin-bottom: -27px;
+  width: 335px;
 }
 
 .byline {
@@ -279,7 +280,7 @@ ul {
   }
 
   .title-image {
-    margin-bottom: -20px;
-    width: 270px;
+    margin-bottom: -21px;
+    width: 269px;
   }
 }

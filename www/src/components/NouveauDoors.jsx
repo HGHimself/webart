@@ -1,9 +1,10 @@
 import { h, Fragment } from "preact";
-import { useState } from "preact/hooks";
+import { useState, useRef } from "preact/hooks";
 import vector from "../vectors/nouveau-door-v2.js";
 
 import Animator from "./Animator.jsx";
 import NumberInput from "../components/NumberInput.jsx";
+import Switch from "./Switch.jsx";
 
 let vis = null;
 const setVector = (v) => {
@@ -11,14 +12,17 @@ const setVector = (v) => {
 };
 
 export default function Vector(props) {
+  const time = 100;
+  const step = 1;
+
   const [options, setOptionsState] = useState({
     numbers: [1, 3, 5, 7, 9, 11, 13, 15, 17],
     count: 7,
-    height: 500,
-    width: 500,
+    height: 0,
+    width: 0,
     amplitudeX: 240,
-    amplitudeY: 240,
-    frequency: 14,
+    amplitudeY: 300,
+    frequency: 19,
     widthMultiplier: 0.6,
     // heightOffsetBottom: 0.65,
     // heightOffsetTop: 0.16,
@@ -29,6 +33,19 @@ export default function Vector(props) {
     curve: 0,
     hideProps: props.hideProps ? props.hideProps : false,
   });
+
+  const [isRunning, setIsRunning] = useState(false);
+  const runningRef = useRef();
+  runningRef.current = isRunning;
+  const intervalHandler = () => {
+    if (runningRef.current) {
+      setOptionsState((currentOptions) => {
+        currentOptions.offset += step;
+        vis.setOptions(currentOptions);
+        return currentOptions;
+      });
+    }
+  };
 
   const optionsToSkip = [
     "numbers",
@@ -41,6 +58,7 @@ export default function Vector(props) {
     "widthMultiplier",
     "originalHeight",
     "curve",
+    "offset",
   ];
 
   const optionsBar = Object.keys(options)
@@ -68,8 +86,19 @@ export default function Vector(props) {
 
   return (
     <Fragment>
+      <Switch
+        label="ANIMATE"
+        state={isRunning}
+        onClick={() => setIsRunning(!isRunning)}
+      />
       {controls}
-      <Animator drawer={vector} setVis={setVector} options={options} />
+      <Animator
+        drawer={vector}
+        setVis={setVector}
+        options={options}
+        time={time}
+        intervalCallback={intervalHandler}
+      />
     </Fragment>
   );
 }

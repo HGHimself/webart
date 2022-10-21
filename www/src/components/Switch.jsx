@@ -4,7 +4,7 @@ import { useEffect, useState } from "preact/hooks";
 import FlexRow from "./FlexRow/index.jsx";
 
 export default function Switch(props) {
-  const { state, type, onClick, hideLabel, ...other } = props;
+  const { state, type, onClick, hideStatus, label, ...other } = props;
 
   const [onOff, flipOnOff] = useState(state);
 
@@ -16,13 +16,15 @@ export default function Switch(props) {
   const clickHandler = (e) => {
     const newState = !onOff;
     if (onClick && typeof onClick == "function") onClick(e, newState);
-    flipOnOff(newState);
   };
 
   const flag = onOff ? "ON" : "OFF";
 
   return (
     <div className="flex centered pointer">
+      <span className="personal-space-right" onClick={clickHandler}>
+        {label ? `${label}:` : ""}
+      </span>
       <div
         style={{
           width: 20,
@@ -34,7 +36,7 @@ export default function Switch(props) {
         onClick={clickHandler}
         {...other}
       ></div>
-      {!hideLabel && <span onClick={clickHandler}>{flag}</span>}
+      {!hideStatus && <span onClick={clickHandler}>{flag}</span>}
     </div>
   );
 }

@@ -25,7 +25,6 @@ class Cartesian {
   }
 
   resize(width, _height) {
-    console.log(width);
     const { svg, props } = this;
 
     if (width < 600) {
@@ -90,25 +89,26 @@ class Cartesian {
   update() {
     const {
       svg,
-      props: { count, width, height },
+      props: { count, width, height, strokeWidth },
     } = this;
 
     const data = Array.from({ length: count }, (_, i) => i);
-    const lines = this.svg.selectAll("path").data(data);
 
-    lines.exit().remove();
-    lines
-      .enter()
-      .append("path")
-      .attr("fill", "none")
-      .attr("stroke-width", "1")
-      .attr("d", (d) => this.getDrawer(d))
-      .attr("stroke", (d) => this.getColor(d))
-      .attr("transform", `translate(${width / 2},${height / 2})`);
-    lines
-      .attr("d", (d) => this.getDrawer(d))
-      .attr("stroke", (d) => this.getColor(d))
-      .attr("transform", `translate(${width / 2},${height / 2})`);
+    const centerX = width / 2;
+    const centerY = height / 2;
+
+    this.svg
+      .selectAll("path")
+      .data(data)
+      .join(
+        (enter) => enter.append("path").attr("fill", "none"),
+        (update) =>
+          update
+            .attr("stroke-width", strokeWidth)
+            .attr("d", (d) => this.getDrawer(d))
+            .attr("stroke", (d) => this.getColor(d))
+            .attr("transform", `translate(${centerX},${centerY})`)
+      );
     !this.props.hideProps &&
       svg
         .selectAll("text.details")

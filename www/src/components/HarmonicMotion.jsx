@@ -1,10 +1,11 @@
 import { h, Fragment } from "preact";
-import { useState } from "preact/hooks";
+import { useState, useRef } from "preact/hooks";
 
 import harmonicMotion from "../vectors/harmonic-motion.js";
 
 import Animator from "./Animator.jsx";
 import NumberInput from "./NumberInput.jsx";
+import Switch from "./Switch.jsx";
 
 let vis;
 const setVis = (v) => {
@@ -12,24 +13,30 @@ const setVis = (v) => {
 };
 
 export default function HarmonicMotion(props) {
-  const time = 10;
+  const time = 50;
   const step = 1;
 
   const [options, setOptionsState] = useState({
-    height: 500,
-    width: 500,
+    height: 0,
+    width: 0,
     frequency: 2000,
     offset: 0,
     amplitude: 200,
+    strokeWidth: 0.5,
     hideProps: props.hideProps ? props.hideProps : false,
   });
 
+  const [isRunning, setIsRunning] = useState(false);
+  const runningRef = useRef();
+  runningRef.current = isRunning;
   const intervalHandler = () => {
-    setOptionsState((currentOptions) => {
-      currentOptions.offset += step;
-      vis.setOptions(currentOptions);
-      return currentOptions;
-    });
+    if (runningRef.current) {
+      setOptionsState((currentOptions) => {
+        currentOptions.offset += step;
+        vis.setOptions(currentOptions);
+        return currentOptions;
+      });
+    }
   };
 
   const optionsToSkip = [
@@ -68,9 +75,18 @@ export default function HarmonicMotion(props) {
       );
     });
 
+  const controls = !props.hideControls && (
+    <div className="flex row wrap">{optionsBar}</div>
+  );
+
   return (
     <Fragment>
-      <div className="flex row wrap">{optionsBar}</div>
+      <Switch
+        label="ANIMATE"
+        state={isRunning}
+        onClick={() => setIsRunning(!isRunning)}
+      />
+      {controls}
       <Animator
         drawer={harmonicMotion}
         setVis={setVis}

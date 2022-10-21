@@ -13,8 +13,8 @@ const setVis = (v) => {
 export default function Circular(props) {
   const [options, setOptionsState] = useState({
     count: 100,
-    height: 500,
-    width: 500,
+    height: 0,
+    width: 0,
     offset: 0,
     frequency: 2,
     xAmplitude: 200,
@@ -26,6 +26,7 @@ export default function Circular(props) {
     rOrigin: 18,
     colorMultiplier: 30188,
     colorOffset: 120,
+    strokeWidth: 1,
     hideProps: props.hideProps ? props.hideProps : false,
   });
 
