@@ -1,11 +1,9 @@
 import { h, Fragment } from "preact";
 import { useState } from "preact/hooks";
-import "./style.css";
-import entry from "../../build/entry.js";
+import entry from "../build/entry.js";
 import * as dada from "dada-poem-generator";
 
-import FlexRow from "../../components/FlexRow/index.jsx";
-import Title from "../../components/Title.jsx";
+import Title from "../components/Title.jsx";
 
 const defaultMessage = `TO MAKE A DADAIST POEM
 Take a newspaper.
@@ -28,14 +26,14 @@ function Dada(props) {
 
   return (
     <Fragment>
-      <FlexRow flex="flex">
-        <div className="dada-input">
+      <div className="flex wrap between personal-space-bottom">
+        <div className="half break-to-full personal-space-top">
           <textarea onInput={handleInput} value={input} />
         </div>
-        <div className="dada-display">
+        <div className="two-fifths break-to-full personal-space-top">
           <pre>{dada.dada(input)}</pre>
         </div>
-      </FlexRow>
+      </div>
       <Title
         title="DADA"
         description="Express your own irrationality! Enter words into the box on the left; see the output on the right."

@@ -14,17 +14,17 @@ const setVis = (v) => {
 export default function Cartesian(props) {
   const [hideOptionsBar, setHideOptionsBar] = useState(false);
   const [options, setOptionsState] = useState({
-    count: 1000,
     height: 0,
     width: 0,
+    count: 1000,
     offset: 0,
-    amplitudeX: 240,
-    amplitudeY: 240,
     frequency: 1,
-    multiplierY: 2,
-    multiplierX: 2,
-    spectrum: 0,
-    strokeWidth: 1,
+    xAmplitude: 240,
+    yAmplitude: 240,
+    yMultiplier: 2,
+    xMultiplier: 2,
+    color: 0,
+    thickness: 1,
     hideProps: props.hideProps ? props.hideProps : false,
   });
 
@@ -34,6 +34,8 @@ export default function Cartesian(props) {
     "amplitudeMultiplier",
     "hideProps",
     "originalHeight",
+    "period",
+    "data",
   ];
 
   const optionsBar = Object.keys(options)

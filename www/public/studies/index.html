@@ -31,51 +31,63 @@
     </header>
     <main>
       <a href="/">back</a>
-      <h1>Web Studies</h1>
-      <ul>
-        <li><a href="/studies/aesthetic.html">Aesthetic</a></li>
-        <li><a href="/studies/cartesian.html">Radial Cartesian</a></li>
-        <li><a href="/studies/barcelona-doors.html">Art Nouveau Doors</a></li>
-        <li><a href="/studies/dada.html">Dada Poem Generator</a></li>
-        <li><a href="/studies/oolisp.html">Oolisp</a></li>
-        <li><a href="/studies/circular.html">Circular</a></li>
-        <li><a href="/studies/descartes.html">Descartes</a></li>
-        <li><a href="/studies/spectrum.html">Spectrum</a></li>
-        <li><a href="/studies/zinc.html">Zinc</a></li>
-        <li><a href="/studies/clock.html">Clock</a></li>
-        <li><a href="/studies/harmonic-motion.html">Harmonic Motion</a></li>
-      </ul>
-      <br />
-      <p>
-        A web study is small internet-based application that demonstrates only a
-        small artistic or technical concept.
-      </p>
-      <p>
-        The ones you find here are developed with various tools, but the common
-        purpose is to get a feel for building with minimalism.
-      </p>
-      <p>
-        For the framework, preact is used to manage state and render a self made
-        library of reusable components. Webpack is used to compile this code
-        into the browser-preferred javascript. The end result is a very small
-        bundle size which makes for pleasant render times and a responsize UI
-      </p>
-      <p>
-        To implement the studies' core concepts, either d3.js or a custom
-        web-assembly module is used. React is used to manage the state and
-        updating of the page, d3 is used for any interesting drawing and
-        rendering of shapes, and web-assembly is used for any interesting
-        computation that would require more complex logic than I'm comfortable
-        using js with.
-      </p>
+      <div class="flex around wrap personal-space-top">
+        <div class="one-third text-right">
+          <h4>Web Studies</h4>
+          <div><a href="/studies/aesthetic.html">Aesthetic</a></div>
+          <div><a href="/studies/cartesian.html">Radial Cartesian</a></div>
+          <div>
+            <a href="/studies/barcelona-doors.html">Art Nouveau Doors</a>
+          </div>
+          <div><a href="/studies/dada.html">Dada Poem Generator</a></div>
+          <div><a href="/studies/oolisp.html">Oolisp</a></div>
+          <div><a href="/studies/circular.html">Circular</a></div>
+          <div><a href="/studies/descartes.html">Descartes</a></div>
+          <div><a href="/studies/spectrum.html">Spectrum</a></div>
+          <div><a href="/studies/zinc.html">Zinc</a></div>
+          <div><a href="/studies/clock.html">Clock</a></div>
+          <div><a href="/studies/harmonic-motion.html">Harmonic Motion</a></div>
+          <div class="flex justify-end personal-space-top">
+            <img src="/img/1540352021.svg" alt="madusa" width="200px" />
+          </div>
+        </div>
+        <div class="half break-to-full personal-space-top">
+          <p>
+            A <i>web study</i> is small internet-based application that
+            demonstrates a small artistic or technical concept.
+          </p>
+          <p>
+            The ones you find here are developed with various tools, but the
+            common purpose is to get a feel for building with minimalism.
+          </p>
+          <p>
+            The framework <i>preact</i> is used to manage state and render a
+            self made library of reusable components. <i>Webpack</i> is used to
+            compile this code into the browser-preferred javascript. The end
+            result is a very small bundle size which makes for pleasant render
+            times and a responsize UI.
+          </p>
+          <p>
+            To implement the studies&rsquo; core concepts, either
+            <i>d3.js</i> or a custom web-assembly module is used.
+            <i>Preact</i> is used to manage the state and updating of the page,
+            <i>d3</i> is used for any interesting drawing and rendering of
+            shapes, and web-assembly is used for any interesting computation
+            that would require more complex logic than I'm comfortable using
+            <i>js</i> with.
+          </p>
+          <p>
+            Being studies, they are intended on being used elsewhere in the site
+            or as a learning scenario. Please enjoy them!
+          </p>
+        </div>
+      </div>
     </main>
-
-    <footer class="footer">
+    <footer>
       <img
-        class="three-fourths"
+        class="three-fourths break-to-full"
         alt="line-break"
         src="/img/curly-break-2.svg"
-        width="100%"
       />
     </footer>
   </body>

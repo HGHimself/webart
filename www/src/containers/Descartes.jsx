@@ -18,7 +18,7 @@ function Descartes() {
         dissonance.
       </p>
       <p>Hint: Use the small 'up' and 'down' arrows to alter the parameters!</p>
-      <h3>Simple Harmonic Motion</h3>
+      <h4>Simple Harmonic Motion</h4>
       <p>Formal definition:</p>
       <blockquote>
         In mechanics and physics, simple harmonic motion (sometimes abbreviated
@@ -76,7 +76,7 @@ function Descartes() {
         the line to go back and forth in a looping or repeating process. Let's
         see how we can take advantage of this fact.
       </p>
-      <h3>Multipliers</h3>
+      <h4>Multipliers</h4>
       <p>
         Now that we have our first loop, we can try and include more. A good
         start is to use the 2nd dimension we are all familiar with. This next
@@ -110,7 +110,7 @@ function Descartes() {
         feedback starts to form patterns. As you continue to increase, the lines
         eventually begin to follow the true path once again.
       </p>
-      <h3>Taking It Further</h3>
+      <h4>Taking It Further</h4>
       <p>
         Now, why stop there, we can add another loop. What if we used circles
         instead of lines, and we base the radius of these circles on SMH.
@@ -132,7 +132,7 @@ function Descartes() {
       </p>
       <Circular hideProps />
       <h6>Fig. 3 - Circular Cartesian</h6>
-      <h3>Conclusion</h3>
+      <h4>Conclusion</h4>
       <p>
         This was a study into using a basic system like simple harmonic motion
         to draw sketches with the intention of producing patterns through

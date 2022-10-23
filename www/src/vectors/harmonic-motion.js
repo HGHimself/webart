@@ -118,7 +118,7 @@ class HarmonicMotion {
         frequency,
         height,
         width,
-        strokeWidth,
+        thickness,
       },
     } = this;
 
@@ -152,7 +152,7 @@ class HarmonicMotion {
             .attr("cy", originYCircles)
             .attr("cx", originXCircles)
             .attr("r", getRadius)
-            .attr("stroke-width", strokeWidth)
+            .attr("stroke-width", thickness)
       );
 
     this.svg
@@ -168,7 +168,7 @@ class HarmonicMotion {
         (update) =>
           update
             .attr("d", this.getSinwaveDrawer())
-            .attr("stroke-width", strokeWidth)
+            .attr("stroke-width", thickness)
       );
 
     this.svg
@@ -182,7 +182,7 @@ class HarmonicMotion {
             .attr("fill", "none")
             .attr("stroke", "currentColor"),
         (update) =>
-          update.attr("d", this.getSinwave()).attr("stroke-width", strokeWidth)
+          update.attr("d", this.getSinwave()).attr("stroke-width", thickness)
       );
     !this.props.hideProps &&
       svg
@@ -191,7 +191,11 @@ class HarmonicMotion {
           Object.keys(this.props).map((key) => `${key}: ${this.props[key]}`)
         )
         .join(
-          (enter) => enter.append("text").attr("class", "details"),
+          (enter) =>
+            enter
+              .append("text")
+              .attr("class", "details")
+              .attr("fill", "currentColor"),
           (update) =>
             update
               .attr("x", width - 8)

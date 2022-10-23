@@ -14,6 +14,7 @@ class colorPlot {
 
     this.props.originalHeight = height;
     this.props.amplitudeMultiplier = 1;
+    this.calculateProps();
 
     this.svg = select(containerEl)
       .append("svg")
@@ -42,33 +43,33 @@ class colorPlot {
   }
 
   getCircleDrawerX() {
-    const { xMultiplier, xAmplitude, frequency, offset, amplitudeMultiplier } =
+    const { xMultiplier, xAmplitude, period, offset, amplitudeMultiplier } =
       this.props;
     return (d, i) =>
       simpleHarmonicMotionCos(
         0,
         xAmplitude * amplitudeMultiplier,
-        xMultiplier * (1 / frequency) * Math.PI,
+        xMultiplier * period * Math.PI,
         i - offset / 10
       );
   }
 
   getCircleDrawerY() {
-    const { yMultiplier, yAmplitude, frequency, offset, amplitudeMultiplier } =
+    const { yMultiplier, yAmplitude, period, offset, amplitudeMultiplier } =
       this.props;
     return (d, i) =>
       simpleHarmonicMotionSin(
         0,
         yAmplitude * amplitudeMultiplier,
-        yMultiplier * (1 / frequency) * Math.PI,
+        yMultiplier * period * Math.PI,
         i - offset / 10
       );
   }
 
   getRadius() {
-    const { rMultiplier, rAmplitude, rOrigin } = this.props;
+    const { rMultiplier, rAmplitude, rOffset } = this.props;
     return (_, i) =>
-      simpleHarmonicMotionSin(rOrigin, rAmplitude, rMultiplier * Math.PI, i);
+      simpleHarmonicMotionSin(rOffset, rAmplitude, rMultiplier * Math.PI, i);
   }
 
   getColor() {
@@ -81,44 +82,55 @@ class colorPlot {
 
   setOptions(props) {
     this.props = props;
+    this.calculateProps();
     this.update();
+  }
+
+  calculateProps() {
+    const {
+      props: { count, frequency },
+    } = this;
+    this.props.period = frequency ? 1 / frequency : frequency;
+    this.props.data = Array.from({ length: count }, (_, i) => [i]);
   }
 
   update() {
     const {
       svg,
-      props: { height, width, count },
+      props: { height, width, thickness, data },
     } = this;
 
-    const values = Array.from({ length: count }, (_, i) => [i]);
+    const xCenter = width / 2;
+    const yCenter = height / 2;
 
-    const circles = svg.selectAll("circle").data(values);
-
-    circles.exit().remove();
-    circles
-      .enter()
-      .append("circle")
-      .attr("cy", this.getCircleDrawerY())
-      .attr("cx", this.getCircleDrawerX())
-      .attr("r", this.getRadius())
-      .attr("fill", "none")
-      .attr("stroke", this.getColor())
-      .attr("stroke-width", "1")
-      .attr("transform", `translate(${width / 2},${height / 2})`);
-    circles
-      .attr("cy", this.getCircleDrawerY())
-      .attr("cx", this.getCircleDrawerX())
-      .attr("r", this.getRadius())
-      .attr("stroke", this.getColor())
-      .attr("transform", `translate(${width / 2},${height / 2})`);
+    svg
+      .selectAll("circle")
+      .data(data)
+      .join(
+        (enter) => enter.append("circle").attr("fill", "none"),
+        (update) =>
+          update
+            .attr("cy", this.getCircleDrawerY())
+            .attr("cx", this.getCircleDrawerX())
+            .attr("r", this.getRadius())
+            .attr("stroke", this.getColor())
+            .attr("stroke-width", thickness)
+            .attr("transform", `translate(${xCenter},${yCenter})`)
+      );
     !this.props.hideProps &&
       svg
         .selectAll("text.details")
         .data(
-          Object.keys(this.props).map((key) => `${key}: ${this.props[key]}`)
+          Object.keys(this.props)
+            .filter((key) => key != "data")
+            .map((key) => `${key}: ${this.props[key]}`)
         )
         .join(
-          (enter) => enter.append("text").attr("class", "details"),
+          (enter) =>
+            enter
+              .append("text")
+              .attr("class", "details")
+              .attr("fill", "currentColor"),
           (update) =>
             update
               .attr("x", width - 8)

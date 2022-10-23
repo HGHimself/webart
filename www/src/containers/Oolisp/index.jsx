@@ -81,11 +81,11 @@ function Oolisp(props) {
 
   return (
     <Fragment>
-      <div className="shell">
+      <div className="shell personal-space-top">
         <div className="shell-buffer">
-          <FlexRow direction="column-reverse">{shellBuffer}</FlexRow>
+          <div className="flex column-reverse">{shellBuffer}</div>
         </div>
-        <FlexRow align="center">
+        <div className="flex center">
           <label for="prompt">{prompt}</label>
           <input
             className="shell-input"
@@ -94,7 +94,7 @@ function Oolisp(props) {
             onInput={handleInput}
             value={shellInput}
           />
-        </FlexRow>
+        </div>
       </div>
       <Title
         title="OOLISP"

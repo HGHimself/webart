@@ -1,6 +1,6 @@
 .shell-buffer {
   overflow-y: scroll;
-  max-height: 390px;
+  height: 350px;
 }
 
 .shell {

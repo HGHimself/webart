@@ -34,7 +34,7 @@
   align-content: center;
 }
 
-.centeredItems {
+.centered-items {
   align-items: center;
 }
 
@@ -46,12 +46,20 @@
   width: 100%;
 }
 
+.three-fourths {
+  width: 75%;
+}
+
 .half {
   width: 50%;
 }
 
-.three-fourths {
-  width: 75%;
+.fourty-five {
+  width: 45%;
+}
+
+.two-fifths {
+  width: 40%;
 }
 
 .quarter {
@@ -80,4 +88,26 @@
 
 .text-left {
   text-align: left;
+}
+
+.personal-space-top {
+  padding-top: 24px;
+}
+
+.personal-space-bottom {
+  padding-bottom: 24px;
+}
+
+.personal-space-left {
+  padding-left: 24px;
+}
+
+.personal-space-right {
+  padding-right: 24px;
+}
+
+@media only screen and (max-width: 640px) {
+  .break-to-full {
+    width: 100%;
+  }
 }

@@ -52,7 +52,7 @@ export default function Animator(props) {
   };
 
   useEffect(initVis, []);
-  useEffect(setupTimer, []);
+  useEffect(setupTimer, [intervalCallback]);
   useEffect(handleResizeEvent, []);
   useEffect(updateVisOnResize, [width, height]);
 

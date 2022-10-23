@@ -55,6 +55,15 @@
 @font-face {
   font-family: "BentonModernDispUltra";
   font-weight: normal;
+  font-style: italic;
+  font-display: auto;
+
+  src: url("/fonts/Benton_Modern-Display_Ultra_Italic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "BentonModernDispUltra";
+  font-weight: normal;
   font-style: normal;
   font-display: auto;
 

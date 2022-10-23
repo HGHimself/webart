@@ -13,16 +13,16 @@ const setVis = (v) => {
 };
 
 export default function HarmonicMotion(props) {
-  const time = 50;
+  const time = 25;
   const step = 1;
 
   const [options, setOptionsState] = useState({
     height: 0,
     width: 0,
-    frequency: 2000,
     offset: 0,
+    frequency: 2000,
     amplitude: 200,
-    strokeWidth: 0.5,
+    thickness: 0.5,
     hideProps: props.hideProps ? props.hideProps : false,
   });
 
@@ -92,7 +92,7 @@ export default function HarmonicMotion(props) {
         setVis={setVis}
         options={options}
         time={time}
-        intervalCallback={intervalHandler}
+        intervalCallback={isRunning ? intervalHandler : null}
       />
     </Fragment>
   );

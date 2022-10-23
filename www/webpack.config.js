@@ -8,7 +8,7 @@ module.exports = {
     cartesian: path.resolve(__dirname, "src", "containers", "Cartesian.jsx"),
     nouveau: path.resolve(__dirname, "src", "containers", "NouveauDoors.jsx"),
     aesthetic: path.resolve(__dirname, "src", "containers", "Aesthetic.jsx"),
-    dada: path.resolve(__dirname, "src", "containers", "Dada", "index.jsx"),
+    dada: path.resolve(__dirname, "src", "containers", "Dada.jsx"),
     oolisp: path.resolve(__dirname, "src", "containers", "Oolisp", "index.jsx"),
     circular: path.resolve(__dirname, "src", "containers", "ColorPlot.jsx"),
     descartes: path.resolve(__dirname, "src", "containers", "Descartes.jsx"),

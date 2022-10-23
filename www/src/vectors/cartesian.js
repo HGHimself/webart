@@ -1,5 +1,5 @@
 import { select } from "d3-selection";
-import { line, curveBasis } from "d3-shape";
+import { line } from "d3-shape";
 
 import {
   simpleHarmonicMotionCos,
@@ -15,6 +15,7 @@ class Cartesian {
 
     this.props.originalHeight = height;
     this.props.amplitudeMultiplier = 1;
+    this.calculateProps();
 
     this.svg = select(containerEl)
       .append("svg")
@@ -44,31 +45,32 @@ class Cartesian {
 
   setOptions(props) {
     this.props = props;
+    this.calculateProps();
     this.update();
   }
 
   getDrawer(batch) {
     const {
-      amplitudeX,
-      amplitudeY,
+      xAmplitude,
+      yAmplitude,
       offset,
-      frequency,
-      multiplierX,
-      multiplierY,
+      period,
+      xMultiplier,
+      yMultiplier,
       amplitudeMultiplier,
     } = this.props;
 
     const arc = Array.from({ length: 1 + 1 }, (_, i) => [
       simpleHarmonicMotionSin(
         0,
-        amplitudeX * amplitudeMultiplier,
-        multiplierX * (1 / frequency),
+        xAmplitude * amplitudeMultiplier,
+        xMultiplier * period,
         i + batch - offset
       ),
       simpleHarmonicMotionCos(
         0,
-        amplitudeY * amplitudeMultiplier,
-        multiplierY * (1 / frequency),
+        yAmplitude * amplitudeMultiplier,
+        yMultiplier * period,
         i + batch - offset
       ),
     ]);
@@ -78,21 +80,27 @@ class Cartesian {
 
   getColor(d) {
     const {
-      props: { spectrum, count },
+      props: { color, count },
     } = this;
 
-    return !spectrum
-      ? "black"
-      : getSpectrumPosition(spectrum + d / (count * 0.4));
+    return !color
+      ? "currentColor"
+      : getSpectrumPosition(color + d / (count * 0.4));
+  }
+
+  calculateProps() {
+    const {
+      props: { count, frequency },
+    } = this;
+    this.props.period = frequency ? 1 / frequency : frequency;
+    this.props.data = Array.from({ length: count }, (_, i) => i);
   }
 
   update() {
     const {
       svg,
-      props: { count, width, height, strokeWidth },
+      props: { width, height, thickness, data },
     } = this;
-
-    const data = Array.from({ length: count }, (_, i) => i);
 
     const centerX = width / 2;
     const centerY = height / 2;
@@ -104,7 +112,7 @@ class Cartesian {
         (enter) => enter.append("path").attr("fill", "none"),
         (update) =>
           update
-            .attr("stroke-width", strokeWidth)
+            .attr("stroke-width", thickness)
             .attr("d", (d) => this.getDrawer(d))
             .attr("stroke", (d) => this.getColor(d))
             .attr("transform", `translate(${centerX},${centerY})`)
@@ -113,10 +121,16 @@ class Cartesian {
       svg
         .selectAll("text.details")
         .data(
-          Object.keys(this.props).map((key) => `${key}: ${this.props[key]}`)
+          Object.keys(this.props)
+            .filter((key) => key != "data")
+            .map((key) => `${key}: ${this.props[key]}`)
         )
         .join(
-          (enter) => enter.append("text").attr("class", "details"),
+          (enter) =>
+            enter
+              .append("text")
+              .attr("class", "details")
+              .attr("fill", "currentColor"),
           (update) =>
             update
               .attr("x", width - 8)
