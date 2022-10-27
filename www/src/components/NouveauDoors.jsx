@@ -16,20 +16,19 @@ export default function Vector(props) {
   const step = 1;
 
   const [options, setOptionsState] = useState({
-    numbers: [1, 3, 5, 7, 9, 11, 13, 15, 17],
-    count: 7,
     height: 0,
     width: 0,
-    amplitudeX: 240,
-    amplitudeY: 300,
-    frequency: 19,
-    widthMultiplier: 0.6,
-    // heightOffsetBottom: 0.65,
-    // heightOffsetTop: 0.16,
+    count: 7,
     offset: 2,
-    spectrum: 0,
-    multiplierX: 15,
-    multiplierY: 16,
+    frequency: 19,
+    xAmplitude: 240,
+    yAmplitude: 300,
+    xMultiplier: 15,
+    yMultiplier: 16,
+    color: 0,
+    thickness: 1,
+    widthPercentage: 0.6,
+    numbers: [1, 3, 5, 7, 9, 11, 13, 15, 17],
     curve: 0,
     hideProps: props.hideProps ? props.hideProps : false,
   });
@@ -51,14 +50,13 @@ export default function Vector(props) {
     "numbers",
     "height",
     "width",
-    "omega",
     "period",
     "amplitudeMultiplier",
     "hideProps",
     "widthMultiplier",
     "originalHeight",
-    "curve",
     "offset",
+    "data",
   ];
 
   const optionsBar = Object.keys(options)

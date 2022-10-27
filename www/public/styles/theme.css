@@ -249,6 +249,14 @@ ul {
   margin-top: 2rem;
 }
 
+.green {
+  color: #20852b;
+}
+
+.red {
+  color: #B83035;
+}
+
 @media only screen and (max-width: 640px) {
   header {
     margin-left: 1rem;

@@ -1,10 +1,11 @@
 import { h, Fragment } from "preact";
-import { useState } from "preact/hooks";
+import { useState, useRef } from "preact/hooks";
 
-import fourier from "../vectors/fourier.js";
+import fourier from "../vectors/fourier-motion.js";
 
 import Animator from "./Animator.jsx";
-import NumberInput from "./NumberInput/index.jsx";
+import NumberInput from "./NumberInput.jsx";
+import Switch from "./Switch.jsx";
 
 let vis;
 const setVis = (v) => {
@@ -12,42 +13,46 @@ const setVis = (v) => {
 };
 
 export default function Fourier(props) {
-  const time = 10;
-  const frequency = 300;
-  const step = 0.5;
+  const time = 30;
+  const step = 1;
 
   const [options, setOptionsState] = useState({
-    count: frequency,
-    height: 500,
-    width: 500,
-    frequency: 350,
-    phase: 350,
+    numbers: [1, 3, 5, 7, 9, 11, 13, 15],
     offset: 0,
+    count: 350,
+    height: 500,
+    width: 1300,
+    frequency: 120,
     amplitude: 200,
-    numbers: props.numbers || [1, 3, 5, 7, 9, 11, 13, 15],
+    thickness: 0.5,
   });
 
+  const [isRunning, setIsRunning] = useState(false);
+  const runningRef = useRef();
+  runningRef.current = isRunning;
   const intervalHandler = () => {
-    setOptionsState((currentOptions) => {
-      currentOptions.offset += step;
-      vis.setOptions(currentOptions);
-      return currentOptions;
-    });
+    if (runningRef.current) {
+      setOptionsState((currentOptions) => {
+        currentOptions.offset += step;
+        vis.setOptions(currentOptions);
+        return currentOptions;
+      });
+    }
   };
 
   const optionsToSkip = [
     "height",
     "width",
-    "numbers",
-    "offset",
-    "omega",
-    "count",
+    "amplitudeMultiplier",
     "originXCircles",
     "originYCircles",
-    "originXLine",
     "originYLine",
-    "phase",
-    "period",
+    "originXLine",
+    "hideProps",
+    "omega",
+    "offset",
+    "numbers",
+    "count",
   ];
 
   const optionsBar = Object.keys(options)
@@ -57,7 +62,7 @@ export default function Fourier(props) {
       const handleChange = (value) => {
         const r = value;
         const newOptions = JSON.parse(JSON.stringify(options));
-        newOptions[key] = r;
+        newOptions[key] = parseFloat(r);
         setOptionsState(newOptions);
         vis.setOptions(newOptions);
       };
@@ -71,13 +76,20 @@ export default function Fourier(props) {
 
   return (
     <Fragment>
+      <div className={isRunning ? "green" : "red"}>
+      <Switch
+        label="ANIMATE"
+        state={isRunning}
+        onClick={() => setIsRunning(!isRunning)}
+      />
+      </div>
       <div className="flex row wrap">{optionsBar}</div>
       <Animator
         drawer={fourier}
         setVis={setVis}
         options={options}
         time={time}
-        intervalCallback={intervalHandler}
+        intervalCallback={isRunning ? intervalHandler : null}
       />
     </Fragment>
   );

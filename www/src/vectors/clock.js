@@ -11,7 +11,8 @@ class Clock {
 
     this.props.originX = width / 2;
     this.props.originY = height / 2;
-    this.props.radius = (width * 0.9) / 2;
+    this.props.radius = width / 2;
+
     this.props.hourNumbers = Array.from({ length: 12 }, (_, i) => i + 1);
     this.props.ticks = Array.from({ length: 60 }, (_, i) => i);
 
@@ -23,7 +24,7 @@ class Clock {
     this.update();
   }
 
-  resize(width, height) {
+  resize(width, _height) {
     const { svg, props } = this;
 
     if (width < 670) {
@@ -36,9 +37,9 @@ class Clock {
       props.amplitudeMultiplier = 1;
     }
 
-    // this.props.originX = width / 2;
-    // this.props.originY = height / 2;
-    // this.props.radius = width / 2;
+    this.props.originX = props.width / 2;
+    this.props.originY = props.height / 2;
+    this.props.radius = props.width / 2;
 
     svg.attr("width", props.width).attr("height", props.height);
 
@@ -51,60 +52,59 @@ class Clock {
   }
 
   getNumbersXPosition(d) {
-    const { originX, radius } = this.props;
+    const { originX, radius, numbersRadius } = this.props;
     const offset = originX;
-    const distance = radius * 0.85;
+    const distance = radius * numbersRadius * 0.01;
     const angle = Math.PI - (d / 12) * 2 * Math.PI;
     const point = polarToCartesianX(angle, distance);
     return offset + point;
   }
 
   getNumbersYPosition(d) {
-    const { originY, radius } = this.props;
+    const { originY, radius, numbersRadius } = this.props;
     const offset = originY * 1.07;
-    const distance = radius * 0.85;
+    const distance = radius * numbersRadius * 0.01;
     const angle = Math.PI - (d / 12) * 2 * Math.PI;
     const point = polarToCartesianY(angle, distance);
     return offset + point;
   }
 
   getHourHandPoints() {
-    const { radius, hours, minutes, handTail } = this.props;
+    const { radius, hours, minutes, hourHandEnd, hourHandStart } = this.props;
     const angle = (hours / 12 + minutes / 600) * 2 * Math.PI;
     return lineRadial()([
-      [angle, radius * 0.5],
-      [angle, 0],
-      [angle, -radius * handTail],
+      [angle, radius * hourHandStart * 0.01],
+      [angle, radius * hourHandEnd * 0.01],
     ]);
   }
 
   getMinuteHandPoints() {
-    const { radius, minutes, handTail } = this.props;
+    const { radius, minutes, minuteHandEnd, minuteHandStart } = this.props;
     const angle = (minutes / 60) * 2 * Math.PI;
     return lineRadial()([
-      [angle, radius * 0.8],
-      [angle, 0],
-      [angle, -radius * handTail],
+      [angle, radius * minuteHandStart * 0.01],
+      [angle, radius * minuteHandEnd * 0.01],
     ]);
   }
 
   getSecondHandPoints() {
-    const { radius, seconds, handTail } = this.props;
+    const { radius, seconds, secondHandEnd, secondHandStart } = this.props;
     const angle = (seconds / 60) * 2 * Math.PI;
     return lineRadial()([
-      [angle, radius * 0.8],
-      [angle, 0],
-      [angle, -radius * handTail],
+      [angle, radius * secondHandStart * 0.01],
+      [angle, radius * secondHandEnd * 0.01],
     ]);
   }
 
   getTickPoints(d) {
-    const { radius } = this.props;
+    const { radius, tickMarksStart, tickMarksEnd, hourTicks } = this.props;
     const angle = (d / 60) * 2 * Math.PI;
-    const distance = d % 5 ? 0.95 : 0.92;
+    const tickEnd = tickMarksEnd * 0.01;
+    const tickStart = tickMarksStart * 0.01;
+    const distance = d % 5 ? tickEnd : tickEnd * hourTicks * 0.01;
     return lineRadial()([
       [angle, radius * distance],
-      [angle, radius * 1],
+      [angle, radius * tickStart],
     ]);
   }
 
@@ -112,19 +112,21 @@ class Clock {
     const {
       svg,
       props: {
-        width,
-        height,
+        originX,
+        originY,
         radius,
         hourNumbersSize,
         hourNumbers,
         speckCircleSize,
         ticks,
-        originY,
-        originX,
         logo,
         colorPrimary,
         colorSecondary,
         tag,
+        hourHandThickness,
+        minuteHandThickness,
+        secondHandThickness,
+        tickMarksThickness,
       },
     } = this;
 
@@ -152,7 +154,7 @@ class Clock {
             .attr("class", "numbers")
             .attr("text-anchor", "middle")
             .attr("fill", colorPrimary)
-            .attr("font-family", "BentonModernDispUltra")
+            .attr("font-family", "BentonModernDispExtraCond")
             .text((d) => d),
         (update) =>
           update
@@ -171,11 +173,11 @@ class Clock {
             .attr("class", "name")
             .attr("x", 0)
             .attr("y", -100)
-            .attr("font-size", 20)
+            .attr("font-size", 25)
             .attr("text-anchor", "middle")
-            .attr("fill", colorPrimary)
-            .attr("letter-spacing", "0.3em")
+            .attr("fill", "black")
             .attr("font-weight", "bold")
+            .attr("font-family", "BentonModernDispExtraCond")
             .text((d) => d)
             .attr("transform", `translate(${originX},${originY})`),
         (update) =>
@@ -196,9 +198,8 @@ class Clock {
             .attr("font-size", 15)
             .attr("text-anchor", "middle")
             .attr("letter-spacing", "0.2em")
-            .attr("fill", colorPrimary)
-            .text((d) => d)
-            .attr("transform", `translate(${originX},${originY})`),
+            .attr("fill", "black")
+            .text((d) => d),
         (update) =>
           update.attr("transform", `translate(${originX},${originY})`),
         (exit) => exit
@@ -209,14 +210,11 @@ class Clock {
       .data([0])
       .join(
         (enter) =>
-          enter
-            .append("path")
-            .attr("class", "hour")
-            .attr("stroke", "black")
-            .attr("stroke-width", "4"),
+          enter.append("path").attr("class", "hour").attr("stroke", "black"),
         (update) =>
           update
             .attr("d", (_) => this.getHourHandPoints())
+            .attr("stroke-width", hourHandThickness)
             .attr("transform", `translate(${originX},${originY})`)
       );
 
@@ -225,15 +223,12 @@ class Clock {
       .data([0])
       .join(
         (enter) =>
-          enter
-            .append("path")
-            .attr("class", "minute")
-            .attr("stroke", colorPrimary)
-            .attr("stroke-width", "3"),
+          enter.append("path").attr("class", "minute").attr("stroke", "black"),
         (update) =>
           update
             .attr("d", (_) => this.getMinuteHandPoints())
-            .attr("transform", `translate(${width / 2},${height / 2})`)
+            .attr("stroke-width", minuteHandThickness)
+            .attr("transform", `translate(${originX},${originY})`)
       );
 
     svg
@@ -241,14 +236,11 @@ class Clock {
       .data([0])
       .join(
         (enter) =>
-          enter
-            .append("path")
-            .attr("class", "second")
-            .attr("stroke", "red")
-            .attr("stroke-width", "2"),
+          enter.append("path").attr("class", "second").attr("stroke", "black"),
         (update) =>
           update
             .attr("d", (_) => this.getSecondHandPoints())
+            .attr("stroke-width", secondHandThickness)
             .attr("transform", `translate(${originX},${originY})`)
       );
 
@@ -261,12 +253,12 @@ class Clock {
             .append("path")
             .attr("class", "minute")
             .attr("stroke", colorPrimary)
-            .attr("stroke-width", "3")
             .attr("d", (d) => this.getTickPoints(d))
             .attr("transform", `translate(${originX},${originY})`),
         (update) =>
           update
             .attr("d", (d) => this.getTickPoints(d))
+            .attr("stroke-width", tickMarksThickness)
             .attr("transform", `translate(${originX},${originY})`)
       );
 

@@ -13,7 +13,7 @@ const setVis = (v) => {
 };
 
 export default function HarmonicMotion(props) {
-  const time = 25;
+  const time = 30;
   const step = 1;
 
   const [options, setOptionsState] = useState({
@@ -81,11 +81,13 @@ export default function HarmonicMotion(props) {
 
   return (
     <Fragment>
+      <div className={isRunning ? "green" : "red"}>
       <Switch
         label="ANIMATE"
         state={isRunning}
         onClick={() => setIsRunning(!isRunning)}
       />
+      </div>
       {controls}
       <Animator
         drawer={harmonicMotion}

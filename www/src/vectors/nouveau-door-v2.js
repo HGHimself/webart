@@ -16,6 +16,7 @@ class Vector {
 
     this.props.originalHeight = height;
     this.props.amplitudeMultiplier = 1;
+    this.calculateProps();
 
     this.classes = ["left", "right"];
 
@@ -47,8 +48,7 @@ class Vector {
 
   setOptions(options) {
     this.props = options;
-    this.props.period = this.props.frequency;
-    this.props.omega = 2 * Math.PI * (1 / this.props.frequency);
+    this.calculateProps();
     this.update();
   }
 
@@ -56,35 +56,35 @@ class Vector {
     const {
       count,
       numbers,
-      amplitudeX,
-      amplitudeY,
+      xAmplitude,
+      yAmplitude,
       amplitudeMultiplier,
-      omega,
+      period,
       offset,
-      multiplierX,
-      multiplierY,
+      xMultiplier,
+      yMultiplier,
     } = this.props;
 
     const squarewaveTransformX = (time) =>
       fourier(
-        amplitudeX * amplitudeMultiplier,
-        omega,
+        xAmplitude * amplitudeMultiplier,
+        2 * Math.PI * period,
         time,
         numbers,
         squareWaveSequenceSin
       );
     const squarewaveTransformY = (time) =>
       fourier(
-        amplitudeY * amplitudeMultiplier,
-        omega,
+        yAmplitude * amplitudeMultiplier,
+        2 * Math.PI * period,
         time,
         numbers,
         squareWaveSequenceCos
       );
 
     const arc = Array.from({ length: count }, (_, i) => [
-      squarewaveTransformX(multiplierX * (i + batch + offset)),
-      squarewaveTransformY(multiplierY * (i + batch + offset)),
+      squarewaveTransformX(xMultiplier * (i + batch + offset)),
+      squarewaveTransformY(yMultiplier * (i + batch + offset)),
     ]);
 
     return !this.props.curve
@@ -92,15 +92,15 @@ class Vector {
       : line()(arc);
   }
 
+  calculateProps() {
+    const { frequency, count } = this.props;
+    this.props.period = 1 / frequency;
+    this.props.data = Array.from({ length: count }, (_, i) => i);
+  }
+
   update() {
-    const {
-      props: { count, width, height, widthMultiplier },
-    } = this;
-
-    this.props.period = this.props.frequency;
-    this.props.omega = 2 * Math.PI * (1 / this.props.frequency);
-
-    const data = Array.from({ length: count }, (_, i) => i);
+    const { count, width, height, widthPercentage, color, thickness, data } =
+      this.props;
 
     this.svg
       .selectAll("g.left")
@@ -113,11 +113,11 @@ class Vector {
             .attr("transform", `translate(0,0) scale(1,1)`),
         (update) =>
           update
-            .attr("width", (width / 2) * widthMultiplier)
+            .attr("width", (width / 2) * widthPercentage)
             .attr("height", height)
             .attr(
               "transform",
-              `translate(${(width - width * widthMultiplier) / 2},0) scale(1,1)`
+              `translate(${(width - width * widthPercentage) / 2},0) scale(1,1)`
             )
       );
 
@@ -128,20 +128,20 @@ class Vector {
         (enter) => enter.append("g").attr("class", "right"),
         (update) =>
           update
-            .attr("width", (width / 2) * widthMultiplier)
+            .attr("width", (width / 2) * widthPercentage)
             .attr("height", height)
             .attr(
               "transform",
               `translate(${
-                width * widthMultiplier + (width - width * widthMultiplier) / 2
+                width * widthPercentage + (width - width * widthPercentage) / 2
               },0) scale(-1,1)`
             )
       );
 
     const box = [
       [0, 0],
-      [(width * widthMultiplier) / 2, 0],
-      [(width * widthMultiplier) / 2, height],
+      [(width * widthPercentage) / 2, 0],
+      [(width * widthPercentage) / 2, height],
       [0, height],
       [0, 0],
     ];
@@ -167,10 +167,10 @@ class Vector {
           update
             .attr("d", line()(box))
             .attr("fill", (d) =>
-              !this.props.spectrum
+              !this.props.color
                 ? "none"
                 : getSpectrumPosition(
-                    this.props.spectrum + d / (this.props.count * 2.4),
+                    this.props.color + d / (this.props.count * 2.4),
                     0.3
                   )
             )
@@ -196,12 +196,9 @@ class Vector {
           update
             .attr("d", line()(box))
             .attr("fill", (d) =>
-              !this.props.spectrum
+              !color
                 ? "none"
-                : getSpectrumPosition(
-                    this.props.spectrum + d / (this.props.count * 2.4),
-                    0.3
-                  )
+                : getSpectrumPosition(color + d / (count * 2.4), 0.3)
             )
       );
 
@@ -215,22 +212,19 @@ class Vector {
             .append("path")
             .attr("class", "door")
             .attr("fill", "none")
-            .attr("stroke-width", "2")
             .attr("stroke", "currentColor"),
         (update) =>
           update
             .attr("d", (d) => this.getDrawerBottomPart(d))
+            .attr("stroke-width", thickness)
+            .attr("fill", (d) =>
+              !color
+                ? "none"
+                : getSpectrumPosition(color + d / (count * 2.4), 0.3)
+            )
             .attr(
               "transform",
-              `translate(${width * widthMultiplier * 0.25},${height / 2})`
-            )
-            .attr("fill", (d) =>
-              !this.props.spectrum
-                ? "none"
-                : getSpectrumPosition(
-                    this.props.spectrum + d / (this.props.count * 2.4),
-                    0.3
-                  )
+              `translate(${width * widthPercentage * 0.25},${height / 2})`
             )
       );
 
@@ -244,22 +238,19 @@ class Vector {
             .append("path")
             .attr("class", "door")
             .attr("fill", "none")
-            .attr("stroke-width", "2")
             .attr("stroke", "currentColor"),
         (update) =>
           update
             .attr("d", (d) => this.getDrawerBottomPart(d))
+            .attr("stroke-width", thickness)
+            .attr("fill", (d) =>
+              !color
+                ? "none"
+                : getSpectrumPosition(color + d / (count * 2.4), 0.3)
+            )
             .attr(
               "transform",
-              `translate(${width * widthMultiplier * 0.25},${height / 2})`
-            )
-            .attr("fill", (d) =>
-              !this.props.spectrum
-                ? "none"
-                : getSpectrumPosition(
-                    this.props.spectrum + d / (this.props.count * 2.4),
-                    0.3
-                  )
+              `translate(${width * widthPercentage * 0.25},${height / 2})`
             )
       );
 

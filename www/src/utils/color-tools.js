@@ -1,5 +1,3 @@
-import theme from "../theme";
-
 export const parseHexColor = (color) =>
   color
     .match(/^#([\da-fA-F]{2})([\da-fA-F]{2})([\da-fA-F]{2})$/)
@@ -39,7 +37,7 @@ export const luminance = (color) => {
 };
 
 export const darkOrLight = (color) =>
-  luminance(color) < 0.4 ? theme.colors.white : theme.colors.black;
+  luminance(color) < 0.4 ? "white" : "black";
 
 export const getRgbSpectrumArray = (i) => {
   const r = Math.round(127 * Math.cos(i + 2 * Math.PI)) + 128;

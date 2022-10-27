@@ -1,8 +1,6 @@
 import { h, Fragment } from "preact";
 import { useEffect, useState } from "preact/hooks";
 
-import FlexRow from "./FlexRow/index.jsx";
-
 export default function Switch(props) {
   const { state, type, onClick, hideStatus, label, ...other } = props;
 

@@ -1,7 +1,6 @@
 import { select } from "d3-selection";
 import { line } from "d3-shape";
 
-import theme from "../theme";
 import {
   fourier,
   squareWaveCos,
@@ -13,7 +12,7 @@ class Fourier {
   constructor(containerEl, props) {
     this.containerEl = containerEl;
     this.props = props;
-    const { width, height, numbers } = props;
+    const { width, height } = props;
     this.props.amplitudeMultiplier = 1;
 
     this.svg = select(containerEl)
@@ -21,37 +20,10 @@ class Fourier {
       .attr("width", width)
       .attr("height", height);
 
-    this.svg
-      .selectAll("circle")
-      .data(numbers)
-      .enter()
-      .append("circle")
-      .attr("fill", "none")
-      .attr("stroke", theme.colors.black)
-      .attr("stroke-width", "0.5");
-    this.svg
-      .selectAll("path.circles")
-      .data([0])
-      .enter()
-      .append("path")
-      .attr("class", "circles")
-      .attr("fill", "none")
-      .attr("stroke", theme.colors.black)
-      .attr("stroke-width", "0.5");
-    this.svg
-      .selectAll("path.lines")
-      .data([0])
-      .enter()
-      .append("path")
-      .attr("class", "lines")
-      .attr("fill", "none")
-      .attr("stroke", theme.colors.black)
-      .attr("stroke-width", "0.5");
-
     this.update();
   }
 
-  resize(width, height) {
+  resize(width, _height) {
     const { svg, props } = this;
 
     if (width < 670) {
@@ -69,13 +41,7 @@ class Fourier {
 
     svg.attr("width", props.width).attr("height", props.height);
 
-    const originY = props.height / 2;
-
-    props.originXCircles = props.amplitudeMultiplier * props.amplitude * 0.7;
-    props.originYCircles = originY;
-
-    props.originXLine = props.amplitudeMultiplier * props.amplitude * 1.4;
-    props.originYLine = originY;
+    this.update();
   }
 
   getSquarewave() {
@@ -101,7 +67,7 @@ class Fourier {
 
     const arc = Array.from({ length: count }, (_, i) => [
       originXLine + i,
-      originYLine + squarewaveTransform(i + offset),
+      originYLine + squarewaveTransform(-i + offset),
     ]);
 
     return line()(arc);
@@ -205,44 +171,96 @@ class Fourier {
   update() {
     const {
       svg,
-      props: {
-        height,
-        width,
-        amplitude,
-        omega,
-        offset,
-        numbers,
-        amplitudeMultiplier,
-      },
+      props: { amplitude, numbers, amplitudeMultiplier, frequency, thickness, width },
     } = this;
 
+    const originY = this.props.height / 2;
+
+    this.props.originXCircles =
+      this.props.amplitudeMultiplier * this.props.amplitude * 0.7;
+    this.props.originYCircles = originY;
+    this.props.originXLine =
+      this.props.amplitudeMultiplier * this.props.amplitude * 1.4;
+    this.props.originYLine = originY;
+    this.props.omega = 2 * Math.PI * (1 / frequency);
+
     const squarewave = this.getSquarewave();
-    const getSquarewaveDrawer = this.getSquarewaveDrawer(numbers.length);
     const getCirclesX = this.getCircleDrawerX();
     const getCirclesY = this.getCircleDrawerY();
     const getRadius = (d) =>
       amplitudeMultiplier * amplitude * squareWaveCos(1, 0, d);
 
+    this.svg
+      .selectAll("path.circles")
+      .data([0])
+      .join(
+        (enter) =>
+          enter
+            .append("path")
+            .attr("class", "circles")
+            .attr("fill", "none")
+            .attr("stroke", "currentColor"),
+        (update) =>
+          update
+            .attr("d", this.getSquarewaveDrawer(numbers.length))
+            .attr("stroke-width", thickness)
+      );
+
+    this.svg
+      .selectAll("path.lines")
+      .data([0])
+      .join(
+        (enter) =>
+          enter
+            .append("path")
+            .attr("class", "lines")
+            .attr("fill", "none")
+            .attr("stroke", "currentColor"),
+        (update) => update.attr("d", squarewave).attr("stroke-width", thickness)
+      );
+
     svg
       .selectAll("circle")
       .data(numbers)
       .join(
-        (enter) => enter,
+        (enter) =>
+          enter
+            .append("circle")
+            .attr("fill", "none")
+            .attr("stroke", "currentColor"),
         (update) =>
           update
             .attr("cy", getCirclesY)
             .attr("cx", getCirclesX)
             .attr("r", getRadius)
+            .attr("stroke-width", thickness)
       );
-    svg.selectAll("path.circles").attr("d", getSquarewaveDrawer);
-    svg.selectAll("path.lines").attr("d", squarewave);
+
+    !this.props.hideProps &&
+      svg
+        .selectAll("text.details")
+        .data(
+          Object.keys(this.props).map((key) => `${key}: ${this.props[key]}`)
+        )
+        .join(
+          (enter) =>
+            enter
+              .append("text")
+              .attr("class", "details")
+              .attr("fill", "currentColor"),
+          (update) =>
+            update
+              .attr("x", width - 8)
+              .attr("y", (_, i) => (width > 400 ? 10 : 6) * (i + 1))
+              .attr("font-size", width > 400 ? 12 : 8)
+              .attr("text-anchor", "end")
+              .text((d) => d),
+          (exit) => exit
+        );
   }
 
   setOptions(props) {
     this.props = props;
-    this.props.period = props.frequency;
-    this.props.omega = 2 * Math.PI * (1 / props.frequency);
-    this.props.count = (this.props.phase / props.frequency) * props.frequency;
     this.update();
   }
 }

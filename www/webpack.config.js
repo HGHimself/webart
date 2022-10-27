@@ -22,6 +22,12 @@ module.exports = {
       "containers",
       "HarmonicMotion.jsx"
     ),
+    "fourier-motion": path.resolve(
+      __dirname,
+      "src",
+      "containers",
+      "FourierMotion.jsx"
+    ),
   },
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -44,6 +50,7 @@ module.exports = {
       title: "Descartes",
       chunks: ["cartesian"],
       filename: "studies/cartesian.html",
+      asyncChunks: true,
       template: path.resolve(__dirname, "src", "build", "template.html"),
     }),
     new HtmlWebpackPlugin({
@@ -110,6 +117,12 @@ module.exports = {
       title: "Harmonic Motion",
       chunks: ["harmonic-motion"],
       filename: "studies/harmonic-motion.html",
+      template: path.resolve(__dirname, "src", "build", "template.html"),
+    }),
+    new HtmlWebpackPlugin({
+      title: "Fourier Motion",
+      chunks: ["fourier-motion"],
+      filename: "studies/fourier-motion.html",
       template: path.resolve(__dirname, "src", "build", "template.html"),
     }),
   ],

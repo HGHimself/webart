@@ -5,7 +5,6 @@ import "./style.css";
 import * as oolisp from "oolisp";
 import { prelude, prompt, help } from "./contants.js";
 
-import FlexRow from "../../components/FlexRow/index.jsx";
 import Title from "../../components/Title.jsx";
 
 let env;
