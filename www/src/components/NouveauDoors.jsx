@@ -28,7 +28,7 @@ export default function Vector(props) {
     color: 0,
     thickness: 1,
     widthPercentage: 0.6,
-    numbers: [1, 3, 5, 7, 9, 11, 13, 15, 17],
+    numbers: [1, 6, 4, 2],
     curve: 0,
     hideProps: props.hideProps ? props.hideProps : false,
   });

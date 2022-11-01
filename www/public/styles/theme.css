@@ -4,9 +4,8 @@
 }
 
 body {
-  background-color: white;
-  font-size: 1.25rem;
-  line-height: 1.35;
+  color: #b71500;
+  background-color: #f2f2ed;
   margin-left: auto;
   margin-right: auto;
   max-width: 1000px;
@@ -15,8 +14,9 @@ body {
   position: relative;
   z-index: -10000;
   font-family: "Benton Modern", "times new roman", times, serif;
+  font-size: 1.25rem;
+  line-height: 1.35;
   text-shadow: none;
-  color: black;
   font-weight: normal;
   font-style: normal;
   text-rendering: optimizeLegibility;
@@ -25,30 +25,31 @@ body {
 }
 
 header {
-  border-bottom: 1px solid currentColor;
-  margin-left: 8rem;
-  margin-right: 6rem;
-  padding-left: 1rem;
-}
-
-.title-header {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap-reverse;
+  border-bottom: 1px solid currentColor;
   margin-top: 1rem;
+  margin-left: 8rem;
+  margin-right: 6rem;
+  padding-left: 1rem;
 }
 
 main {
   margin-left: 8rem;
   margin-right: 6rem;
   padding-left: 1rem;
+  margin-bottom: 3rem;
 }
 
 footer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap-reverse;
+  border-top: 1px solid currentColor;
   margin-left: 8rem;
   margin-right: 6rem;
-  padding-left: 1rem;
-  text-align: center;
+  padding: 1rem;
 }
 
 h1 {

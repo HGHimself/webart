@@ -6,6 +6,7 @@ const path = require("path");
 module.exports = {
   entry: {
     cartesian: path.resolve(__dirname, "src", "containers", "Cartesian.jsx"),
+    fourier: path.resolve(__dirname, "src", "containers", "Fourier.jsx"),
     nouveau: path.resolve(__dirname, "src", "containers", "NouveauDoors.jsx"),
     aesthetic: path.resolve(__dirname, "src", "containers", "Aesthetic.jsx"),
     dada: path.resolve(__dirname, "src", "containers", "Dada.jsx"),
@@ -123,6 +124,12 @@ module.exports = {
       title: "Fourier Motion",
       chunks: ["fourier-motion"],
       filename: "studies/fourier-motion.html",
+      template: path.resolve(__dirname, "src", "build", "template.html"),
+    }),
+    new HtmlWebpackPlugin({
+      title: "Fourier",
+      chunks: ["fourier"],
+      filename: "studies/fourier.html",
       template: path.resolve(__dirname, "src", "build", "template.html"),
     }),
   ],

@@ -17,7 +17,7 @@ export default function Fourier(props) {
   const step = 1;
 
   const [options, setOptionsState] = useState({
-    numbers: [1, 3, 5, 7, 9, 11, 13, 15],
+    numbers: [1, 15, 3, 11, 5, 9, 7],
     offset: 0,
     count: 350,
     height: 500,
