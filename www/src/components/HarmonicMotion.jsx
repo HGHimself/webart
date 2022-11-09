@@ -82,11 +82,11 @@ export default function HarmonicMotion(props) {
   return (
     <Fragment>
       <div className={isRunning ? "green" : "red"}>
-      <Switch
-        label="ANIMATE"
-        state={isRunning}
-        onClick={() => setIsRunning(!isRunning)}
-      />
+        <Switch
+          label="ANIMATE"
+          state={isRunning}
+          onClick={() => setIsRunning(!isRunning)}
+        />
       </div>
       {controls}
       <Animator

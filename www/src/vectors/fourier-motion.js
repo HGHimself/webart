@@ -171,7 +171,14 @@ class Fourier {
   update() {
     const {
       svg,
-      props: { amplitude, numbers, amplitudeMultiplier, frequency, thickness, width },
+      props: {
+        amplitude,
+        numbers,
+        amplitudeMultiplier,
+        frequency,
+        thickness,
+        width,
+      },
     } = this;
 
     const originY = this.props.height / 2;

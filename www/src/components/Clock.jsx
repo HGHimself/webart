@@ -1,5 +1,5 @@
 import { h, Fragment } from "preact";
-import { useState } from "preact/hooks";
+import { useEffect, useState } from "preact/hooks";
 import clock from "../vectors/clock.js";
 
 import Animator from "./Animator.jsx";
@@ -17,25 +17,25 @@ export default function Clock(props) {
   const [options, setOptionsState] = useState({
     height: 500,
     width: 500,
-    hourNumbersSize: 48,
+    hourNumbersSize: 80,
     speckCircleSize: 5,
-    numbersRadius: 77,
-    hourHandStart: 99,
-    hourHandEnd: 85,
+    numbersRadius: 73,
+    hourHandStart: -4,
+    hourHandEnd: 50,
     hourHandThickness: 5,
-    minuteHandStart: 75,
-    minuteHandEnd: 50,
+    minuteHandStart: -7,
+    minuteHandEnd: 73,
     minuteHandThickness: 3,
-    secondHandStart: 50,
-    secondHandEnd: 20,
+    secondHandStart: -10,
+    secondHandEnd: 92,
     secondHandThickness: 2,
-    tickMarksStart: 50,
-    tickMarksEnd: 75,
+    tickMarksStart: 65,
+    tickMarksEnd: 64,
     tickMarksThickness: 1,
     hourTicks: 97,
     logo: "DIGITHEQUE",
-    colorPrimary: "#f5fbef",
-    colorSecondary: "#B83035",
+    colorPrimary: "#434127",
+    colorSecondary: "#ffffff",
     tag: "Quartz - 60hz",
     seconds: new Date().getSeconds(),
     minutes: new Date().getMinutes(),
@@ -43,12 +43,15 @@ export default function Clock(props) {
     hideProps: props.hideProps ? props.hideProps : false,
   });
 
+  useEffect(() => intervalHandler, []);
+
   const intervalHandler = () => {
     setOptionsState((currentOptions) => {
       const date = new Date();
       currentOptions.seconds = date.getSeconds();
       currentOptions.minutes = date.getMinutes();
       currentOptions.hours = date.getHours();
+      currentOptions.date = date.toLocaleDateString();
       vis.setOptions(currentOptions);
       return currentOptions;
     });

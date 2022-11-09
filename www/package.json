@@ -28,7 +28,7 @@
     "d3-selection": "^3.0.0",
     "d3-shape": "^3.1.0",
     "dada-poem-generator": "^0.1.7",
-    "game-engine": "file:../../game-engine/pkg",
+    "cellular-automata": "file:../../game-of-life/pkg",
     "oolisp": "^0.2",
     "preact": "^10.3.2"
   }

@@ -77,11 +77,11 @@ export default function Fourier(props) {
   return (
     <Fragment>
       <div className={isRunning ? "green" : "red"}>
-      <Switch
-        label="ANIMATE"
-        state={isRunning}
-        onClick={() => setIsRunning(!isRunning)}
-      />
+        <Switch
+          label="ANIMATE"
+          state={isRunning}
+          onClick={() => setIsRunning(!isRunning)}
+        />
       </div>
       <div className="flex row wrap">{optionsBar}</div>
       <Animator

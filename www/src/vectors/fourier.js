@@ -85,9 +85,7 @@ class Vector {
       squarewaveTransformY(314 * yMultiplier * (i + batch + offset)),
     ]);
 
-    return !this.props.curve
-      ? line().curve(curveBasisOpen)(arc)
-      : line()(arc);
+    return !this.props.curve ? line().curve(curveBasisOpen)(arc) : line()(arc);
   }
 
   // (d) =>
@@ -97,7 +95,7 @@ class Vector {
 
   getColor(d) {
     const {
-    props: { color, count },
+      props: { color, count },
     } = this;
 
     return !color
@@ -110,12 +108,11 @@ class Vector {
     this.props.period = frequency ? 1 / (frequency * 314.1) : frequency;
     this.props.data = Array.from({ length: count }, (_, i) => i);
     // this.props.data.push(0)
-    console.log(this.props.data)
+    console.log(this.props.data);
   }
 
   update() {
-    const { count, width, height, color, thickness, data } =
-      this.props;
+    const { count, width, height, color, thickness, data } = this.props;
 
     this.svg
       .selectAll("path.door")
@@ -131,21 +128,24 @@ class Vector {
           update
             .attr("d", (d) => this.getDrawer(d))
             .attr("stroke-width", thickness)
-            .attr("stroke", d => this.getColor(d))
-            .attr(
-              "transform",
-              `translate(${width / 2},${height / 2})`
-            )
+            .attr("stroke", (d) => this.getColor(d))
+            .attr("transform", `translate(${width / 2},${height / 2})`)
       );
 
     !this.props.hideProps &&
       this.svg
         .selectAll("text.details")
         .data(
-          Object.keys(this.props).filter((key) => key != "data").map((key) => `${key}: ${this.props[key]}`)
+          Object.keys(this.props)
+            .filter((key) => key != "data")
+            .map((key) => `${key}: ${this.props[key]}`)
         )
         .join(
-          (enter) => enter.append("text").attr("class", "details").attr("fill", "currentColor"),
+          (enter) =>
+            enter
+              .append("text")
+              .attr("class", "details")
+              .attr("fill", "currentColor"),
           (update) =>
             update
               .attr("x", width - 8)

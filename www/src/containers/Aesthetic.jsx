@@ -11,6 +11,7 @@ import Switch from "../components/Switch.jsx";
 function Aesthetic(props) {
   return (
     <Fragment>
+      <h5>Badmon Design</h5>
       <h1>Aesthetic</h1>
       <h5>A study into the visual motifs used throughout the site.</h5>
       <div className="flex between wrap personal-space-top">

@@ -1,5 +1,5 @@
 import { select } from "d3-selection";
-import { lineRadial } from "d3-shape";
+import { lineRadial, line } from "d3-shape";
 
 import { polarToCartesianX, polarToCartesianY } from "../utils/maths-tools";
 
@@ -13,7 +13,20 @@ class Clock {
     this.props.originY = height / 2;
     this.props.radius = width / 2;
 
-    this.props.hourNumbers = Array.from({ length: 12 }, (_, i) => i + 1);
+    this.props.hourNumbers = [
+      "XII",
+      "I",
+      "II",
+      "III",
+      "IIII",
+      "V",
+      "VI",
+      "VII",
+      "VIII",
+      "IX",
+      "X",
+      "XI",
+    ];
     this.props.ticks = Array.from({ length: 60 }, (_, i) => i);
 
     this.svg = select(containerEl)
@@ -62,7 +75,7 @@ class Clock {
 
   getNumbersYPosition(d) {
     const { originY, radius, numbersRadius } = this.props;
-    const offset = originY * 1.07;
+    const offset = originY;
     const distance = radius * numbersRadius * 0.01;
     const angle = Math.PI - (d / 12) * 2 * Math.PI;
     const point = polarToCartesianY(angle, distance);
@@ -108,6 +121,10 @@ class Clock {
     ]);
   }
 
+  getDate() {
+    const d = new Date();
+  }
+
   update() {
     const {
       svg,
@@ -123,6 +140,7 @@ class Clock {
         colorPrimary,
         colorSecondary,
         tag,
+        date,
         hourHandThickness,
         minuteHandThickness,
         secondHandThickness,
@@ -137,9 +155,9 @@ class Clock {
         (enter) =>
           enter
             .append("circle")
-            .attr("stroke", colorSecondary)
+            .attr("stroke", colorPrimary)
             .attr("fill", colorSecondary)
-            .attr("stroke-width", "2"),
+            .attr("stroke-width", "1"),
         (update) =>
           update.attr("cy", originY).attr("cx", originX).attr("r", radius)
       );
@@ -154,12 +172,20 @@ class Clock {
             .attr("class", "numbers")
             .attr("text-anchor", "middle")
             .attr("fill", colorPrimary)
-            .attr("font-family", "BentonModernDispExtraCond")
+            .attr("font-family", "BentonModernDispExtraCondLight")
+            .attr("letter-spacing", "-5px")
             .text((d) => d),
         (update) =>
           update
-            .attr("x", (d) => this.getNumbersXPosition(d))
-            .attr("y", (d) => this.getNumbersYPosition(d))
+            .attr(
+              "transform",
+              (d, i) =>
+                `rotate(${(i / 12) * 360} ${this.getNumbersXPosition(
+                  i
+                )} ${this.getNumbersYPosition(i)})`
+            )
+            .attr("x", (d, i) => this.getNumbersXPosition(i))
+            .attr("y", (d, i) => this.getNumbersYPosition(i))
             .attr("font-size", hourNumbersSize)
       );
 
@@ -175,9 +201,9 @@ class Clock {
             .attr("y", -100)
             .attr("font-size", 25)
             .attr("text-anchor", "middle")
-            .attr("fill", "black")
+            .attr("fill", colorPrimary)
             .attr("font-weight", "bold")
-            .attr("font-family", "BentonModernDispExtraCond")
+            .attr("font-family", "BentonModernDispExtraCondLight")
             .text((d) => d)
             .attr("transform", `translate(${originX},${originY})`),
         (update) =>
@@ -195,13 +221,35 @@ class Clock {
             .attr("class", "tag")
             .attr("x", 0)
             .attr("y", -85)
-            .attr("font-size", 15)
+            .attr("font-size", 12)
             .attr("text-anchor", "middle")
             .attr("letter-spacing", "0.2em")
-            .attr("fill", "black")
+            .attr("fill", colorPrimary)
             .text((d) => d),
         (update) =>
           update.attr("transform", `translate(${originX},${originY})`),
+        (exit) => exit
+      );
+
+    svg
+      .selectAll("text.date")
+      .data([0])
+      .join(
+        (enter) =>
+          enter
+            .append("text")
+            .attr("class", "date")
+            .attr("x", 0)
+            .attr("y", 85)
+            .attr("font-size", 15)
+            .attr("text-anchor", "middle")
+            .attr("letter-spacing", "0.2em")
+            .attr("fill", colorPrimary)
+            .text((d) => date),
+        (update) =>
+          update
+            .attr("transform", `translate(${originX},${originY})`)
+            .text((d) => date),
         (exit) => exit
       );
 
@@ -210,7 +258,7 @@ class Clock {
       .data([0])
       .join(
         (enter) =>
-          enter.append("path").attr("class", "hour").attr("stroke", "black"),
+          enter.append("path").attr("class", "hour").attr("stroke", colorPrimary),
         (update) =>
           update
             .attr("d", (_) => this.getHourHandPoints())
@@ -223,7 +271,7 @@ class Clock {
       .data([0])
       .join(
         (enter) =>
-          enter.append("path").attr("class", "minute").attr("stroke", "black"),
+          enter.append("path").attr("class", "minute").attr("stroke", colorPrimary),
         (update) =>
           update
             .attr("d", (_) => this.getMinuteHandPoints())
@@ -270,7 +318,7 @@ class Clock {
           enter
             .append("circle")
             .attr("class", "speck")
-            .attr("stroke", "red")
+            .attr("stroke", "gold")
             .attr("fill", colorPrimary)
             .attr("stroke-width", "2")
             .attr("cy", 0)

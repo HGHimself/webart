@@ -16,6 +16,12 @@ module.exports = {
     spectrum: path.resolve(__dirname, "src", "containers", "Spectrum.jsx"),
     zinc: path.resolve(__dirname, "src", "containers", "Zinc.jsx"),
     clock: path.resolve(__dirname, "src", "containers", "Clock.jsx"),
+    "game-of-life": path.resolve(
+      __dirname,
+      "src",
+      "containers",
+      "GameOfLife.jsx"
+    ),
     colophon: path.resolve(__dirname, "src", "containers", "Colophon.jsx"),
     "harmonic-motion": path.resolve(
       __dirname,
@@ -130,6 +136,12 @@ module.exports = {
       title: "Fourier",
       chunks: ["fourier"],
       filename: "studies/fourier.html",
+      template: path.resolve(__dirname, "src", "build", "template.html"),
+    }),
+    new HtmlWebpackPlugin({
+      title: "Game Of Life",
+      chunks: ["game-of-life"],
+      filename: "studies/game-of-life.html",
       template: path.resolve(__dirname, "src", "build", "template.html"),
     }),
   ],
