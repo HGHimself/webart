@@ -118,7 +118,7 @@ blockquote {
 
 button {
   background-color: #434127;
-  color: white;
+  color: oldlace;
   font-size: 1.2rem;
   font-family: "Benton Modern", "times new roman", times, serif;
   padding: 8px 16px;
@@ -127,7 +127,7 @@ button {
   display: inline-block;
   text-transform: capitalize;
   border-radius: 0px;
-  border: 1px solid currentColor;
+  border: none;
   font-variant-caps: all-small-caps;
   cursor: pointer;
 }

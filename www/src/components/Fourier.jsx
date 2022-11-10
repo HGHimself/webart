@@ -25,7 +25,7 @@ export default function Cartesian(props) {
     yMultiplier: 4,
     color: 0,
     thickness: 0.5,
-    numbers: [1, 2, 3],
+    numbers: [1, 9, 2, 5],
     curve: 0,
     hideProps: props.hideProps ? props.hideProps : false,
   });

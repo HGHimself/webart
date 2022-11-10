@@ -90,7 +90,7 @@ class Vector {
 
   // (d) =>
   // !color
-  //   ? "currentColor"
+  //   ? "black"
   //   : getSpectrumPosition(color + d / (count * 2.4))
 
   getColor(d) {
@@ -98,9 +98,7 @@ class Vector {
       props: { color, count },
     } = this;
 
-    return !color
-      ? "currentColor"
-      : getSpectrumPosition(color + d / (count * 0.4));
+    return !color ? "black" : getSpectrumPosition(color + d / (count * 0.4));
   }
 
   calculateProps() {
@@ -123,7 +121,7 @@ class Vector {
             .append("path")
             .attr("class", "door")
             .attr("fill", "none")
-            .attr("stroke", "currentColor"),
+            .attr("stroke", "black"),
         (update) =>
           update
             .attr("d", (d) => this.getDrawer(d))

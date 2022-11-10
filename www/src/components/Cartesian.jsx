@@ -4,7 +4,7 @@ import cartesian from "../vectors/cartesian.js";
 
 import Animator from "./Animator.jsx";
 import NumberInput from "./NumberInput.jsx";
-import Button from "../components/Button.jsx";
+import Button from "./Button.jsx";
 
 let vis = null;
 const setVis = (v) => {
@@ -12,7 +12,7 @@ const setVis = (v) => {
 };
 
 export default function Cartesian(props) {
-  const [hideOptionsBar, setHideOptionsBar] = useState(false);
+  const [showOptions, setShowOptions] = useState(true);
   const [options, setOptionsState] = useState({
     height: 0,
     width: 0,
@@ -51,19 +51,20 @@ export default function Cartesian(props) {
       };
 
       return (
-        <div className="personal-space-right">
+        <div className="personal-space-left">
           <NumberInput value={value} onChange={handleChange} label={key} />
         </div>
       );
     });
 
-  const optionsBarElement = (
-    <div className="flex wrap options-bar">{!hideOptionsBar && optionsBar}</div>
-  );
-
   return (
     <Fragment>
-      {optionsBarElement}
+      <div className="flex wrap centered-items options-bar">
+        <Button onClick={() => setShowOptions(!showOptions)}>
+          {showOptions ? "Hide" : "Show"} Options
+        </Button>
+        {showOptions && optionsBar}
+      </div>
       <Animator drawer={cartesian} setVis={setVis} options={options} />
     </Fragment>
   );

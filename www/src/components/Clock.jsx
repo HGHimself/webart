@@ -1,9 +1,10 @@
 import { h, Fragment } from "preact";
-import { useEffect, useState } from "preact/hooks";
+import { useState } from "preact/hooks";
 import clock from "../vectors/clock.js";
 
 import Animator from "./Animator.jsx";
 import NumberInput from "./NumberInput.jsx";
+import Button from "./Button.jsx";
 
 let vis;
 const setVis = (v) => {
@@ -14,6 +15,7 @@ export default function Clock(props) {
   const time = 1000;
   const step = 1;
 
+  const [showOptions, setShowOptions] = useState(true);
   const [options, setOptionsState] = useState({
     height: 500,
     width: 500,
@@ -24,13 +26,13 @@ export default function Clock(props) {
     hourHandEnd: 50,
     hourHandThickness: 5,
     minuteHandStart: -7,
-    minuteHandEnd: 73,
+    minuteHandEnd: 69,
     minuteHandThickness: 3,
     secondHandStart: -10,
-    secondHandEnd: 92,
+    secondHandEnd: 81,
     secondHandThickness: 2,
-    tickMarksStart: 65,
-    tickMarksEnd: 64,
+    tickMarksStart: 66,
+    tickMarksEnd: 63,
     tickMarksThickness: 1,
     hourTicks: 97,
     logo: "DIGITHEQUE",
@@ -40,10 +42,9 @@ export default function Clock(props) {
     seconds: new Date().getSeconds(),
     minutes: new Date().getMinutes(),
     hours: new Date().getHours(),
+    date: new Date().toLocaleString().split(", "),
     hideProps: props.hideProps ? props.hideProps : false,
   });
-
-  useEffect(() => intervalHandler, []);
 
   const intervalHandler = () => {
     setOptionsState((currentOptions) => {
@@ -51,7 +52,7 @@ export default function Clock(props) {
       currentOptions.seconds = date.getSeconds();
       currentOptions.minutes = date.getMinutes();
       currentOptions.hours = date.getHours();
-      currentOptions.date = date.toLocaleDateString();
+      currentOptions.date = date.toLocaleString().split(", ");
       vis.setOptions(currentOptions);
       return currentOptions;
     });
@@ -74,6 +75,7 @@ export default function Clock(props) {
     "colorPrimary",
     "colorSecondary",
     "tag",
+    "date",
   ];
 
   const optionsBar = Object.keys(options)
@@ -89,7 +91,7 @@ export default function Clock(props) {
       };
 
       return (
-        <div className="personal-space-right">
+        <div className="personal-space-left">
           <NumberInput value={value} onChange={handleChange} label={key} />
         </div>
       );
@@ -97,7 +99,12 @@ export default function Clock(props) {
 
   return (
     <Fragment>
-      <div className="flex row wrap">{optionsBar}</div>
+      <div className="flex wrap centered-items options-bar">
+        <Button onClick={() => setShowOptions(!showOptions)}>
+          {showOptions ? "Hide" : "Show"} Options
+        </Button>
+        {showOptions && optionsBar}
+      </div>
       <Animator
         drawer={clock}
         setVis={setVis}

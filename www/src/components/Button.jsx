@@ -37,7 +37,6 @@ export default function Button(props) {
   };
 
   const handleClick = () => {
-    console.log(typeof onClick);
     if (onClick && typeof onClick == "function") onClick();
     animate();
   };

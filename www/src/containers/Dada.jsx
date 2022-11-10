@@ -19,9 +19,12 @@ And there you are - an infinitely original author of charming sensibility, even 
 
 function Dada(props) {
   const [input, setInput] = useState(defaultMessage);
+  const [dadaData, setDadaData] = useState(dada.dada(defaultMessage));
 
   const handleInput = ({ target }) => {
-    setInput(target.value);
+    const value = target.value;
+    setInput(value);
+    setDadaData(dada.dada(value));
   };
 
   return (
@@ -31,12 +34,12 @@ function Dada(props) {
           <textarea onInput={handleInput} value={input} />
         </div>
         <div className="two-fifths break-to-full personal-space-top">
-          <pre>{dada.dada(input)}</pre>
+          <pre>{dadaData}</pre>
         </div>
       </div>
       <Title
         title="DADA"
-        description="Express your own irrationality! Enter words into the box on the left; see the output on the right."
+        description="Express your irrationality! Enter words into the box on the left; see the output on the right."
       />
     </Fragment>
   );

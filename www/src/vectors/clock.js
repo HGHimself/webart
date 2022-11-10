@@ -84,7 +84,7 @@ class Clock {
 
   getHourHandPoints() {
     const { radius, hours, minutes, hourHandEnd, hourHandStart } = this.props;
-    const angle = (hours / 12 + minutes / 600) * 2 * Math.PI;
+    const angle = (hours / 12 + minutes / 720) * 2 * Math.PI;
     return lineRadial()([
       [angle, radius * hourHandStart * 0.01],
       [angle, radius * hourHandEnd * 0.01],
@@ -119,10 +119,6 @@ class Clock {
       [angle, radius * distance],
       [angle, radius * tickStart],
     ]);
-  }
-
-  getDate() {
-    const d = new Date();
   }
 
   update() {
@@ -198,7 +194,7 @@ class Clock {
             .append("text")
             .attr("class", "name")
             .attr("x", 0)
-            .attr("y", -100)
+            .attr("y", -70)
             .attr("font-size", 25)
             .attr("text-anchor", "middle")
             .attr("fill", colorPrimary)
@@ -220,7 +216,7 @@ class Clock {
             .append("text")
             .attr("class", "tag")
             .attr("x", 0)
-            .attr("y", -85)
+            .attr("y", -55)
             .attr("font-size", 12)
             .attr("text-anchor", "middle")
             .attr("letter-spacing", "0.2em")
@@ -230,26 +226,25 @@ class Clock {
           update.attr("transform", `translate(${originX},${originY})`),
         (exit) => exit
       );
-
+    console.log(date);
     svg
       .selectAll("text.date")
-      .data([0])
+      .data(date)
       .join(
         (enter) =>
           enter
             .append("text")
             .attr("class", "date")
             .attr("x", 0)
-            .attr("y", 85)
+            .attr("y", (d, i) => 55 + i * 15)
             .attr("font-size", 15)
             .attr("text-anchor", "middle")
             .attr("letter-spacing", "0.2em")
-            .attr("fill", colorPrimary)
-            .text((d) => date),
+            .attr("fill", colorPrimary),
         (update) =>
           update
             .attr("transform", `translate(${originX},${originY})`)
-            .text((d) => date),
+            .text((d) => d),
         (exit) => exit
       );
 
@@ -258,7 +253,10 @@ class Clock {
       .data([0])
       .join(
         (enter) =>
-          enter.append("path").attr("class", "hour").attr("stroke", colorPrimary),
+          enter
+            .append("path")
+            .attr("class", "hour")
+            .attr("stroke", colorPrimary),
         (update) =>
           update
             .attr("d", (_) => this.getHourHandPoints())
@@ -271,7 +269,10 @@ class Clock {
       .data([0])
       .join(
         (enter) =>
-          enter.append("path").attr("class", "minute").attr("stroke", colorPrimary),
+          enter
+            .append("path")
+            .attr("class", "minute")
+            .attr("stroke", colorPrimary),
         (update) =>
           update
             .attr("d", (_) => this.getMinuteHandPoints())

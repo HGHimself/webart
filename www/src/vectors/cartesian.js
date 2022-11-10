@@ -29,15 +29,13 @@ class Cartesian {
     const { svg, props } = this;
 
     if (width < 600) {
-      props.width = Math.floor(width * 0.6);
-      props.height = Math.floor(width * 0.6);
-      props.amplitudeMultiplier = 0.4;
+      props.amplitudeMultiplier = 0.7;
     } else {
-      props.width = width;
       props.height = this.props.originalHeight;
       props.amplitudeMultiplier = 1;
     }
 
+    props.width = width;
     svg.attr("width", props.width).attr("height", props.height);
 
     this.update();
@@ -83,9 +81,7 @@ class Cartesian {
       props: { color, count },
     } = this;
 
-    return !color
-      ? "currentColor"
-      : getSpectrumPosition(color + d / (count * 0.4));
+    return !color ? "black" : getSpectrumPosition(color + d / (count * 0.4));
   }
 
   calculateProps() {
@@ -133,10 +129,10 @@ class Cartesian {
               .attr("fill", "currentColor"),
           (update) =>
             update
-              .attr("x", width - 8)
+              .attr("x", 0)
               .attr("y", (_, i) => (width > 400 ? 10 : 6) * (i + 1))
               .attr("font-size", width > 400 ? 12 : 8)
-              .attr("text-anchor", "end")
+              // .attr("text-anchor", "end")
               .text((d) => d),
           (exit) => exit
         );

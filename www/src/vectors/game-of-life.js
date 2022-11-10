@@ -84,7 +84,7 @@ class GameOfLife {
   update() {
     const {
       svg,
-      props: { data, w, width },
+      props: { data, w, width, set },
     } = this;
 
     this.props.size = Math.floor(width / w);
@@ -100,7 +100,11 @@ class GameOfLife {
             .attr("width", this.getWidth())
             .attr("height", this.getHeight())
             .attr("stroke", "grey")
+            .attr("id", (d, i) => i)
             .attr("fill", this.getColor())
+            .on("mousedown", (d) => {
+              set(parseInt(d.srcElement.attributes.id.value));
+            })
         // (exit) => exit
       );
 
