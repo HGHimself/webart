@@ -5,7 +5,15 @@ let vis = null;
 const resizeDelay = 300;
 
 export default function Animator(props) {
-  const { drawer, options, setVis, intervalCallback, time, ...other } = props;
+  const {
+    drawer,
+    options,
+    setVis,
+    intervalCallback,
+    time,
+    disableResize,
+    ...other
+  } = props;
 
   const [width, setWidth] = useState(options.width || 600);
   const [height, setHeight] = useState(options.height || 500);
@@ -32,6 +40,10 @@ export default function Animator(props) {
   };
 
   const handleResizeEvent = () => {
+    if (disableResize) {
+      return;
+    }
+
     let resizeTimer;
     const handleResize = () => {
       clearTimeout(resizeTimer);
@@ -58,12 +70,7 @@ export default function Animator(props) {
 
   return (
     <Fragment>
-      <div
-        className="animator"
-        ref={refElement}
-        {...other}
-        height={options.height}
-      />
+      <div ref={refElement} {...other} />
     </Fragment>
   );
 }

@@ -102,19 +102,19 @@ export default function GameOfLife(props) {
   };
 
   const line = () => {
-    // for (let i = 0; i < height; i++) {
-    //   universe.set(i * 64 + 32);
-    // }
-    // for (let i = 0; i < width; i++) {
-    //   universe.set(i + 64 * 32);
-    // }
-
     for (let i = 0; i < height; i++) {
-      universe.set(i * 64);
+      universe.set(i * 64 + 32);
     }
     for (let i = 0; i < width; i++) {
-      universe.set(i);
+      universe.set(i + 64 * 32);
     }
+
+    // for (let i = 0; i < height; i++) {
+    //   universe.set(i * 64);
+    // }
+    // for (let i = 0; i < width; i++) {
+    //   universe.set(i);
+    // }
     load();
   };
 
@@ -125,11 +125,21 @@ export default function GameOfLife(props) {
 
   return (
     <Fragment>
-      <Button onClick={toggleRun}>{isRunning ? "Stop" : "Run"}</Button>
-      <Button onClick={step}>Step</Button>
-      <Button onClick={clear}>Nuke</Button>
-      <Button onClick={random}>Random</Button>
-      <Button onClick={line}>line</Button>
+      <Button className="personal-margin-left" onClick={toggleRun}>
+        {isRunning ? "Stop" : "Run"}
+      </Button>
+      <Button className="personal-margin-left" onClick={step}>
+        Step
+      </Button>
+      <Button className="personal-margin-left" onClick={clear}>
+        Nuke
+      </Button>
+      <Button className="personal-margin-left" onClick={random}>
+        Random
+      </Button>
+      <Button className="personal-margin-left" onClick={line}>
+        line
+      </Button>
       <Animator
         drawer={game_of_life}
         setVis={setVis}

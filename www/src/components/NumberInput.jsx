@@ -1,4 +1,4 @@
-import { h } from "preact";
+import { Fragment, h } from "preact";
 import { useEffect, useState } from "preact/hooks";
 
 const height = 16;
@@ -32,25 +32,27 @@ export default function NumberInput(props) {
   };
 
   return (
-    <div className="flex column centered-items">
-      <label>{label}</label>
-      <button onClick={handleIncrease} className="emptyButton">
-        <svg class="arrow" height={height} width={width}>
-          <polygon
-            points={upArrowPoints}
-            style={{ strokeWidth: 1, stroke: "currentcolor" }}
-          />
-        </svg>
-      </button>
-      <input id={label} type="number" value={v} onChange={handleInput} />
-      <button onClick={handleDecrease} className="emptyButton">
-        <svg class="arrow" height={height} width={width}>
-          <polygon
-            points={downArrowPoints}
-            style={{ strokeWidth: 1, stroke: "currentcolor" }}
-          />
-        </svg>
-      </button>
+    <div className="flex centered-items between full">
+      <label>{label}:</label>
+      <div className="flex column centered-items">
+        <button onClick={handleIncrease} className="emptyButton">
+          <svg class="arrow" height={height} width={width}>
+            <polygon
+              points={upArrowPoints}
+              style={{ strokeWidth: 1, stroke: "currentcolor" }}
+            />
+          </svg>
+        </button>
+        <input id={label} type="number" value={v} onChange={handleInput} />
+        <button onClick={handleDecrease} className="emptyButton">
+          <svg class="arrow" height={height} width={width}>
+            <polygon
+              points={downArrowPoints}
+              style={{ strokeWidth: 1, stroke: "currentcolor" }}
+            />
+          </svg>
+        </button>
+      </div>
     </div>
   );
 }

@@ -14,8 +14,8 @@ const setVis = (v) => {
 export default function Cartesian(props) {
   const [hideOptionsBar, setHideOptionsBar] = useState(false);
   const [options, setOptionsState] = useState({
-    height: 0,
-    width: 0,
+    height: 500,
+    width: 600,
     count: 1000,
     offset: 0,
     frequency: 6,

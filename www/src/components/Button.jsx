@@ -2,7 +2,7 @@ import { h, Fragment } from "preact";
 import { useState, useEffect, useRef } from "preact/hooks";
 
 export default function Button(props) {
-  const { onClick } = props;
+  const { onClick, ...other } = props;
 
   const [turbulence, setTurbulence] = useState(0);
   const [uniqueId, setUniqueId] = useState(0);
@@ -60,7 +60,11 @@ export default function Button(props) {
           ></feDisplacementMap>
         </filter>
       </svg>
-      <button style={`filter: url(#${filterName});`} onClick={handleClick}>
+      <button
+        style={`filter: url(#${filterName});`}
+        onClick={handleClick}
+        {...other}
+      >
         {props.children}
       </button>
     </Fragment>

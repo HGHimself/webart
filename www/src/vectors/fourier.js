@@ -7,6 +7,7 @@ import {
   squareWaveSequenceCos,
 } from "../utils/maths-tools.js";
 import { getSpectrumPosition } from "../utils/color-tools.js";
+import { zip } from "../utils/data-tools.js";
 
 class Vector {
   constructor(containerEl, props) {
@@ -24,6 +25,48 @@ class Vector {
       .attr("height", height);
 
     this.update();
+  }
+
+  getGridX() {
+    // const { width, height } = this.props;
+    const gap = 150;
+    const height = 500;
+    const width = 600;
+
+    const x = [0, width];
+    const y = [height - gap, height - gap];
+
+    const arc = zip(x, y);
+    return line()(arc);
+  }
+
+  getGridY() {
+    // const { width, height } = this.props;
+    const gap = 150;
+    const height = 500;
+    const width = 600;
+
+    const x = [gap, gap];
+    const y = [height, 0];
+
+    const arc = zip(x, y);
+    return line()(arc);
+  }
+
+  getGridZ() {
+    // const { width, height } = this.props;
+    const gap = 200;
+    const height = 500;
+    const width = 600;
+
+    const xBase = [-1 * gap, 0, width];
+    const x = xBase.map((x) => x + gap);
+    const y = xBase
+      .map((x) => -0.25 * (x + gap * -0.75))
+      .map((y) => y + height - gap);
+
+    const arc = zip(x, y);
+    return line()(arc);
   }
 
   resize(width, _height) {
@@ -88,11 +131,6 @@ class Vector {
     return !this.props.curve ? line().curve(curveBasisOpen)(arc) : line()(arc);
   }
 
-  // (d) =>
-  // !color
-  //   ? "black"
-  //   : getSpectrumPosition(color + d / (count * 2.4))
-
   getColor(d) {
     const {
       props: { color, count },
@@ -105,12 +143,25 @@ class Vector {
     const { frequency, count } = this.props;
     this.props.period = frequency ? 1 / (frequency * 314.1) : frequency;
     this.props.data = Array.from({ length: count }, (_, i) => i);
-    // this.props.data.push(0)
-    console.log(this.props.data);
   }
 
   update() {
     const { count, width, height, color, thickness, data } = this.props;
+
+    this.svg
+      .selectAll("path.zaxis")
+      .data([width])
+      .join(
+        (enter) =>
+          enter
+            .append("path")
+            .attr("class", "zaxis")
+            .attr("fill", "none")
+            .attr("stroke-width", "1")
+            .attr("transform", `translate(0,0)`)
+            .attr("stroke", "black"),
+        (update) => update.attr("d", this.getGridZ)
+      );
 
     this.svg
       .selectAll("path.door")
@@ -119,8 +170,8 @@ class Vector {
         (enter) =>
           enter
             .append("path")
-            .attr("class", "door")
             .attr("fill", "none")
+            .attr("class", "door")
             .attr("stroke", "black"),
         (update) =>
           update
@@ -128,6 +179,36 @@ class Vector {
             .attr("stroke-width", thickness)
             .attr("stroke", (d) => this.getColor(d))
             .attr("transform", `translate(${width / 2},${height / 2})`)
+      );
+
+    this.svg
+      .selectAll("path.xaxis")
+      .data([width])
+      .join(
+        (enter) =>
+          enter
+            .append("path")
+            .attr("class", "xaxis")
+            .attr("fill", "none")
+            .attr("stroke-width", "1")
+            .attr("transform", `translate(0,0)`)
+            .attr("stroke", "black"),
+        (update) => update.attr("d", this.getGridX)
+      );
+
+    this.svg
+      .selectAll("path.yaxis")
+      .data([width])
+      .join(
+        (enter) =>
+          enter
+            .append("path")
+            .attr("class", "yaxis")
+            .attr("fill", "none")
+            .attr("stroke-width", "1")
+            .attr("transform", `translate(0,0)`)
+            .attr("stroke", "black"),
+        (update) => update.attr("d", this.getGridY)
       );
 
     !this.props.hideProps &&
