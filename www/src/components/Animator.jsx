@@ -12,6 +12,7 @@ export default function Animator(props) {
     intervalCallback,
     time,
     disableResize,
+    className,
     ...other
   } = props;
 
@@ -70,7 +71,7 @@ export default function Animator(props) {
 
   return (
     <Fragment>
-      <div ref={refElement} {...other} />
+      <div ref={refElement} {...other} className={className} />
     </Fragment>
   );
 }

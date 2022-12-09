@@ -7,7 +7,9 @@ import Title from "../components/Title.jsx";
 function Cartesian() {
   return (
     <Fragment>
-      <Vector />
+      <div className="flex around">
+        <Vector />
+      </div>
       <Title
         title="RADIAL CARTESIAN"
         description="Draw using ratios and simple harmonic motion. Experiment with the values!"

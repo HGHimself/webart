@@ -31,9 +31,9 @@ class Vector {
     // const { width, height } = this.props;
     const gap = 150;
     const height = 500;
-    const width = 600;
+    const width = 760;
 
-    const x = [0, width];
+    const x = [gap, width];
     const y = [height - gap, height - gap];
 
     const arc = zip(x, y);
@@ -47,7 +47,7 @@ class Vector {
     const width = 600;
 
     const x = [gap, gap];
-    const y = [height, 0];
+    const y = [height - gap, 0];
 
     const arc = zip(x, y);
     return line()(arc);
@@ -59,10 +59,10 @@ class Vector {
     const height = 500;
     const width = 600;
 
-    const xBase = [-1 * gap, 0, width];
+    const xBase = [-1 * gap, gap * -0.25];
     const x = xBase.map((x) => x + gap);
     const y = xBase
-      .map((x) => -0.25 * (x + gap * -0.75))
+      .map((x) => -0.5 * (x + gap * -0.25))
       .map((y) => y + height - gap);
 
     const arc = zip(x, y);
@@ -136,7 +136,9 @@ class Vector {
       props: { color, count },
     } = this;
 
-    return !color ? "black" : getSpectrumPosition(color + d / (count * 0.4));
+    return !color
+      ? "currentColor"
+      : getSpectrumPosition(color + d / (count * 0.4));
   }
 
   calculateProps() {
@@ -157,10 +159,26 @@ class Vector {
             .append("path")
             .attr("class", "zaxis")
             .attr("fill", "none")
-            .attr("stroke-width", "1")
+            .attr("stroke-width", "0.5")
             .attr("transform", `translate(0,0)`)
-            .attr("stroke", "black"),
+            .attr("stroke", "currentColor"),
         (update) => update.attr("d", this.getGridZ)
+      );
+
+    this.svg
+      .selectAll("ellipse")
+      .data([0])
+      .join(
+        (enter) =>
+          enter
+            .append("ellipse")
+            .attr("fill", "#010cac"),
+        (update) =>
+          update
+            .attr("cy", height * 0.85)
+            .attr("cx", width * 0.5)
+            .attr("rx", width * 0.25)
+            .attr("ry", width * 0.05)
       );
 
     this.svg
@@ -172,7 +190,7 @@ class Vector {
             .append("path")
             .attr("fill", "none")
             .attr("class", "door")
-            .attr("stroke", "black"),
+            .attr("stroke", "currentColor"),
         (update) =>
           update
             .attr("d", (d) => this.getDrawer(d))
@@ -190,9 +208,9 @@ class Vector {
             .append("path")
             .attr("class", "xaxis")
             .attr("fill", "none")
-            .attr("stroke-width", "1")
+            .attr("stroke-width", "0.5")
             .attr("transform", `translate(0,0)`)
-            .attr("stroke", "black"),
+            .attr("stroke", "currentColor"),
         (update) => update.attr("d", this.getGridX)
       );
 
@@ -205,9 +223,9 @@ class Vector {
             .append("path")
             .attr("class", "yaxis")
             .attr("fill", "none")
-            .attr("stroke-width", "1")
+            .attr("stroke-width", "0.5")
             .attr("transform", `translate(0,0)`)
-            .attr("stroke", "black"),
+            .attr("stroke", "currentColor"),
         (update) => update.attr("d", this.getGridY)
       );
 

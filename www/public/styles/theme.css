@@ -39,7 +39,12 @@ main {
   margin-left: 8rem;
   margin-right: 6rem;
   padding-left: 1rem;
-  margin-bottom: 3rem;
+  padding-bottom: 3rem;
+  padding-top: 12px;
+  padding-left: 24px;
+  padding-right: 12px;
+  border-left: 1px solid currentColor;
+  border-right: 1px solid currentColor;
 }
 
 footer {
@@ -267,6 +272,11 @@ ul {
 
 .red {
   color: #b83035;
+}
+
+.blueprint {
+  background-color: #0011ff;
+  color: #f7f3ca;
 }
 
 @media only screen and (max-width: 640px) {

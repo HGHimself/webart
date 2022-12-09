@@ -1,6 +1,8 @@
 import { h, Fragment } from "preact";
 import entry from "../build/entry.js";
+
 import Link from "../components/Link.jsx";
+import Cartesian from "../components/Cartesian.jsx";
 
 function Colophon(props) {
   return (
@@ -13,9 +15,29 @@ function Colophon(props) {
         <Link href="https://webpack.js.org/">webpack</Link>. All rights are
         reserved; Digitheque ©2022.
       </p>
-      <p>
-        The Vector Engine that powers most studies was developed by HG King.
-      </p>
+      <div className="">
+        <div>
+          <h2>Radial Cartesian</h2>
+          <p>Use simple harmonic motion to form ratio patterns. </p>
+        </div>
+        <Cartesian
+          disableResize
+          options={{
+            height: 200,
+            width: 200,
+            count: 1000,
+            offset: 0,
+            frequency: 6,
+            xAmplitude: 140,
+            yAmplitude: 140,
+            yMultiplier: 4,
+            xMultiplier: 5,
+            color: 10,
+            thickness: 1,
+            hideProps: true,
+          }}
+        />
+      </div>
     </Fragment>
   );
 }

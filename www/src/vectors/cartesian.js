@@ -25,17 +25,18 @@ class Cartesian {
     this.update();
   }
 
-  resize(width, _height) {
+  resize(width, height) {
     const { svg, props } = this;
 
     if (width < 600) {
       props.amplitudeMultiplier = 0.7;
     } else {
-      props.height = this.props.originalHeight;
+      props.height = height;
       props.amplitudeMultiplier = 1;
     }
 
-    props.width = width;
+    props.width = height;
+    props.height = height;
     svg.attr("width", props.width).attr("height", props.height);
 
     this.update();
@@ -81,7 +82,9 @@ class Cartesian {
       props: { color, count },
     } = this;
 
-    return !color ? "black" : getSpectrumPosition(color + d / (count * 0.4));
+    return !color
+      ? "currentColor"
+      : getSpectrumPosition(color + d / (count * 0.4));
   }
 
   calculateProps() {

@@ -4,7 +4,6 @@ import fourier from "../vectors/fourier.js";
 
 import Animator from "./Animator.jsx";
 import NumberInput from "./NumberInput.jsx";
-import Button from "../components/Button.jsx";
 
 let vis = null;
 const setVis = (v) => {
@@ -66,7 +65,7 @@ export default function Cartesian(props) {
   return (
     <Fragment>
       {optionsBarElement}
-      <Animator drawer={fourier} setVis={setVis} options={options} />
+      <Animator drawer={fourier} setVis={setVis} options={options} className="blueprint" />
     </Fragment>
   );
 }

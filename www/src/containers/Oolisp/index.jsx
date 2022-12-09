@@ -12,16 +12,11 @@ let env;
 function Oolisp(props) {
   const [shellInput, setShellInputState] = useState("");
   const [shellBuffer, setShellBufferState] = useState("");
-
   useEffect(() => {
     env = oolisp.init_env();
-    const res = JSON.parse(oolisp.lisp(env, prelude));
+    oolisp.lisp(env, prelude)
     setShellBufferState(
-      res.type == "error" ? (
-        <div>Error loading prelude</div>
-      ) : (
         <div>... Loaded Prelude</div>
-      )
     );
     document.addEventListener("keydown", handleKeyPress);
     return () => {

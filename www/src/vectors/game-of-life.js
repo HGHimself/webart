@@ -89,19 +89,20 @@ class GameOfLife {
 
     this.props.size = Math.floor(width / w);
     svg
-      .selectAll("rect")
+      .selectAll("text")
       .data(data)
       .join(
-        (enter) => enter.append("rect").attr("stroke-width", "0.1"),
+        (enter) => enter.append("text").attr("stroke-width", "0.1"),
         (update) =>
           update
-            .attr("x", this.getX())
-            .attr("y", this.getY())
-            .attr("width", this.getWidth())
-            .attr("height", this.getHeight())
-            .attr("stroke", "grey")
+            .attr("dx", this.getX())
+            .attr("dy", this.getY())
+            // .attr("width", this.getWidth())
+            // .attr("height", this.getHeight())
+            // .attr("stroke", "grey")
             .attr("id", (d, i) => i)
-            .attr("fill", this.getColor())
+            .text((d) => (d ? "#" : "+"))
+            // .attr("fill", this.getColor())
             .on("mousedown", (d) => {
               set(parseInt(d.srcElement.attributes.id.value));
             })
